@@ -19,7 +19,9 @@ abstract: |
 format:
   pdf:
     toc: false
-    number-sections: true
+    # Headings already carry manual numbers ("## 1.", "## 2." ...). Keep this false,
+    # or xelatex prints the auto-number on top of the manual one ("1 1.", "2 2.").
+    number-sections: false
     geometry: margin=1in
     colorlinks: true
     pdf-engine: xelatex

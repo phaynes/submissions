@@ -1,0 +1,47 @@
+# Shared PDF render configuration for the docs/*.qmd notes.
+#
+# Usage:  quarto render <file>.qmd --to pdf --metadata-file _pdf-format.yml
+#
+# Two things this file gets right, learned the hard way (see the note at the end):
+#   1. number-sections is FALSE, because the headings already carry manual numbers
+#      ("## 1.", "## 2." ...). With it true, xelatex prints "1 1.", "2 2." — the
+#      auto-number stacked on top of the manual one.
+#   2. Every non-ASCII symbol that can appear in *prose or `code` spans* (not just
+#      inside $...$ math) is mapped to a math glyph via \newunicodechar. The main text
+#      and monospace fonts do not contain Greek letters, subscripts, or relation
+#      symbols, so without these maps xelatex silently DROPS them (e.g. the mixture
+#      "p [ρ₁ ↔ ρ₂]" rendered as "p [   ]"). \ensuremath makes each resolve through
+#      the math font (STIX Two Math) regardless of the surrounding text font.
+format:
+  pdf:
+    toc: false
+    number-sections: false
+    geometry: margin=1in
+    colorlinks: true
+    pdf-engine: xelatex
+    include-in-header:
+      text: |
+        \usepackage{amsmath,amssymb}
+        \usepackage{unicode-math}
+        \setmathfont{STIX Two Math}
+        \usepackage{newunicodechar}
+        % blackboard-bold and bold-D used in text
+        \newunicodechar{𝐃}{\ensuremath{\mathbf{D}}}
+        \newunicodechar{ℝ}{\ensuremath{\mathbb{R}}}
+        \newunicodechar{ℂ}{\ensuremath{\mathbb{C}}}
+        % Greek letters that appear in prose / code spans
+        \newunicodechar{α}{\ensuremath{\alpha}}
+        \newunicodechar{ι}{\ensuremath{\iota}}
+        \newunicodechar{ρ}{\ensuremath{\rho}}
+        \newunicodechar{σ}{\ensuremath{\sigma}}
+        % subscripts used in text (e.g. ρ₁, σ₂)
+        \newunicodechar{₁}{\ensuremath{{}_{1}}}
+        \newunicodechar{₂}{\ensuremath{{}_{2}}}
+        % relation / operator symbols used in prose
+        \newunicodechar{‖}{\ensuremath{\|}}
+        \newunicodechar{→}{\ensuremath{\rightarrow}}
+        \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+        \newunicodechar{∀}{\ensuremath{\forall}}
+        \newunicodechar{∞}{\ensuremath{\infty}}
+        \newunicodechar{≤}{\ensuremath{\leq}}
+        \newunicodechar{≥}{\ensuremath{\geq}}

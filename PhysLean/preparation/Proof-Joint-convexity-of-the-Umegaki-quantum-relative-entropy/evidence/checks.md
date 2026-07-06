@@ -11,7 +11,7 @@ Reproduce all of these with `../verify.sh <your-physlib-checkout>`. Recorded fro
 | 4 | `lint_all` / `lint-style` | **zero new** `ERR_LIN`; one pre-existing long line (`DPI.lean:266`) already on master, unrelated |
 
 Check 2 is decisive: it is a property of the Lean kernel and cannot be gamed. See
-[`../../../process/verification-method.md`](../../../process/verification-method.md).
+[`verification-method.md`](../../../../process/verification-method.md).
 
 ## PR size (disclosed)
 

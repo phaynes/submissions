@@ -1,6 +1,6 @@
 # PhysLean submission — `qRelativeEnt_joint_convexity`
 
-**Closing an open `sorry`: joint convexity of the Umegaki quantum relative entropy.**
+**This submission aims to close an open `sorry`: joint convexity of the Umegaki quantum relative entropy.**
 
 This directory is the reviewer packet for a single-concept contribution to
 [PhysLean](https://github.com/leanprover-community/physlib). It is designed so the
@@ -18,7 +18,9 @@ command reproduces every check.
 | [`PR-BODY.md`](PR-BODY.md) | The pull-request description, written for a reviewer seeing this cold. |
 | [`proof/`](proof/) | The added Lean as an excerpt, plus the exact `+191/−15` patch. |
 | [`verify.sh`](verify.sh) | One command that reproduces every check (see §4). |
-| [`docs/`](docs/) | Physics brief, conventional-maths writeup, literature comparison. |
+| [`docs/`](docs/) | Physics brief, conventional-maths writeup, literature comparison (`.qmd` + rendered `.pdf`). |
+| [`paper/`](paper/) | The conventional-maths proof as a standalone paper (`.qmd` + `.pdf`), plus [`paper/original/`](paper/original/) recording the classical source (Lindblad 1974). |
+| [`test/`](test/) | Fidelity and source-comparison checks that the paper faithfully tracks the Lean proof and the literature. |
 | [`evidence/`](evidence/) | Recorded results of each verification check. |
 | [verification method](../../../process/verification-method.md) | How the checks work and why (shared across submissions). |
 
@@ -26,9 +28,8 @@ command reproduces every check.
 
 ## 1. Introduction — what this is
 
-PhysLean's `QuantumInfo` library carried an open `sorry` for one of the most
-important inequalities in quantum information theory: **joint convexity of the
-Umegaki quantum relative entropy**,
+PhysLean's `QuantumInfo` library carried an open `sorry` for inequalities in 
+quantum information theory: **joint convexity of the Umegaki quantum relative entropy**,
 
 $$\mathbf{D}\big(p[\rho_1\!\leftrightarrow\!\rho_2]\,\|\,p[\sigma_1\!\leftrightarrow\!\sigma_2]\big)\;\le\;p\,\mathbf{D}(\rho_1\|\sigma_1)+(1-p)\,\mathbf{D}(\rho_2\|\sigma_2).$$
 
@@ -38,9 +39,9 @@ already-proved **joint convexity of the sandwiched Rényi trace functional** `Q�
 and takes the **α → 1⁺ limit**, in which the sandwiched Rényi relative entropy
 converges to the Umegaki relative entropy.
 
-- Why it matters (accessible version): [`docs/physics-brief.qmd`](docs/physics-brief.qmd)
-- The proof written conventionally (Lean → paper): [`docs/proof-conventional.qmd`](docs/proof-conventional.qmd)
-- How it compares to the literature: [`docs/literature.qmd`](docs/literature.qmd)
+- Physics backgrounder: [`docs/physics-brief.qmd`](docs/physics-brief.qmd)
+- Conventional written proof (Lean → paper): [`docs/proof-conventional.qmd`](docs/proof-conventional.qmd)
+- Literature comparison: [`docs/literature.qmd`](docs/literature.qmd)
 
 ---
 
@@ -127,15 +128,24 @@ factored into helper lemmas to shrink the main body — happy to do so on reques
 ## 6. Contents of this packet
 
 ```
-qrelent-joint-convexity/
+Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy/
 ├── README.md                     ← this file (intro, change map, validation, SRS trace)
 ├── verify.sh                     ← one-command reviewer verification
-├── PR-TEXT.md                    ← operator-only: draft PR title/body + Zulip message (not part of the reviewer-facing packet)
-└── docs/
-    ├── physics-brief.qmd         ← why relative entropy + joint convexity matter (for non-experts)
-    ├── proof-conventional.qmd    ← the Lean proof rendered as conventional mathematics
-    └── literature.qmd            ← comparison to the standard QI literature + citations (arXiv-checked 2026-07-06)
+├── PR-BODY.md                    ← the pull-request description, for a reviewer seeing this cold
+├── proof/
+│   ├── qRelativeEnt_joint_convexity.lean  ← the added Lean, as a standalone excerpt
+│   └── qrelent-joint-convexity.patch      ← the exact +191/−15 patch (DPI.lean, Relative.lean)
+├── docs/
+│   ├── physics-brief.qmd / .pdf  ← why relative entropy + joint convexity matter (for non-experts)
+│   ├── proof-conventional.qmd / .pdf  ← the Lean proof rendered as conventional mathematics
+│   └── literature.qmd / .pdf     ← comparison to the standard QI literature + citations (arXiv-checked 2026-07-06)
+├── paper/
+│   ├── joint-convexity-proof.qmd / .pdf  ← the conventional-maths proof as a standalone paper
+│   └── original/                 ← provenance of the classical result (Lindblad 1974); PDF intentionally not committed
+├── test/                         ← fidelity + source-comparison checks (paper ⟷ Lean ⟷ literature)
+└── evidence/                     ← recorded results of each verification check
 ```
 
-The `docs/*.qmd` files render standalone with `quarto render docs/<file>.qmd`
-(confirmed 2026-07-06).
+The `docs/*.qmd` and `paper/*.qmd` files render standalone with
+`quarto render <file>.qmd`; each is committed alongside its rendered `.pdf`
+(rendered 2026-07-06).
