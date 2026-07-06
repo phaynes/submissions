@@ -156,12 +156,14 @@ possible; none is load-bearing for the correctness claims in this packet.)
   quantum-mechanical entropy*, Phys. Rev. Lett. **30** (1973), 434–436.
 - **[Epstein73]** [memory] H. Epstein, *Remarks on two theorems of E. Lieb*,
   Commun. Math. Phys. **31** (1973), 317–325.
-- **[Lindblad74]** [memory] G. Lindblad, *Expectations and entropy inequalities for
-  finite quantum systems*, Commun. Math. Phys. **39** (1974), 111–119.
-  (Joint convexity of the relative entropy.)
-- **[Lindblad75]** [memory] G. Lindblad, *Completely positive maps and entropy
-  inequalities*, Commun. Math. Phys. **40** (1975), 147–151. (Monotonicity under CP
-  maps.)
+- **[Lindblad74]** [verified 2026-07-06] G. Lindblad, *Expectations and entropy
+  inequalities for finite quantum systems*, Commun. Math. Phys. **39** (1974), 111–119.
+  DOI [10.1007/BF01608390](https://doi.org/10.1007/BF01608390); also
+  [Project Euclid](https://projecteuclid.org/euclid.cmp/1103860161). (Joint convexity of
+  the relative entropy. Subscriber-access; not open — see `paper/original/README.md`.)
+- **[Lindblad75]** [verified 2026-07-06] G. Lindblad, *Completely positive maps and
+  entropy inequalities*, Commun. Math. Phys. **40** (1975), 147–151. DOI
+  [10.1007/BF01609396](https://doi.org/10.1007/BF01609396). (Monotonicity under CP maps.)
 - **[Uhlmann77]** [memory] A. Uhlmann, *Relative entropy and the
   Wigner–Yanase–Dyson–Lieb concavity in an interpolation theory*, Commun. Math. Phys.
   **54** (1977), 21–32.
