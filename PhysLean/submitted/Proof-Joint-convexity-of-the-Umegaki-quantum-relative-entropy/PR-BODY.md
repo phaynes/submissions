@@ -63,8 +63,6 @@ The stub lived in `Relative.lean`, but the proof needs the `Q̃_α` machinery al
 `DPI.lean`. Since `DPI.lean` imports `Relative.lean`, proving this in `Relative.lean`
 would create an import cycle. I therefore placed the proof in `DPI.lean`.
 
-I placed it in `DPI.lean` to avoid the import cycle; I can move it if maintainers prefer a different module structure.
-
 ## Reviewer map
 
 Suggested review order:
@@ -153,5 +151,5 @@ Requested review focus:
 2. Is the private majorant lemma the right abstraction level, or would you prefer one
    more helper lemma extracted from the main theorem?
 3. Are the `⊤` cases and `ENNReal.ofReal` conversions clear enough as written?
-4. If the statement, placement, and proof structure look acceptable, the remaining work should be limited to style or factoring preferences.
+4. I would especially appreciate guidance on placement and factoring; I am happy to adjust either.
 ```

@@ -138,84 +138,72 @@ follow-up fix, flagged here for transparency:
 
 ## 5. References
 
-Entries marked **[verified]** were checked against their arXiv abstract pages (and,
-where noted, the publisher's listing) on 2026-07-06: title, full author list, eprint
-number, and the journal reference/DOI as shown there. Entries marked **[memory]** are
-standard references transcribed from memory: authors, titles and venues are stated with
-confidence, but volume/page/year details should be double-checked before being cited
-elsewhere. (Most [memory] entries predate arXiv, so no eprint check is possible.)
+This section has two parts. The **verified references** below were checked against their
+arXiv abstract pages (and, where noted, the publisher's listing) on 2026-07-06: title,
+full author list, eprint number, and the journal reference/DOI as shown there. These are
+citation-ready. After them is a short list of **standard background** — classic results
+every reader in the area knows — given by author/short-title/venue only, deliberately
+*without* volume/page/year, because those details have not been independently verified
+here and (per PhysLean's AI policy) must be confirmed by the author before being cited.
 
 **None of these references is load-bearing for the correctness of the contribution.**
 The correctness evidence is the Lean kernel (`#print axioms`, no `sorryAx`) and the
-build; this section is background context only. The [memory] entries in particular are
-not citation-ready and should not be treated as verified bibliography until an author
-has confirmed the volume/page details.
+build; this section is context only.
 
-- **[Umegaki62]** [memory] H. Umegaki, *Conditional expectation in an operator algebra,
-  IV (entropy and information)*, Kōdai Math. Sem. Rep. **14** (1962), 59–85.
-- **[Lieb73]** [memory] E. H. Lieb, *Convex trace functions and the
-  Wigner–Yanase–Dyson conjecture*, Adv. Math. **11** (1973), 267–288.
-- **[LiebRuskai73]** [memory] E. H. Lieb, M. B. Ruskai, *Proof of the strong
-  subadditivity of quantum-mechanical entropy* (with an appendix by B. Simon),
-  J. Math. Phys. **14** (1973), 1938–1941.
-- **[LiebRuskaiPRL73]** [memory] E. H. Lieb, M. B. Ruskai, *A fundamental property of
-  quantum-mechanical entropy*, Phys. Rev. Lett. **30** (1973), 434–436.
-- **[Epstein73]** [memory] H. Epstein, *Remarks on two theorems of E. Lieb*,
-  Commun. Math. Phys. **31** (1973), 317–325.
-- **[Lindblad74]** [verified 2026-07-06] G. Lindblad, *Expectations and entropy
+### Verified references
+
+- **[Lindblad74]** G. Lindblad, *Expectations and entropy
   inequalities for finite quantum systems*, Commun. Math. Phys. **39** (1974), 111–119.
   DOI [10.1007/BF01608390](https://doi.org/10.1007/BF01608390); also
   [Project Euclid](https://projecteuclid.org/euclid.cmp/1103860161). (Joint convexity of
   the relative entropy. Subscriber-access; not open — see `paper/original/README.md`.)
-- **[Lindblad75]** [verified 2026-07-06] G. Lindblad, *Completely positive maps and
+- **[Lindblad75]** G. Lindblad, *Completely positive maps and
   entropy inequalities*, Commun. Math. Phys. **40** (1975), 147–151. DOI
   [10.1007/BF01609396](https://doi.org/10.1007/BF01609396). (Monotonicity under CP maps.)
-- **[Uhlmann77]** [memory] A. Uhlmann, *Relative entropy and the
-  Wigner–Yanase–Dyson–Lieb concavity in an interpolation theory*, Commun. Math. Phys.
-  **54** (1977), 21–32.
-- **[Ando79]** [memory] T. Ando, *Concavity of certain maps on positive definite
-  matrices and applications to Hadamard products*, Linear Algebra Appl. **26** (1979),
-  203–241.
-- **[Petz86]** [memory] D. Petz, *Quasi-entropies for finite quantum systems*,
-  Rep. Math. Phys. **23** (1986), 57–65.
-- **[Effros09]** [memory] E. G. Effros, *A matrix convexity approach to some celebrated
-  quantum inequalities*, Proc. Natl. Acad. Sci. USA **106** (2009), 1006–1008.
-- **[Carlen10]** [memory] E. A. Carlen, *Trace inequalities and quantum entropy: an
-  introductory course*, in Entropy and the Quantum, Contemp. Math. **529**, Amer. Math.
-  Soc. (2010), 73–140. (The Lean source's comment "Theorem 2.10 of Carlen" for trace
-  function convexity refers to these notes.)
-- **[Tropp12]** [memory] J. A. Tropp, *From joint convexity of quantum relative entropy
-  to a concavity theorem of Lieb*, Proc. Amer. Math. Soc. **140** (2012), 1757–1760.
-- **[MLDSFT13]** [verified] M. Müller-Lennert, F. Dupuis, O. Szehr, S. Fehr,
+- **[MLDSFT13]** M. Müller-Lennert, F. Dupuis, O. Szehr, S. Fehr,
   M. Tomamichel, *On quantum Rényi entropies: a new generalization and some properties*,
   J. Math. Phys. **54**, 122203 (2013). arXiv:1306.3142,
   doi:10.1063/1.4838856.
-- **[WWY14]** [verified] M. M. Wilde, A. Winter, D. Yang, *Strong converse for the
+- **[WWY14]** M. M. Wilde, A. Winter, D. Yang, *Strong converse for the
   classical capacity of entanglement-breaking and Hadamard channels via a sandwiched
   Rényi relative entropy*, Commun. Math. Phys. **331** (2014), 593–622.
   arXiv:1306.1586, doi:10.1007/s00220-014-2122-x.
-- **[FrankLieb13]** [verified] R. L. Frank, E. H. Lieb, *Monotonicity of a relative
+- **[FrankLieb13]** R. L. Frank, E. H. Lieb, *Monotonicity of a relative
   Rényi entropy*, J. Math. Phys. **54**, 122201 (2013). arXiv:1306.5358,
   doi:10.1063/1.4838835. (Article number 122201 confirmed against the AIP listing.)
-- **[Beigi13]** [verified] S. Beigi, *Sandwiched Rényi divergence satisfies data
+- **[Beigi13]** S. Beigi, *Sandwiched Rényi divergence satisfies data
   processing inequality*, J. Math. Phys. **54**, 122202 (2013). arXiv:1306.5920,
   doi:10.1063/1.4838855. (Article number confirmed against the arXiv journal
   reference.)
-- **[LRD17]** [verified] F. Leditzky, C. Rouzé, N. Datta, *Data processing for the
+- **[LRD17]** F. Leditzky, C. Rouzé, N. Datta, *Data processing for the
   sandwiched Rényi divergence: a condition for equality*, Lett. Math. Phys. **107**
   (2017), 61–80. arXiv:1604.02119, doi:10.1007/s11005-016-0896-9.
-- **[Hiai13]** [memory] F. Hiai, *Concavity of certain matrix trace and norm
-  functions*, Linear Algebra Appl. **439** (2013), 1568–1589. (arXiv id not verified.)
-- **[MosonyiOgawa15]** [verified] M. Mosonyi, T. Ogawa, *Quantum hypothesis testing and
+- **[MosonyiOgawa15]** M. Mosonyi, T. Ogawa, *Quantum hypothesis testing and
   the operational interpretation of the quantum Rényi relative entropies*,
   Commun. Math. Phys. **334** (2015), 1617–1648. arXiv:1309.3228,
   doi:10.1007/s00220-014-2248-x.
-- **[Tomamichel16]** [verified] M. Tomamichel, *Quantum Information Processing with
+- **[Tomamichel16]** M. Tomamichel, *Quantum Information Processing with
   Finite Resources: Mathematical Foundations*, SpringerBriefs in Mathematical Physics
   vol. 5, Springer (2016). arXiv:1504.00233, doi:10.1007/978-3-319-21891-5.
   (Series volume 5 confirmed against the publisher listing.)
-- **[Wilde17]** [memory] M. M. Wilde, *Quantum Information Theory*, 2nd ed., Cambridge
-  University Press (2017).
-- **[Spohn78]** [memory] H. Spohn, *Entropy production for quantum dynamical
-  semigroups*, J. Math. Phys. **19** (1978), 1227–1230. (Cited in the physics brief for
-  the second-law connection; page range from memory.)
+
+### Standard background (not independently verified here)
+
+Classic results in the area, listed by author / short title / venue only. Volume, page,
+and year are omitted deliberately: they have not been checked here and should be
+confirmed by the author before any of these is cited. None is relied on for correctness.
+
+- **[Umegaki62]** H. Umegaki, *Conditional expectation in an operator algebra IV*, Kōdai Math. Sem. Rep.
+- **[Lieb73]** E. H. Lieb, *Convex trace functions and the Wigner–Yanase–Dyson conjecture*, Adv. Math.
+- **[LiebRuskai73]** E. H. Lieb, M. B. Ruskai, *Proof of the strong subadditivity of quantum-mechanical entropy*, J. Math. Phys.
+- **[LiebRuskaiPRL73]** E. H. Lieb, M. B. Ruskai, *A fundamental property of quantum-mechanical entropy*, Phys. Rev. Lett.
+- **[Epstein73]** H. Epstein, *Remarks on two theorems of E. Lieb*, Commun. Math. Phys.
+- **[Uhlmann77]** A. Uhlmann, *Relative entropy and the Wigner–Yanase–Dyson–Lieb concavity…*, Commun. Math. Phys.
+- **[Ando79]** T. Ando, *Concavity of certain maps on positive definite matrices…*, Linear Algebra Appl.
+- **[Petz86]** D. Petz, *Quasi-entropies for finite quantum systems*, Rep. Math. Phys.
+- **[Effros09]** E. G. Effros, *A matrix convexity approach to some celebrated quantum inequalities*, Proc. Natl. Acad. Sci. USA.
+- **[Carlen10]** E. A. Carlen, *Trace inequalities and quantum entropy: an introductory course*, Contemp. Math. (the Lean source's "Theorem 2.10 of Carlen" refers to these notes).
+- **[Tropp12]** J. A. Tropp, *From joint convexity of quantum relative entropy to a concavity theorem of Lieb*, Proc. Amer. Math. Soc.
+- **[Hiai13]** F. Hiai, *Concavity of certain matrix trace and norm functions*, Linear Algebra Appl.
+- **[Wilde17]** M. M. Wilde, *Quantum Information Theory*, 2nd ed., Cambridge University Press.
+- **[Spohn78]** H. Spohn, *Entropy production for quantum dynamical semigroups*, J. Math. Phys. (cited in the physics brief for the second-law connection).

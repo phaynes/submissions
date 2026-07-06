@@ -14,7 +14,7 @@
 #   2. `#print axioms` on the theorem shows ONLY [propext, Classical.choice, Quot.sound]
 #      — no `sorryAx`, so there is no hidden sorry/admit anywhere in its dependency chain.
 #   3. The module builds.
-#   4. (optional, slow) `lake exe lint_all` is clean.
+#   4. (optional, slow) `lake exe lint_all` and `./scripts/lint-style.sh` are clean.
 #
 # Exit code 0 = all mandatory checks pass. Checks 1 and 2 FAIL (do not pass) on anything
 # unexpected:
@@ -100,12 +100,14 @@ else
   fail "build failed (see /tmp/qrelent_build.log)"; tail -5 /tmp/qrelent_build.log | sed 's/^/    /'
 fi
 
-say "4. (optional) Full linter — slow; run with LINT=1"
+say "4. (optional) Linters — slow; run with LINT=1"
 if [ "${LINT:-0}" = "1" ]; then
   if lake exe lint_all >/tmp/qrelent_lint.log 2>&1; then pass "lint_all clean"
   else fail "lint_all reported issues (see /tmp/qrelent_lint.log)"; fi
+  if ./scripts/lint-style.sh >/tmp/qrelent_lint_style.log 2>&1; then pass "lint-style.sh clean"
+  else fail "lint-style.sh reported issues (see /tmp/qrelent_lint_style.log)"; fi
 else
-  printf '  \033[33m- skipped (set LINT=1 to run \`lake exe lint_all\`, ~minutes)\033[0m\n'
+  printf '  \033[33m- skipped (set LINT=1 to run \`lake exe lint_all\` and \`./scripts/lint-style.sh\`, ~minutes)\033[0m\n'
 fi
 
 say "Result"

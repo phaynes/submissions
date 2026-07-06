@@ -45,7 +45,7 @@ exits non-zero if any load-bearing correspondence is missing.
 mathematics is *correct* — that is what Lean's kernel does (see
 [`../evidence/checks.md`](../evidence/checks.md), check 2). It tells you the paper and
 the machine-checked proof are describing the *same* argument, so that reading the
-paper is a faithful substitute for reading the Lean.
+paper is a faithful guide to the Lean proof.
 
 ## 2. Correspondence: literature ↔ our proof
 
