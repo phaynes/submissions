@@ -1,4 +1,4 @@
--- EXCERPT from QuantumInfo/Entropy/DPI.lean (PhysLean branch feat/qrelent-joint-convexity, commit bb18f8dc).
+-- EXCERPT from QuantumInfo/Entropy/DPI.lean (PhysLean branch feat/qrelent-joint-convexity, commit 9385c7f3).
 -- This is the added section only. The full file and its imports live in the PR branch;
 -- the exact change set is in qrelent-joint-convexity.patch (git show of the commit).
 -- Reproduce all checks with ../verify.sh <your-physlib-checkout>.
@@ -75,15 +75,10 @@ private lemma sandwichedTraceFunctional_sub_one_div_eventually_le
       _ = r α + ((α - 1) * r α) * r α := by
           field_simp
 
-/-- Joint convexity of Quantum relative entropy. We can't state this with `ConvexOn` because
-that requires an `AddCommMonoid`, which `MState`s are not. Instead we state it with `Mixable`.
+/-- Joint convexity of the quantum relative entropy.
 
-TODO:
- * Add the `Mixable` instance that infers from the `Coe` so that the right hand side can be
-written as `p [𝐃(ρ₁‖σ₁) ↔ 𝐃(ρ₂‖σ₂)]`
- * Define (joint) convexity as its own thing - a `ConvexOn` for `Mixable` types.
- * Maybe, more broadly, find a way to make `ConvexOn` work with the subset of `Matrix` that
-corresponds to `MState`.
+This is stated using `Mixable`, rather than `ConvexOn`, because `MState d`
+is not an `AddCommMonoid`.
 -/
 theorem qRelativeEnt_joint_convexity :
     ∀ (ρ₁ ρ₂ σ₁ σ₂ : MState d), ∀ (p : Prob),

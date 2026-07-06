@@ -5,7 +5,7 @@ format: html
 ---
 
 This note renders the Lean proof of `qRelativeEnt_joint_convexity`
-(`QuantumInfo/Entropy/DPI.lean`, line ~1488 as of commit `bb18f8dc`) as a mathematician
+(`QuantumInfo/Entropy/DPI.lean`, line ~1483 as of commit `9385c7f3`) as a mathematician
 would write it on paper. The structure of the argument below follows the Lean proof
 step for step; Lean identifiers are given in `code font` at the point where they are
 used. Nothing is included that is not in the formal proof, and the two pre-existing
@@ -85,7 +85,7 @@ $$
 
 ## 3. Theorem
 
-**Theorem (`qRelativeEnt_joint_convexity`, `DPI.lean:1488`).**
+**Theorem (`qRelativeEnt_joint_convexity`, `DPI.lean:1483`).**
 For all states $\rho_1, \rho_2, \sigma_1, \sigma_2$ on $\mathbb{C}^d$ and all
 $p \in [0,1]$, writing $\bar\rho := p\rho_1 + (1-p)\rho_2$ and
 $\bar\sigma := p\sigma_1 + (1-p)\sigma_2$,
@@ -312,7 +312,7 @@ $$
 
 ## 7. Lean–paper dictionary
 
-| Paper object / step | Lean identifier | Location (commit `bb18f8dc`) |
+| Paper object / step | Lean identifier | Location (commit `9385c7f3`) |
 |---|---|---|
 | Umegaki $D$ | `qRelativeEnt` / `𝐃` | `Relative.lean:1497` |
 | Sandwiched $\widetilde D_\alpha$ | `SandwichedRelRentropy` / `D̃_α` | `Relative.lean:1480` |
@@ -327,13 +327,13 @@ $$
 | D(ii) | `Real.abs_exp_sub_one_sub_id_le` | Mathlib |
 | $\widetilde Q_\alpha > 0$ | `sandwichedTraceFunctional_pos` | `DPI.lean:100` |
 | Lemma E | `sandwichedTraceFunctional_sub_one_div_eventually_le` | `DPI.lean:1425` |
-| Steps 0–4 | `qRelativeEnt_joint_convexity` | `DPI.lean:1488` |
+| Steps 0–4 | `qRelativeEnt_joint_convexity` | `DPI.lean:1483` |
 | Step 3 | `h_ev` (with `h_convex`) | `DPI.lean:1572–1594` |
 | Step 4 | `h_lhs`, `h_rhs`, `le_of_tendsto_of_tendsto` | `DPI.lean:1548–1595` |
 
 ## 8. Remarks for the reviewer
 
-- **What is new.** Lemma E and the theorem itself (§5–§6), ~190 lines added to
+- **What is new.** Lemma E and the theorem itself (§5–§6), ~185 lines added to
   `DPI.lean`; the previously `@[sorryful]` statement was removed from `Relative.lean`.
   Propositions A and B and all deeper inputs (Lieb–Ando trace theorems) were already in
   the library. The theorem was placed in `DPI.lean` rather than `Relative.lean` because
@@ -350,4 +350,4 @@ $$
   matching the pre-existing `sorryful` statement it closes.
 - **Axioms.** The proof is `sorry`-free; `#print axioms qRelativeEnt_joint_convexity`
   reports only `propext`, `Classical.choice`, `Quot.sound` (recorded in the commit
-  message of `bb18f8dc`).
+  message of `9385c7f3`).

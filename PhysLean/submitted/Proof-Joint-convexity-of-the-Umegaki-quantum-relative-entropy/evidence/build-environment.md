@@ -53,7 +53,7 @@ Provenance of the source it was built from:
 
 | | |
 |---|---|
-| Commit | `bb18f8dc7833d18485cf66a0fd2846132267de57` |
+| Commit | `9385c7f37e10e91ad65bae5b1212ee71012af6df` |
 | Author | Philip Haynes |
 | Date | 2026-07-03 09:15:34 +1000 |
 | Subject | `feat(QuantumInfo): prove qRelativeEnt_joint_convexity (joint convexity of Umegaki relative entropy)` |
@@ -83,4 +83,4 @@ lake env lean /tmp/axioms.lean
 
 Capturing the stdout of steps 1–2 into `evidence/lean-run.txt` gives the fresh transcript.
 Its expected content (the axiom list, no `sorryAx`) is already recorded in
-[`checks.md`](checks.md) and the commit message of `bb18f8dc`.
+[`checks.md`](checks.md) and the commit message of `9385c7f3`.

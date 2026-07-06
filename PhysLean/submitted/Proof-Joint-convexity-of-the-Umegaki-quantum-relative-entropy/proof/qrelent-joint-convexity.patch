@@ -1,4 +1,4 @@
-commit bb18f8dc7833d18485cf66a0fd2846132267de57
+commit 9385c7f37e10e91ad65bae5b1212ee71012af6df
 Author: Philip Haynes <Philip.haynes@me.com>
 Date:   Fri Jul 3 09:15:34 2026 +1000
 
@@ -12,10 +12,10 @@ Date:   Fri Jul 3 09:15:34 2026 +1000
     Signed-off-by: Philip Haynes <Philip.haynes@me.com>
 
 diff --git a/QuantumInfo/Entropy/DPI.lean b/QuantumInfo/Entropy/DPI.lean
-index a85a2250..aa59791c 100644
+index a85a2250..58bc9de9 100644
 --- a/QuantumInfo/Entropy/DPI.lean
 +++ b/QuantumInfo/Entropy/DPI.lean
-@@ -1402,3 +1402,194 @@ theorem sandwichedRenyiEntropy_DPI (hα : 1 ≤ α) (ρ σ : MState d₁) (Φ :
+@@ -1402,3 +1402,189 @@ theorem sandwichedRenyiEntropy_DPI (hα : 1 ≤ α) (ρ σ : MState d₁) (Φ :
    rcases hα.lt_or_eq with hα | rfl
    · exact sandwichedRenyiEntropy_DPI_gt_one hα ρ σ Φ
    · exact sandwichedRenyiEntropy_DPI_eq_one ρ σ Φ
@@ -92,15 +92,10 @@ index a85a2250..aa59791c 100644
 +      _ = r α + ((α - 1) * r α) * r α := by
 +          field_simp
 +
-+/-- Joint convexity of Quantum relative entropy. We can't state this with `ConvexOn` because
-+that requires an `AddCommMonoid`, which `MState`s are not. Instead we state it with `Mixable`.
++/-- Joint convexity of the quantum relative entropy.
 +
-+TODO:
-+ * Add the `Mixable` instance that infers from the `Coe` so that the right hand side can be
-+written as `p [𝐃(ρ₁‖σ₁) ↔ 𝐃(ρ₂‖σ₂)]`
-+ * Define (joint) convexity as its own thing - a `ConvexOn` for `Mixable` types.
-+ * Maybe, more broadly, find a way to make `ConvexOn` work with the subset of `Matrix` that
-+corresponds to `MState`.
++This is stated using `Mixable`, rather than `ConvexOn`, because `MState d`
++is not an `AddCommMonoid`.
 +-/
 +theorem qRelativeEnt_joint_convexity :
 +    ∀ (ρ₁ ρ₂ σ₁ σ₂ : MState d), ∀ (p : Prob),

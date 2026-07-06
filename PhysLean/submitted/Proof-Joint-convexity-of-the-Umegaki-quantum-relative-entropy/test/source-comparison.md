@@ -31,7 +31,7 @@ readable this session):
 | 4 | Joint convexity ⇔ monotonicity (DPI) ⇔ SSA, all resting on Lieb concavity | Wilde lecture, Thm 4 (Monotonicity): "D(ρ‖σ) ≥ D(N(ρ)‖N(σ))"; Tropp arXiv:1101.1070 abstract: proves Lieb's 1973 concavity *from* joint convexity of relative entropy | ✅ agrees (both directions attested) | read 2026-07-06 (Wilde Thm 4; Tropp abstract) |
 | 5 | Proof **route**: our proof uses the sandwiched α→1⁺ route (Frank–Lieb / LRD), NOT the classical route | Wilde derives joint convexity *from monotonicity* (Cor 11 follows Thm 4); the classical route is Lieb-concavity→difference-quotient (Carlen). **Our route differs** — sandwiched Q̃_α, α→1⁺. | ✅ difference is real and disclosed | read 2026-07-06 (Wilde route) + [`literature-correspondence.md`](literature-correspondence.md) |
 | 6 | Distinguishability / operational meaning (Stein lemma) | Wilde lecture: relative entropy "as a distance measure"; motivates the definition by an operational task | ✅ agrees | read 2026-07-06 |
-| 7 | The proof is `sorry`-free: `#print axioms` = `[propext, Classical.choice, Quot.sound]` | The Lean kernel (recorded in commit `bb18f8dc`; reproducible by `../verify.sh`) | ✅ | kernel |
+| 7 | The proof is `sorry`-free: `#print axioms` = `[propext, Classical.choice, Quot.sound]` | The Lean kernel (recorded in commit `9385c7f3`; reproducible by `../verify.sh`) | ✅ | kernel |
 | 8 | The formula, theorem inequality, and axiom list are stated consistently across the paper, the extracted Lean, and the physics brief | — | ✅ | machine ([`results.txt`](results.txt)) |
 
 ## Result

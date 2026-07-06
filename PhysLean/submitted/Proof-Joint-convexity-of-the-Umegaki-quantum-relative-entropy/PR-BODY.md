@@ -104,7 +104,7 @@ No `sorryAx`.
 ## Scope
 
 This is a single-concept PR: it closes one open `sorry` for joint convexity of `𝐃`. The
-proof is about 190 added lines, so it is in the large-PR band, but it does not split
+proof is about 185 added lines, so it is in the large-PR band, but it does not split
 naturally into separate PRs. The main reusable estimate is already extracted as a
 private helper lemma.
 

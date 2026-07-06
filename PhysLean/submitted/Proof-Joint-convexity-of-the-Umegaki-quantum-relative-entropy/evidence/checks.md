@@ -1,7 +1,7 @@
 # Recorded check results
 
 Reproduce all of these with `../verify.sh <your-physlib-checkout>`. Recorded from the
-`feat/qrelent-joint-convexity` branch (proof commit `bb18f8dc`). A freshly generated
+`feat/qrelent-joint-convexity` branch (proof commit `9385c7f3`). A freshly generated
 transcript of checks 2–4 is in [`lean-run.txt`](lean-run.txt).
 
 | # | Check | Result |
@@ -17,6 +17,6 @@ could be worked around. See
 
 ## PR size (disclosed)
 
-`+191 / −15` = **176 net lines** — the guidelines' "large PR (100–200)" band. It is one
+`+186 / −15` = **171 net lines** — the guidelines' "large PR (100–200)" band. It is one
 theorem's proof and does not split meaningfully; the boundary/⊤ cases could be factored
 into helper lemmas on request. Flagged honestly, not hidden.

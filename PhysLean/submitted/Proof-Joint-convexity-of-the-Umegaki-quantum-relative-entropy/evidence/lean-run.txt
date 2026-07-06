@@ -4,12 +4,12 @@ Fresh Lean verification transcript — qRelativeEnt_joint_convexity
 Generated: 2026-07-06
 Checkout:  physlib (QuantumInfo half)
 Branch:    feat/qrelent-joint-convexity
-Commit:    bb18f8dc7833d18485cf66a0fd2846132267de57
+Commit:    9385c7f37e10e91ad65bae5b1212ee71012af6df
 Toolchain: leanprover/lean4:v4.31.0
-Theorem:   QuantumInfo/Entropy/DPI.lean:1488
+Theorem:   QuantumInfo/Entropy/DPI.lean:1483
 
 This is the submission branch: its diff against master is exactly the
-+191 / -15 of this PR (QuantumInfo/Entropy/DPI.lean and Relative.lean),
++186 / -15 of this PR (QuantumInfo/Entropy/DPI.lean and Relative.lean),
 with no other commits on top. Each command below was run in this checkout
 and its real output captured.
 
@@ -55,5 +55,5 @@ exit code: 0 (clean).
    upstream (the library is being brought into style conformance
    file-by-file), so CI does not style-lint them today. Running
    scripts/lint-style.py directly on the two changed files (bypassing the
-   exemption) shows: the +191 added lines introduce no new ERR_LIN; the
+   exemption) shows: the +186 added lines introduce no new ERR_LIN; the
    pre-existing lint in both files predates this PR and is out of scope.
