@@ -1,22 +1,21 @@
-# Torus — plan (NOT YET WRITTEN)
+# Torus - implementation status
 
-**Status: not written.** Blocked on the measure-idiom ruling (see [PR#1 README](../README.md)).
+Status: implemented and compiling.
 
-Target: a `torus` parametrization `Space 2 → Space 3` and its `torusMeasure` /
-`torusDist`, mirroring `Cone.lean`, but with a **position-varying** area factor —
-the torus surface element depends on the poloidal angle. Under the proposed idiom:
+The torus contribution defines:
 
-```
-torusMeasure R r := Measure.map (torus R r) ((volume.restrict D).withDensity J)
-```
+- `Space.TorusParameter`
+- `Space.torus`
+- `Space.torusDensity` / `Space.torusDensityNNReal`
+- `Space.torusParameterMeasure`
+- `Space.torusMeasure`
+- `Space.torusDist`
+- integral pullback lemmas through both the weighted parameter measure and the explicit
+  density over the product circle measure
 
-with `J` the Jacobian of the standard `(θ, φ) ↦ ((R + r cos θ) …)` parametrization.
+The measure is the pushforward of the product circle measure weighted by
+`|r| * |R + r * v_0|`. This is intentionally a parametrized surface measure and does
+not claim intrinsic Hausdorff-measure equality or global injectivity for all radius
+parameters.
 
-Declarations to provide (following the Cone template):
-- `torus`, `torus_injective` (on the fundamental domain), `torus_continuous`,
-  `torus_measurableEmbedding`
-- `torusMeasure`, `torusDist`, and the integral-identity lemmas
-
-Acceptance: compiles under `lake build`; `#print axioms` on the top-level results shows
-no `sorryAx`. To be done on a Lean-equipped machine per
-[`handoff-torus-ellipsoid.md`](../../process/handoff-torus-ellipsoid.md).
+Source: `proof/Torus.lean`.

@@ -1,51 +1,56 @@
-# PR#1 — Curved-surface measures (Cone, Torus, Ellipsoid)
+# PR#1 - Curved-surface measures (Cone, Torus, Ellipsoid)
 
-The follow-on to the joint-convexity proof: a small family of curved-surface measure/
-distribution constructions in `PhyslibAlpha/SpaceAndTime/Space/Surfaces/`. The intent
-(per the operator) is to submit **all three shapes together** as one PR, so the reviewer
-sees one coherent contribution rather than three separate small PRs.
+This package prepares a small PhyslibAlpha contribution under
+`PhyslibAlpha/SpaceAndTime/Space/Surfaces/`.
 
-> **Honest status.** Only **Cone** is written and compiling. **Torus** and **Ellipsoid**
-> are **not yet written** — they are blocked on a design question the reviewer must rule
-> on first (below), and are real Lean work to be done on a toolchain-equipped machine.
-> Nothing here fabricates a proof that does not exist.
+## Status
 
-## Status of each surface
-
-| Surface | State | Evidence |
+| Surface | State | Source |
 |---|---|---|
-| **Cone** | proved, compiling; **not yet committed** to a branch | [`Cone/proof/Cone.lean`](Cone/proof/Cone.lean) (full file), `.olean` present (48 KB, sha256 `ebe688d9…`) |
-| **Torus** | **not written** — blocked on the measure-idiom ruling | [`Torus/PLAN.md`](Torus/PLAN.md) |
-| **Ellipsoid** | **not written** — blocked on the same ruling | [`Ellipsoid/PLAN.md`](Ellipsoid/PLAN.md) |
+| Cone | Implemented and compiling | `Cone/proof/Cone.lean` |
+| Torus | Implemented and compiling | `Torus/proof/Torus.lean` |
+| Ellipsoid | Implemented and compiling | `Ellipsoid/proof/Ellipsoid.lean` |
 
-## The design question that blocks Torus and Ellipsoid
+All three are registered through `PhyslibAlpha.lean` in the working checkout.
 
-The existing Surfaces idiom defines surface measures as **unweighted** pushforwards,
-e.g. `Measure.map halfPlane (volume.restrict halfPlaneDomain)`. This coincides with the
-intended surface measure when the parametrization is **area-preserving**; a cone is
-handled with a **constant** slant factor (which is why `Cone` works cleanly today).
+Code commit: `db52bba8 feat(PhyslibAlpha): add curved surface measures`.
 
-For **genuinely curved** surfaces (torus, ellipsoid) the area factor **varies with
-position**, so the natural extension weights the parameter domain by the Jacobian first:
+## Measure convention
 
+Cone follows the existing graph-surface pattern with a constant slant factor:
+`sqrt (a ^ 2 + 1)`.
+
+Torus and Ellipsoid use the honest weighted-parameter-measure idiom:
+
+```lean
+Measure.map phi (parameterMeasure.withDensity jacobianDensity)
 ```
-Measure.map φ ((volume.restrict D).withDensity J)      -- J = Jacobian / area factor
-```
 
-**The question for the reviewer:** is a Jacobian `withDensity` the idiomatic extension of
-the Surfaces measure convention for curved surfaces, or is a different formulation
-preferred? Torus and Ellipsoid should be *stated* according to this ruling, so writing
-them before the ruling risks redoing them. This question is also surfaced to the reviewer
-in the PR#0 packet (it is the one open judgement call there).
+The files deliberately describe these as parametrized surface measures. They do not
+assert equality with intrinsic Hausdorff measure. For Torus, no global injectivity claim
+is made because the standard circular parametrization is not injective for all radius
+choices.
 
-## Completing this PR
+## Included artifacts
 
-Torus and Ellipsoid are genuine formalization work requiring the Lean toolchain
-(`lean4:v4.31.0`) and, ideally, the ruling above. The precise task is written up in
-[`../../process/handoff-torus-ellipsoid.md`](../../process/handoff-torus-ellipsoid.md)
-for a Lean-capable session to pick up: write each surface following the ruled idiom,
-verify `#print axioms` (no `sorryAx`), and stage each here with the same treatment the
-PR#0 proof received (excerpt + patch + evidence).
+- `proof/pr1-surfaces.patch` - patch for `PhyslibAlpha.lean`, `Cone.lean`, `Torus.lean`,
+  and `Ellipsoid.lean`.
+- `Cone/proof/Cone.lean` - current Cone source.
+- `Torus/proof/Torus.lean` - current Torus source.
+- `Ellipsoid/proof/Ellipsoid.lean` - current Ellipsoid source.
+- `evidence/checks.md` - local verification evidence.
+- `verify.sh` - verifier script to rerun the focused checks after applying the patch.
 
-Once all three compile and are committed, this directory graduates from *plan* to a full
-submission packet mirroring PR#0's structure.
+## Local verification summary
+
+- `lake build PhyslibAlpha.SpaceAndTime.Space.Surfaces.Torus` passed.
+- `lake build PhyslibAlpha.SpaceAndTime.Space.Surfaces.Ellipsoid` passed.
+- `lake build PhyslibAlpha` passed.
+- `lake build` passed; it reported one existing unused-simp warning outside this work.
+- `lake exe runPhyslibAlphaLinters` passed.
+- Direct Python style lint on Cone/Torus/Ellipsoid passed.
+- `lake exe sorry_lint` passed.
+- `#print axioms` for Torus/Ellipsoid top-level definitions showed only
+  `[propext, Classical.choice, Quot.sound]`.
+
+See `evidence/checks.md` for details and the known repo-wide style-lint caveat.

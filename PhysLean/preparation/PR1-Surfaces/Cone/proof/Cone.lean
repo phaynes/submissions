@@ -1,9 +1,3 @@
--- Cone.lean — PhysLean PR#1 first surface (PhyslibAlpha/SpaceAndTime/Space/Surfaces/).
--- Status: PROVED and compiling (.olean present, 48KB) but NOT YET COMMITTED to a branch.
--- This is the full current file. Torus and Ellipsoid (the other PR#1 surfaces) are
--- not yet written — see ../Torus/ and ../Ellipsoid/ and the design question in the
--- PR1 README. Verify with lake build once on a Lean-equipped checkout.
-
 /-
 Copyright (c) 2026 Philip Haynes. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
