@@ -1,4 +1,4 @@
--- EXCERPT from QuantumInfo/Entropy/DPI.lean (PhysLean branch feat/qrelent-joint-convexity, commit 9385c7f3).
+-- EXCERPT from QuantumInfo/Entropy/DPI.lean (PhysLean branch feat/qrelent-joint-convexity, commit 33cb766e).
 -- This is the added section only. The full file and its imports live in the PR branch;
 -- the exact change set is in qrelent-joint-convexity.patch (git show of the commit).
 -- Reproduce all checks with ../verify.sh <your-physlib-checkout>.

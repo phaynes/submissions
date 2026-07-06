@@ -53,10 +53,11 @@ Provenance of the source it was built from:
 
 | | |
 |---|---|
-| Commit | `9385c7f37e10e91ad65bae5b1212ee71012af6df` |
+| Commit | `33cb766ead7735284ce71da84bbc51e6539fe207` |
 | Author | Philip Haynes |
 | Date | 2026-07-03 09:15:34 +1000 |
 | Subject | `feat(QuantumInfo): prove qRelativeEnt_joint_convexity (joint convexity of Umegaki relative entropy)` |
+| Co-authored-by | Helios; GPT 5.5; Claude Opus 4.8 (AI assistance, disclosed per `AI-POLICY.md`) |
 
 (The artifact's mtime precedes the commit time by a few minutes: the file was compiled
 during development, then committed — the ordinary order of events.)
@@ -83,4 +84,4 @@ lake env lean /tmp/axioms.lean
 
 Capturing the stdout of steps 1–2 into `evidence/lean-run.txt` gives the fresh transcript.
 Its expected content (the axiom list, no `sorryAx`) is already recorded in
-[`checks.md`](checks.md) and the commit message of `9385c7f3`.
+[`checks.md`](checks.md) and the commit message of `33cb766e`.

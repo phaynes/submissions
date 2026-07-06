@@ -1,7 +1,7 @@
 # Recorded check results
 
 Reproduce all of these with `../verify.sh <your-physlib-checkout>`. Recorded from the
-`feat/qrelent-joint-convexity` branch (proof commit `9385c7f3`). A freshly generated
+`feat/qrelent-joint-convexity` branch (proof commit `33cb766e`). A freshly generated
 transcript of checks 2–4 is in [`lean-run.txt`](lean-run.txt).
 
 | # | Check | Result |
