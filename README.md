@@ -16,27 +16,42 @@ effort.
 ```
 submissions/
 ├── PhysLean/
-│   └── preparation/
-│       └── Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy/
-│           ├── README.md      ← start here: what it is, where it fits, how it's checked
-│           ├── PR-BODY.md      ← the pull-request description (for a cold reviewer)
-│           ├── verify.sh       ← one command reproduces every check
-│           ├── proof/          ← the added Lean (excerpt) + the exact patch
-│           ├── docs/           ← physics brief, conventional-maths writeup, literature
-│           └── evidence/       ← recorded results of each verification check
-└── process/                    ← how the verification is done, and why (reusable)
+│   ├── preparation/
+│   │   ├── Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy/   (PR#0)
+│   │   │   ├── README.md    ← start here: what it is, where it fits, how it's checked
+│   │   │   ├── PR-BODY.md    ← the pull-request description (for a cold reviewer)
+│   │   │   ├── verify.sh     ← one command reproduces every check
+│   │   │   ├── proof/        ← the added Lean (excerpt) + the exact patch
+│   │   │   ├── paper/        ← the proof as a conventional-maths paper (.qmd → PDF)
+│   │   │   ├── test/         ← paper↔Lean fidelity check + literature correspondence
+│   │   │   ├── docs/         ← physics brief, conventional writeup, literature
+│   │   │   └── evidence/     ← check results + build environment / Lean-run evidence
+│   │   └── PR1-Surfaces/     (PR#1 — Cone proved; Torus/Ellipsoid planned, blocked)
+│   └── process/              ← the submission-process SRS + traceability + handoffs
+│       ├── SRS.md            ← what a submission must satisfy (FR/NFR)
+│       ├── traceability.md   ← requirement → evidence map
+│       ├── check-srs.sh      ← verifies every traced artifact exists (+ results)
+│       └── handoff-torus-ellipsoid.md
+└── process/                  ← the verification METHOD, reusable across submissions
     └── verification-method.md
 ```
+
+Two `process/` scopes, deliberately: the **repo-level** `process/verification-method.md`
+is the reusable how-to for the four checks; **`PhysLean/process/`** is the SRS of the
+submission process itself, with its traceability map and test results.
 
 ## Current submissions
 
 | Project | Submission | Status |
 |---|---|---|
-| [PhysLean](https://github.com/leanprover-community/physlib) | [Joint convexity of the Umegaki quantum relative entropy](PhysLean/preparation/Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy/) | prepared — checks pass; PR not yet opened |
+| [PhysLean](https://github.com/leanprover-community/physlib) | [PR#0 — Joint convexity of the Umegaki quantum relative entropy](PhysLean/preparation/Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy/) | prepared — checks pass; PR not yet opened |
+| [PhysLean](https://github.com/leanprover-community/physlib) | [PR#1 — Curved-surface measures](PhysLean/preparation/PR1-Surfaces/) | Cone proved; Torus/Ellipsoid not yet written (blocked on a ruling) |
 
 ## How verification works
 
 The method — an increasing-strength ladder of independent checks, with the Lean
 kernel's `#print axioms` as the decisive one — is documented once, reusably, in
-[`process/verification-method.md`](process/verification-method.md). Each submission
-links to it rather than restating it.
+[`process/verification-method.md`](process/verification-method.md). What a completed
+submission must *satisfy* is specified in
+[`PhysLean/process/SRS.md`](PhysLean/process/SRS.md), traced to evidence in
+[`PhysLean/process/traceability.md`](PhysLean/process/traceability.md).
