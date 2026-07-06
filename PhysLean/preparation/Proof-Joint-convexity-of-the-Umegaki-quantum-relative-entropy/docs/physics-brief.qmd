@@ -1,0 +1,108 @@
+---
+title: "Joint convexity of the quantum relative entropy"
+subtitle: "Physics brief for `qRelativeEnt_joint_convexity` (PhysLean `QuantumInfo`)"
+format: html
+---
+
+## The quantity
+
+The classical relative entropy (Kullback–Leibler divergence) of two probability
+distributions,
+$$
+D(P\,\|\,Q) \;=\; \sum_i p_i\,(\log p_i - \log q_i),
+$$
+measures how efficiently data drawn from $P$ can be told apart from data drawn from $Q$.
+Its quantum analogue, due to Umegaki, replaces distributions by density matrices:
+$$
+D(\rho\,\|\,\sigma) \;=\; \operatorname{Tr}\!\bigl[\rho\,(\log\rho - \log\sigma)\bigr],
+$$
+with the standard conventions: natural logarithm (nats); logarithms taken on supports;
+and $D(\rho\|\sigma) = +\infty$ when $\operatorname{supp}\rho \not\subseteq
+\operatorname{supp}\sigma$ (in that case some event is possible under $\rho$ but strictly
+impossible under $\sigma$, so the hypotheses can be separated at an unbounded rate).
+It is nonnegative and vanishes exactly when $\rho = \sigma$. Operationally, by the quantum
+Stein lemma, $D(\rho\|\sigma)$ is the optimal exponential rate at which the probability of
+mistaking $\rho$ for $\sigma$ decays in asymmetric hypothesis testing: it quantifies
+*distinguishability*.
+
+## What the theorem says
+
+For states $\rho_1,\rho_2,\sigma_1,\sigma_2$ on a finite-dimensional space and
+$p \in [0,1]$,
+$$
+D\bigl(p\rho_1 + (1{-}p)\rho_2 \,\big\|\, p\sigma_1 + (1{-}p)\sigma_2\bigr)
+\;\le\; p\,D(\rho_1\|\sigma_1) + (1{-}p)\,D(\rho_2\|\sigma_2).
+$$
+Both arguments are mixed *simultaneously with the same weights*. This "joint" convexity is
+strictly stronger than convexity in each argument separately, and it is the jointness that
+carries the physical content.
+
+The physical reading: a source flips a coin with bias $p$ and prepares either
+$\rho_1$ or $\rho_2$ (the true scenario), or either $\sigma_1$ or $\sigma_2$ (the
+hypothesis). If the coin's outcome is discarded, the two scenarios are described by the
+mixtures. The inequality says that forgetting the classical label can never make the two
+scenarios *more* distinguishable than they were, on average, with the label kept.
+Discarding information degrades distinguishability; it never creates it.
+
+## Why it matters
+
+Joint convexity sits in a small cluster of statements at the analytic core of quantum
+information theory, each obtainable from the others by standard arguments:
+
+- **Monotonicity / data processing.** Joint convexity yields monotonicity of $D$ under
+  partial trace, and, via Stinespring dilation, the full data-processing inequality
+  $D(\Phi\rho\|\Phi\sigma) \le D(\rho\|\sigma)$ for every quantum channel $\Phi$
+  (Lindblad, Uhlmann).
+- **Strong subadditivity (SSA)** of von Neumann entropy (Lieb–Ruskai 1973) is essentially
+  equivalent to it.
+- **Second-law statements.** Non-negativity of entropy production for quantum dynamical
+  semigroups relaxing to a stationary state follows from monotonicity of $D$ (Spohn).
+- **Resource theories and capacities.** Relative-entropy-based monotones (e.g. the
+  relative entropy of entanglement) are monotones *because* of data processing, and the
+  Holevo bound is a corollary as well.
+
+Historically, the hard analytic input behind all of these is Lieb's 1973 concavity
+theorem; everything above is downstream of some Lieb-type trace convexity. The
+accompanying literature note gives references and compares proof routes.
+
+## Where this sits in PhysLean
+
+In the `QuantumInfo` library, states are `MState d` — positive-semidefinite Hermitian
+matrices of trace one over a finite index type `d`
+(`QuantumInfo/States/Mixed/MState.lean`) — and entropic quantities take values in
+`ℝ≥0∞`, so the infinite case is a value, not a side condition. The Umegaki entropy `𝐃`
+is *defined* (`QuantumInfo/Entropy/Relative.lean`) as the $\alpha = 1$ member of the
+sandwiched Rényi family $\widetilde D_\alpha$. The file `QuantumInfo/Entropy/DPI.lean`
+already contained substantial machinery for that family:
+
+- the trace functional $\widetilde Q_\alpha(\rho\|\sigma) =
+  \operatorname{Tr}[(\sigma^\gamma\rho\,\sigma^\gamma)^\alpha]$,
+  $\gamma = (1-\alpha)/(2\alpha)$, and its **joint convexity for $\alpha > 1$**
+  (`sandwichedTraceFunctional_jointly_convex`), proved by the Frank–Lieb variational
+  argument on top of Lieb–Ando trace theorems formalized in
+  `QuantumInfo/ForMathlib/HayataGroup/TraceInequality/`;
+- **continuity of $\alpha \mapsto \widetilde D_\alpha(\rho\|\sigma)$ on $(0,\infty)$**
+  (`sandwichedRelRentropy.continuousOn`), i.e. the $\alpha \to 1$ limit recovering the
+  Umegaki entropy;
+- the data-processing inequality for $\widetilde D_\alpha$, $\alpha \ge 1$.
+
+`qRelativeEnt_joint_convexity` itself had long been an open `sorry` (marked
+`@[sorryful]`) in `Relative.lean`. The present contribution closes it by an
+$\alpha \to 1^+$ limit over the existing machinery, in the same pattern by which the
+library already obtains the $\alpha = 1$ DPI from the $\alpha > 1$ case; the theorem now
+lives in `DPI.lean` because `Relative.lean` cannot import that file without a cycle. No
+new deep analytic input is introduced — the heavy lifting (Lieb-type concavity) was
+already formalized. What is new is the limit argument itself, including the degenerate
+mixing weights ($p \in \{0,1\}$) and the infinite-value cases that the `ℝ≥0∞`-valued
+statement forces one to treat explicitly.
+
+Two statement-design points for readers coming from the physics literature: mixtures are
+written with the `Mixable` typeclass (`p [ρ₁ ↔ ρ₂]`), because `MState` is not an
+additive monoid and Mathlib's `ConvexOn` therefore does not apply directly; and the
+theorem is stated for binary mixtures (finite mixtures follow by the usual induction but
+are not separately formalized for `𝐃`, though the underlying $\widetilde Q_\alpha$ lemma
+is already stated for arbitrary finite families). SSA is proved independently elsewhere
+in the library (`QuantumInfo/Entropy/SSA.lean`, via purification and weak monotonicity),
+so this theorem completes the convexity corner of the standard picture rather than
+serving as SSA's source. The proof introduces no new axioms: `#print axioms` reports only
+`propext`, `Classical.choice`, `Quot.sound`.

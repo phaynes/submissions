@@ -1,0 +1,353 @@
+---
+title: "Joint convexity of the Umegaki relative entropy"
+subtitle: "The Lean proof of `qRelativeEnt_joint_convexity`, written conventionally"
+format: html
+---
+
+This note renders the Lean proof of `qRelativeEnt_joint_convexity`
+(`QuantumInfo/Entropy/DPI.lean`, line ~1488 as of commit `bb18f8dc`) as a mathematician
+would write it on paper. The structure of the argument below follows the Lean proof
+step for step; Lean identifiers are given in `code font` at the point where they are
+used. Nothing is included that is not in the formal proof, and the two pre-existing
+ingredients it relies on (joint convexity of the trace functional, and continuity in
+$\alpha$) are stated as propositions with their own provenance.
+
+## 1. Setting and conventions
+
+Throughout, $d$ is a finite index set and states live on $\mathbb{C}^d$.
+
+- A **state** (`MState d`, `QuantumInfo/States/Mixed/MState.lean:63`) is a Hermitian
+  matrix $\rho \ge 0$ with $\operatorname{Tr}\rho = 1$.
+- For $A \ge 0$ and $r \in \mathbb{R}$, the power $A^r$ is defined by functional
+  calculus with $0^r := 0$ for $r \neq 0$ (`HermitianMat.rpow`,
+  `QuantumInfo/ForMathlib/HermitianMat/Rpow.lean:45`); negative powers are therefore
+  Moore–Penrose-style powers on the support. Likewise $\log A$ is taken on the support.
+- We write $\operatorname{supp}\rho \subseteq \operatorname{supp}\sigma$ for the support
+  (= range) inclusion of PSD matrices; in Lean this is the kernel inclusion
+  `σ.M.ker ≤ ρ.M.ker`.
+- Entropies take values in $[0, \infty]$ (`ℝ≥0∞`), with the conventions
+  $a \cdot \infty = \infty$ for $a \neq 0$ and $0 \cdot \infty = 0$.
+- $p$ ranges over `Prob` $= \{p \in \mathbb{R} \mid 0 \le p \le 1\}$
+  (`QuantumInfo/ClassicalInfo/Prob.lean:36`). The mixture notation `p [ρ₁ ↔ ρ₂]`
+  (`Mixable.mix`, `Prob.lean:267`) denotes the state whose matrix is
+  $p\rho_1 + (1-p)\rho_2$. In the theorem statement, `1 - p` on the right-hand side is
+  truncated subtraction in `ℝ≥0∞`, which equals the real $1-p$ since $p \le 1$.
+- $\log$ is the natural logarithm.
+
+## 2. Definitions
+
+**Definition 1 (Umegaki relative entropy; `qRelativeEnt`, notation `𝐃`,
+`Relative.lean:1497`).**
+$$
+D(\rho\,\|\,\sigma) \;=\;
+\begin{cases}
+\operatorname{Tr}\!\bigl[\rho\,(\log\rho - \log\sigma)\bigr]
+  & \text{if } \operatorname{supp}\rho \subseteq \operatorname{supp}\sigma,\\[2pt]
++\infty & \text{otherwise.}
+\end{cases}
+$$
+(In Lean, `𝐃(ρ‖σ)` is *defined* as `D̃_1(ρ‖σ)`, the $\alpha = 1$ member of the next
+definition; the identification with the trace formula under the support condition is
+`qRelativeEnt_ker`, `Relative.lean:1782`.)
+
+**Definition 2 (sandwiched Rényi relative entropy; `SandwichedRelRentropy`, notation
+`D̃_α`, `Relative.lean:1480`).** For $\alpha > 0$, set
+$\gamma := \frac{1-\alpha}{2\alpha}$. If
+$\operatorname{supp}\rho \not\subseteq \operatorname{supp}\sigma$, then
+$\widetilde D_\alpha(\rho\|\sigma) := +\infty$. Otherwise
+$$
+\widetilde D_\alpha(\rho\,\|\,\sigma) \;:=\;
+\begin{cases}
+\dfrac{1}{\alpha - 1}\,
+  \log \operatorname{Tr}\!\bigl[(\sigma^{\gamma}\rho\,\sigma^{\gamma})^{\alpha}\bigr]
+  & \alpha \neq 1,\\[6pt]
+\operatorname{Tr}\!\bigl[\rho\,(\log\rho - \log\sigma)\bigr] & \alpha = 1,
+\end{cases}
+$$
+a nonnegative quantity (`sandwichedRelRentropy_nonneg`). (For $\alpha \le 0$ the Lean
+definition returns the junk value $0$; only $\alpha \ge 1$ is used here.)
+
+**Definition 3 (sandwiched trace functional; `sandwichedTraceFunctional`, notation
+`Q̃_α`, `DPI.lean:66`).** For $\alpha \in \mathbb{R}$ and
+$\gamma = \frac{1-\alpha}{2\alpha}$,
+$$
+\widetilde Q_\alpha(\rho\,\|\,\sigma) \;:=\;
+\operatorname{Tr}\!\bigl[(\sigma^{\gamma}\rho\,\sigma^{\gamma})^{\alpha}\bigr]
+\;\in\; \mathbb{R}.
+$$
+For $0 < \alpha \neq 1$ and $\operatorname{supp}\rho \subseteq \operatorname{supp}\sigma$
+one has (`sandwichedRelRentropy_eq_log_traceFunctional`, `DPI.lean:78`)
+$$
+\widetilde D_\alpha(\rho\|\sigma)
+= \Bigl[\tfrac{1}{\alpha-1}\log \widetilde Q_\alpha(\rho\|\sigma)\Bigr]^{+}
+\quad\text{(as an element of } [0,\infty],\ \text{via ofReal)}.
+$$
+
+## 3. Theorem
+
+**Theorem (`qRelativeEnt_joint_convexity`, `DPI.lean:1488`).**
+For all states $\rho_1, \rho_2, \sigma_1, \sigma_2$ on $\mathbb{C}^d$ and all
+$p \in [0,1]$, writing $\bar\rho := p\rho_1 + (1-p)\rho_2$ and
+$\bar\sigma := p\sigma_1 + (1-p)\sigma_2$,
+$$
+D(\bar\rho\,\|\,\bar\sigma) \;\le\;
+p\,D(\rho_1\|\sigma_1) \;+\; (1-p)\,D(\rho_2\|\sigma_2)
+$$
+as an inequality in $[0,\infty]$.
+
+```lean
+theorem qRelativeEnt_joint_convexity :
+    ∀ (ρ₁ ρ₂ σ₁ σ₂ : MState d), ∀ (p : Prob),
+      𝐃(p [ρ₁ ↔ ρ₂]‖p [σ₁ ↔ σ₂]) ≤ p * 𝐃(ρ₁‖σ₁) + (1 - p) * 𝐃(ρ₂‖σ₂)
+```
+
+## 4. Ingredients
+
+The proof consumes two substantial pre-existing results (A, B), one elementary matrix
+lemma (C), and two scalar inequalities from Mathlib (D). Only Lemma E and the assembly
+in §5 are new in this contribution.
+
+**Proposition A (joint convexity of $\widetilde Q_\alpha$, $\alpha > 1$;
+`sandwichedTraceFunctional_jointly_convex`, `DPI.lean:568`, pre-existing).**
+Let $\alpha > 1$, let $\iota$ be a finite index set, let $w_i \ge 0$ with
+$\sum_i w_i = 1$, and let $(\rho_i)$, $(\sigma_i)$ be states with
+$\operatorname{supp}\rho_i \subseteq \operatorname{supp}\sigma_i$ for every $i$. If
+$\bar\rho, \bar\sigma$ are states with $\bar\rho = \sum_i w_i \rho_i$ and
+$\bar\sigma = \sum_i w_i \sigma_i$ as matrices, then
+$$
+\widetilde Q_\alpha(\bar\rho\,\|\,\bar\sigma) \;\le\;
+\sum_i w_i\, \widetilde Q_\alpha(\rho_i\|\sigma_i).
+$$
+*Proof route (already formalized; sketch only).* For $\alpha > 1$ and
+$\operatorname{supp}\rho \subseteq \operatorname{supp}\sigma$ one has the variational
+formula (`traceFunctional_eq_iSup_f_alpha`, `DPI.lean:434`)
+$$
+\widetilde Q_\alpha(\rho\|\sigma) = \sup_{H \ge 0} f_\alpha(H, \rho, \sigma),
+\qquad
+f_\alpha(H,\rho,\sigma) = \alpha \operatorname{Tr}[\rho H]
+  - (\alpha - 1) \operatorname{Tr}\!\bigl[(\sigma^{-\gamma} H
+  \sigma^{-\gamma})^{\alpha/(\alpha-1)}\bigr]
+$$
+(`f_alpha`, `DPI.lean:174`), the supremum being attained at
+$\hat H = \sigma^{\gamma}(\sigma^{\gamma}\rho\,\sigma^{\gamma})^{\alpha-1}\sigma^{\gamma}$.
+For fixed $H \ge 0$, $f_\alpha$ is linear in $\rho$ and convex in $\sigma$: with
+$s := -\gamma = \frac{\alpha-1}{2\alpha} \in (0, \tfrac12)$ and
+$q := \frac{\alpha}{\alpha-1} > 1$, the map
+$\sigma \mapsto \operatorname{Tr}[(\sigma^{s} H \sigma^{s})^{q}]$ is concave on the PSD
+cone (`HermitianMat.trace_conj_rpow_concave`,
+`QuantumInfo/ForMathlib/HermitianMat/LiebConcavity.lean:494`, itself derived from the
+Lieb–Ando trace theorems formalized in
+`QuantumInfo/ForMathlib/HayataGroup/TraceInequality/LiebAndoTrace.lean`), and it enters
+$f_\alpha$ with the negative coefficient $-(\alpha-1)$. Hence each
+$f_\alpha(H,\cdot,\cdot)$ is jointly convex (`f_alpha_jointly_convex`, `DPI.lean:494`),
+and a pointwise supremum of jointly convex functions is jointly convex
+(`iSup_f_alpha_jointly_convex`, `DPI.lean:527`). This is the Frank–Lieb variational
+argument in the form used by Leditzky–Rouzé–Datta; see the literature note. $\square$
+
+**Proposition B (continuity in $\alpha$; `sandwichedRelRentropy.continuousOn`,
+`Relative.lean:1769`, pre-existing).** For fixed states $\rho, \sigma$, the map
+$\alpha \mapsto \widetilde D_\alpha(\rho\|\sigma)$ is continuous on $(0,\infty)$
+(with respect to the order topology on $[0,\infty]$). The consequence used below is:
+$$
+\widetilde D_\alpha(\rho\|\sigma) \longrightarrow \widetilde D_1(\rho\|\sigma)
+= D(\rho\|\sigma) \qquad (\alpha \to 1^{+}).
+$$
+Note that since $\widetilde D_1 := D$ *by definition*, the $\alpha \to 1$ convergence of
+the sandwiched Rényi entropy to the Umegaki entropy is precisely the content of this
+continuity theorem; it is a genuine analytic fact proved earlier in the library, not a
+definitional triviality.
+
+**Lemma C (kernels of weighted sums; `HermitianMat.ker_weighted_sum_le`,
+`DPI.lean:545`).** If $w_i \ge 0$, all $\rho_i, \sigma_i \ge 0$, and
+$\operatorname{supp}\rho_i \subseteq \operatorname{supp}\sigma_i$ for all $i$, then
+$\operatorname{supp}\bigl(\sum_i w_i\rho_i\bigr) \subseteq
+\operatorname{supp}\bigl(\sum_i w_i\sigma_i\bigr)$.
+
+**Scalar facts D (Mathlib).**
+(i) $\log x \le x - 1$ for $x > 0$ (`Real.log_le_sub_one_of_pos`).
+(ii) $|e^x - 1 - x| \le x^2$ for $|x| \le 1$ (`Real.abs_exp_sub_one_sub_id_le`); in
+particular $e^x - 1 \le x + x^2$ there.
+
+Also used: strict positivity $\widetilde Q_\alpha(\rho\|\sigma) > 0$ under the support
+condition (`sandwichedTraceFunctional_pos`, `DPI.lean:100`).
+
+## 5. The key new lemma: a convergent majorant for the difference quotient
+
+**Lemma E (`sandwichedTraceFunctional_sub_one_div_eventually_le`, `DPI.lean:1425`,
+new).** Let $\rho, \sigma$ be states with
+$\operatorname{supp}\rho \subseteq \operatorname{supp}\sigma$ (so
+$D(\rho\|\sigma) < \infty$). Then there is a function $u : \mathbb{R} \to \mathbb{R}$
+with
+$$
+u(\alpha) \xrightarrow[\alpha \to 1^{+}]{} D(\rho\|\sigma)
+\qquad\text{and}\qquad
+\frac{\widetilde Q_\alpha(\rho\|\sigma) - 1}{\alpha - 1} \;\le\; u(\alpha)
+\quad\text{for all } \alpha > 1 \text{ sufficiently close to } 1 .
+$$
+
+*Proof.* For $\alpha > 1$ put
+$$
+r(\alpha) := \frac{\log \widetilde Q_\alpha(\rho\|\sigma)}{\alpha - 1},
+\qquad
+x(\alpha) := (\alpha - 1)\, r(\alpha) = \log \widetilde Q_\alpha(\rho\|\sigma),
+$$
+and define $u(\alpha) := r(\alpha) + x(\alpha)\, r(\alpha)
+= r(\alpha) + (\alpha-1)r(\alpha)^2$.
+
+1. Under the support condition, $r(\alpha) \ge 0$ and
+   $\widetilde D_\alpha(\rho\|\sigma) = [r(\alpha)]^{+}$ (Definition 3 with
+   `sandwichedRelRentropy_nonneg`), and $D(\rho\|\sigma) \neq \infty$. By Proposition B,
+   $r(\alpha) \to D(\rho\|\sigma)$ (as real numbers) as $\alpha \to 1^{+}$
+   (Lean: `h_r_tendsto`, passing through `ENNReal.tendsto_toReal`).
+2. Hence $x(\alpha) = (\alpha-1) r(\alpha) \to 0$, so eventually $|x(\alpha)| \le 1$
+   (Lean: `h_eps`, `h_small`).
+3. $\widetilde Q_\alpha(\rho\|\sigma) > 0$ (positivity above), so
+   $\widetilde Q_\alpha(\rho\|\sigma) = e^{x(\alpha)}$. By D(ii), for the eventual
+   $\alpha$ of step 2,
+   $\widetilde Q_\alpha - 1 \le x(\alpha) + x(\alpha)^2$; dividing by $\alpha - 1 > 0$,
+   $$
+   \frac{\widetilde Q_\alpha(\rho\|\sigma) - 1}{\alpha - 1}
+   \;\le\; r(\alpha) + x(\alpha)\, r(\alpha) \;=\; u(\alpha).
+   $$
+4. By steps 1–2, $u(\alpha) \to D(\rho\|\sigma) + 0 \cdot D(\rho\|\sigma) =
+   D(\rho\|\sigma)$. $\blacksquare$
+
+*Heuristic remark (not part of the formal proof).* Since
+$\widetilde Q_1(\rho\|\sigma) = \operatorname{Tr}\rho = 1$, the quantity
+$(\widetilde Q_\alpha - 1)/(\alpha - 1)$ is a difference quotient whose two-sided limit
+"should" be $\frac{d}{d\alpha}\widetilde Q_\alpha\big|_{\alpha=1} = D(\rho\|\sigma)$. The
+formal proof deliberately avoids establishing differentiability: a one-sided *eventual
+upper bound by a convergent majorant* suffices for the limit argument, and that follows
+from continuity of $\widetilde D_\alpha$ alone, via the two elementary scalar bounds.
+
+## 6. Proof of the theorem
+
+Fix $\rho_1,\rho_2,\sigma_1,\sigma_2$ and $p$. The proof splits exactly as the Lean
+source does.
+
+**Step 0 — degenerate weights.** If $p = 0$, then $\bar\rho = \rho_2$,
+$\bar\sigma = \sigma_2$ (in Lean via `Mixable.mix_zero`), and the right-hand side is
+$0 \cdot D(\rho_1\|\sigma_1) + 1 \cdot D(\rho_2\|\sigma_2) = D(\rho_2\|\sigma_2)$ — note
+this uses $0 \cdot \infty = 0$, so the case is genuine, not vacuous. Equality holds.
+If $p = 1$, symmetrically $\bar\rho = \rho_1$, $\bar\sigma = \sigma_1$ (the mixture
+identity `1 [x₁ ↔ x₂] = x₁` is proved inline through injectivity of the underlying-matrix
+map, `Mixable.to_U_inj`), and the right side is $D(\rho_1\|\sigma_1)$.
+Henceforth $0 < p < 1$ (Lean: `hp0'`, `hp1'`).
+
+**Step 1 — infinite right-hand side.** Suppose
+$\operatorname{supp}\rho_1 \not\subseteq \operatorname{supp}\sigma_1$ (Lean: `hker₁`
+fails). Then $D(\rho_1\|\sigma_1) = \infty$ by Definition 1, and since $p \neq 0$,
+$p \cdot \infty = \infty$, so the right-hand side is $\infty$ and the inequality is
+trivial (`le_top`). The case
+$\operatorname{supp}\rho_2 \not\subseteq \operatorname{supp}\sigma_2$ is identical,
+using $1 - p \neq 0$. So we may assume both support conditions
+$$
+\operatorname{supp}\rho_i \subseteq \operatorname{supp}\sigma_i \quad (i = 1,2),
+$$
+whence $D(\rho_1\|\sigma_1),\, D(\rho_2\|\sigma_2) < \infty$ (Lean: `h_ne₁`, `h_ne₂`).
+
+**Step 2 — setup for the main case.** Write the mixtures as weighted sums over
+$\iota = \{1,2\}$ (Lean: `Fin 2`) with weight vector $w = (p,\, 1-p)$:
+$$
+\bar\rho = \textstyle\sum_i w_i \rho_i, \qquad \bar\sigma = \sum_i w_i \sigma_i
+$$
+as matrix identities (Lean: `hM_ρ`, `hM_σ`, by unfolding `Mixable.mix`); $w_i \ge 0$ and
+$\sum_i w_i = 1$ (`hw_nonneg`, `hw_sum`). By Lemma C,
+$\operatorname{supp}\bar\rho \subseteq \operatorname{supp}\bar\sigma$ (Lean:
+`hker_mix`). Apply Lemma E to each pair to obtain majorants $u_1, u_2$ with
+$u_i(\alpha) \to D(\rho_i\|\sigma_i)$ as $\alpha \to 1^{+}$ and, eventually,
+$(\widetilde Q_\alpha(\rho_i\|\sigma_i) - 1)/(\alpha-1) \le u_i(\alpha)$.
+
+**Step 3 — pointwise bound for $\alpha > 1$ (Lean: `h_ev`).** For $\alpha > 1$ in the
+eventual range of both majorants, using $\widetilde Q_\alpha(\bar\rho\|\bar\sigma) > 0$
+(positivity, with `hker_mix`) and Definition 3:
+$$
+\widetilde D_\alpha(\bar\rho\|\bar\sigma)
+= \Bigl[\frac{\log \widetilde Q_\alpha(\bar\rho\|\bar\sigma)}{\alpha-1}\Bigr]^{+},
+$$
+and we bound the bracketed real number:
+$$
+\begin{aligned}
+\frac{\log \widetilde Q_\alpha(\bar\rho\|\bar\sigma)}{\alpha - 1}
+&\;\le\;
+\frac{\widetilde Q_\alpha(\bar\rho\|\bar\sigma) - 1}{\alpha - 1}
+&&\text{[D(i): } \log x \le x - 1\text{]}
+\\[2pt]
+&\;\le\;
+\frac{p\,\widetilde Q_\alpha(\rho_1\|\sigma_1)
+      + (1{-}p)\,\widetilde Q_\alpha(\rho_2\|\sigma_2) - 1}{\alpha - 1}
+&&\text{[Proposition A, } \iota = \{1,2\}\text{]}
+\\[2pt]
+&\;=\;
+p\,\frac{\widetilde Q_\alpha(\rho_1\|\sigma_1) - 1}{\alpha - 1}
++ (1{-}p)\,\frac{\widetilde Q_\alpha(\rho_2\|\sigma_2) - 1}{\alpha - 1}
+&&\text{[since } p + (1{-}p) = 1\text{]}
+\\[2pt]
+&\;\le\; p\, u_1(\alpha) + (1{-}p)\, u_2(\alpha)
+&&\text{[Lemma E].}
+\end{aligned}
+$$
+Hence, eventually as $\alpha \to 1^{+}$,
+$$
+\widetilde D_\alpha(\bar\rho\|\bar\sigma) \;\le\;
+\bigl[\,p\, u_1(\alpha) + (1{-}p)\, u_2(\alpha)\,\bigr]^{+}.
+$$
+
+**Step 4 — pass to the limit $\alpha \to 1^{+}$.** By Proposition B (applied to the
+mixture pair), the left side tends to $D(\bar\rho\|\bar\sigma)$ (Lean: `h_lhs`). By
+Lemma E and continuity of $t \mapsto [t]^{+}$, the right side tends to
+$$
+\bigl[\,p\,D(\rho_1\|\sigma_1) + (1{-}p)\,D(\rho_2\|\sigma_2)\,\bigr]^{+}
+\;=\; p\,D(\rho_1\|\sigma_1) + (1{-}p)\,D(\rho_2\|\sigma_2)
+$$
+(Lean: `h_rhs`; the identification of the $[\,\cdot\,]^{+}$ of the real convex
+combination with the $[0,\infty]$-valued convex combination uses the finiteness from
+Step 1, via `ENNReal.ofReal_toReal` and friends). Since the inequality of Step 3 holds
+eventually along the (nontrivial) filter of right-neighbourhoods of $1$, the inequality
+passes to the limits (`le_of_tendsto_of_tendsto`):
+$$
+D(\bar\rho\|\bar\sigma) \;\le\; p\,D(\rho_1\|\sigma_1) + (1{-}p)\,D(\rho_2\|\sigma_2).
+\qquad\blacksquare
+$$
+
+## 7. Lean–paper dictionary
+
+| Paper object / step | Lean identifier | Location (commit `bb18f8dc`) |
+|---|---|---|
+| Umegaki $D$ | `qRelativeEnt` / `𝐃` | `Relative.lean:1497` |
+| Sandwiched $\widetilde D_\alpha$ | `SandwichedRelRentropy` / `D̃_α` | `Relative.lean:1480` |
+| Trace functional $\widetilde Q_\alpha$ | `sandwichedTraceFunctional` / `Q̃_α` | `DPI.lean:66` |
+| $\widetilde D_\alpha = [\log \widetilde Q_\alpha / (\alpha{-}1)]^{+}$ | `sandwichedRelRentropy_eq_log_traceFunctional` | `DPI.lean:78` |
+| Proposition A | `sandwichedTraceFunctional_jointly_convex` | `DPI.lean:568` |
+| — variational formula | `traceFunctional_eq_iSup_f_alpha`, `f_alpha`, `H_hat` | `DPI.lean:434, 174, 180` |
+| — concavity in $\sigma$ | `HermitianMat.trace_conj_rpow_concave` | `LiebConcavity.lean:494` |
+| Proposition B | `sandwichedRelRentropy.continuousOn` | `Relative.lean:1769` |
+| Lemma C | `HermitianMat.ker_weighted_sum_le` | `DPI.lean:545` |
+| D(i) | `Real.log_le_sub_one_of_pos` | Mathlib |
+| D(ii) | `Real.abs_exp_sub_one_sub_id_le` | Mathlib |
+| $\widetilde Q_\alpha > 0$ | `sandwichedTraceFunctional_pos` | `DPI.lean:100` |
+| Lemma E | `sandwichedTraceFunctional_sub_one_div_eventually_le` | `DPI.lean:1425` |
+| Steps 0–4 | `qRelativeEnt_joint_convexity` | `DPI.lean:1488` |
+| Step 3 | `h_ev` (with `h_convex`) | `DPI.lean:1572–1594` |
+| Step 4 | `h_lhs`, `h_rhs`, `le_of_tendsto_of_tendsto` | `DPI.lean:1548–1595` |
+
+## 8. Remarks for the reviewer
+
+- **What is new.** Lemma E and the theorem itself (§5–§6), ~190 lines added to
+  `DPI.lean`; the previously `@[sorryful]` statement was removed from `Relative.lean`.
+  Propositions A and B and all deeper inputs (Lieb–Ando trace theorems) were already in
+  the library. The theorem was placed in `DPI.lean` rather than `Relative.lean` because
+  the $\widetilde Q_\alpha$ machinery lives there and importing it from `Relative.lean`
+  would create a cycle.
+- **No differentiability is needed.** The classical way to see
+  $\widetilde D_\alpha \to D$ and to transfer convexity is to differentiate
+  $\alpha \mapsto \widetilde Q_\alpha$ at $\alpha = 1$; the formal proof replaces this by
+  the one-sided majorant of Lemma E, which needs only continuity (Proposition B) plus the
+  scalar bounds D. This is the main proof-engineering choice.
+- **The statement is the binary form.** Finite mixtures of $n$ states follow by
+  induction in the usual way, but only the $n$-ary form of Proposition A (arbitrary
+  finite `Fintype ι`) is formalized; the $\mathbf{D}$-level statement is for two pairs,
+  matching the pre-existing `sorryful` statement it closes.
+- **Axioms.** The proof is `sorry`-free; `#print axioms qRelativeEnt_joint_convexity`
+  reports only `propext`, `Classical.choice`, `Quot.sound` (recorded in the commit
+  message of `bb18f8dc`).
