@@ -6,7 +6,7 @@
 
 set -u
 here="$(cd "$(dirname "$0")" && pwd)"
-S="$here/../preparation/Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy"
+S="$here/../submitted/Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy"
 out="$here/srs-results.txt"
 
 # requirement | artifact path (relative to S, or repo-relative with @) | met|partial

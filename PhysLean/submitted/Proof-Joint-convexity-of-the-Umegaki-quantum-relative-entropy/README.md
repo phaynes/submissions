@@ -7,9 +7,9 @@ This directory is the reviewer packet for a single-concept contribution to
 reviewer can understand and verify the work with the least possible effort — one
 command reproduces every check.
 
-> **Status:** prepared and self-checked; the pull request has **not** yet been opened.
-> This is a staging area — see the [repository README](../../../README.md) for how
-> reviewer contact is handled.
+> **Status:** submitted upstream. This packet is the reviewer-facing material for the
+> pull request; it was prepared and self-checked here first (see the
+> [repository README](../../../README.md) for how reviewer contact is handled).
 
 ### In this directory
 

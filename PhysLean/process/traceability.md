@@ -5,7 +5,7 @@ current submission (Joint convexity of the Umegaki quantum relative entropy). Pa
 relative to this `PhysLean/process/` directory. Presence of each artifact is checked by
 [`check-srs.sh`](check-srs.sh); see [`srs-results.txt`](srs-results.txt).
 
-Let `S = ../preparation/Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy`.
+Let `S = ../submitted/Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy`.
 
 | Requirement | Evidence artifact | Status |
 |---|---|---|
