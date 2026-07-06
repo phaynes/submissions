@@ -3,16 +3,15 @@ Fresh Lean verification transcript — qRelativeEnt_joint_convexity
 
 Generated: 2026-07-06
 Checkout:  physlib (QuantumInfo half)
-Branch:    feature/surfaces-torus-ellipsoid
-Commit:    db52bba8de15ef704c92bfae35bde885ac3052c7
-           (the qRelativeEnt_joint_convexity proof landed in commit bb18f8dc;
-            db52bba8 sits on top of it and touches only PhyslibAlpha surfaces,
-            not QuantumInfo, so it does not affect the checks below.)
+Branch:    feat/qrelent-joint-convexity
+Commit:    bb18f8dc7833d18485cf66a0fd2846132267de57
 Toolchain: leanprover/lean4:v4.31.0
 Theorem:   QuantumInfo/Entropy/DPI.lean:1488
 
-This is a freshly generated transcript (not a recorded past build). Each
-command below was run in the checkout above and its real output captured.
+This is the submission branch: its diff against master is exactly the
++191 / -15 of this PR (QuantumInfo/Entropy/DPI.lean and Relative.lean),
+with no other commits on top. Each command below was run in this checkout
+and its real output captured.
 
 ----------------------------------------------------------------
 1. #print axioms  (kernel-level; the decisive check)
@@ -22,31 +21,39 @@ $ printf 'import QuantumInfo.Entropy.DPI
 ' | lake env lean --stdin
 'qRelativeEnt_joint_convexity' depends on axioms: [propext, Classical.choice, Quot.sound]
 
-=> depends only on [propext, Classical.choice, Quot.sound]; NO sorryAx.
+=> depends only on [propext, Classical.choice, Quot.sound]; no sorryAx.
    No sorry/admit anywhere in the proof or its dependency chain.
 
 ----------------------------------------------------------------
-2. lake build
+2. lake build (module)
 ----------------------------------------------------------------
 $ lake build QuantumInfo.Entropy.DPI
 Build completed successfully (8617 jobs).
 
+   (This builds the changed module and its dependencies, not the whole
+    library; that is what the PR touches.)
+
 ----------------------------------------------------------------
-3. Style lint  (scripts/lint-style.py on the two changed files)
+3. lake exe lint_all
 ----------------------------------------------------------------
-$ python3 scripts/lint-style.py QuantumInfo/Entropy/DPI.lean QuantumInfo/Entropy/Relative.lean
+$ lake exe lint_all
+exit code: 0 (clean — no lint findings).
+   (On this machine the run also emits two ld64.lld 'architecture arm64
+    incompatible with x86_64' LINKER warnings from prebuilt vendored libs
+    in .lake/packages; these are a local toolchain artifact, unrelated to
+    the proof or to linting.)
 
-Interpretation (the linter scans WHOLE files, so most hits pre-date this PR):
+----------------------------------------------------------------
+4. scripts/lint-style.sh  (the style linter PhysLean CI runs)
+----------------------------------------------------------------
+$ ./scripts/lint-style.sh
+exit code: 0 (clean).
 
-  * DPI.lean: this PR adds lines 1402-1596. Lint hits IN THAT ADDED RANGE:
-        (none) — the added proof introduces zero new lint errors.
-    The 3 DPI.lean hits outside that range are pre-existing:
-        QuantumInfo/Entropy/DPI.lean:266 : ERR_LIN : Line has more than 100 characters
-        QuantumInfo/Entropy/DPI.lean:1 : ERR_NUM_LIN : 1700 file contains 1595 lines, try to split it up
-        QuantumInfo/Entropy/DPI.lean:12 : ERR_MOD : Module docstring missing, or too late
-
-  * Relative.lean: this PR only DELETES 15 lines (at 2106); it adds none.
-    The file already carries 365 pre-existing lint lines, unaffected by the deletion.
-
-  Net: the change introduces NO new style-lint errors. It does not fix the
-  substantial pre-existing lint debt in these files (out of scope).
+   Note on scope: lint-style.sh lints the QuantumInfo/Physlib files that
+   are NOT in scripts/LinterExemption.txt. QuantumInfo/Entropy/DPI.lean and
+   QuantumInfo/Entropy/Relative.lean are BOTH on that exemption list
+   upstream (the library is being brought into style conformance
+   file-by-file), so CI does not style-lint them today. Running
+   scripts/lint-style.py directly on the two changed files (bypassing the
+   exemption) shows: the +191 added lines introduce no new ERR_LIN; the
+   pre-existing lint in both files predates this PR and is out of scope.

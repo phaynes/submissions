@@ -8,8 +8,8 @@ transcript of checks 2–4 is in [`lean-run.txt`](lean-run.txt).
 |---|---|---|
 | 1 | Statement diff vs master | **matches the original stub** after proof-body + attribute removal — no hypothesis or conclusion changed |
 | 2 | `#print axioms qRelativeEnt_joint_convexity` | `[propext, Classical.choice, Quot.sound]` — **no `sorryAx`** |
-| 3 | `lake build` of the module | **green** (`Build completed successfully`) |
-| 4 | `lint-style.py` on the two changed files | the **added lines introduce no new `ERR_LIN`**; the pre-existing lint debt in `DPI.lean` (e.g. `:266`) and `Relative.lean` is left untouched and is out of scope |
+| 3 | `lake build QuantumInfo.Entropy.DPI` | **green** (`Build completed successfully`) — the changed module, not the whole library |
+| 4 | `lint_all` and `scripts/lint-style.sh` | **both clean** (exit 0). The two changed files are on the upstream `LinterExemption.txt`, so `lint-style.sh` does not style-lint them today; run directly with `lint-style.py`, the added lines still add no new `ERR_LIN` |
 
 Check 2 is the strongest: it is a property of the Lean kernel, not of any tool that
 could be worked around. See

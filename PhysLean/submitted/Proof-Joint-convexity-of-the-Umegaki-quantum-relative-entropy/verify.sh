@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Reviewer's one-command local verification for the qRelativeEnt_joint_convexity
-# submission to PhysLean. Reproduces the author's adversarial checks so you don't
-# have to reconstruct whether the proof is real: it proves it to you.
+# Reviewer-local verification for the qRelativeEnt_joint_convexity submission to
+# PhysLean. Reproduces the author's checks locally so you can confirm the result
+# without reconstructing it by hand.
 #
 # Usage:
 #   ./verify.sh /path/to/your/physlib/checkout        # on branch feat/qrelent-joint-convexity
@@ -16,9 +16,12 @@
 #   3. The module builds.
 #   4. (optional, slow) `lake exe lint_all` is clean.
 #
-# Exit code 0 = all mandatory checks pass. Check 1 FAILS (does not pass) if either
-# statement cannot be extracted or they differ; set ALLOW_STMT_MISMATCH=1 only to
-# force past an extraction problem you have manually confirmed is benign.
+# Exit code 0 = all mandatory checks pass. Checks 1 and 2 FAIL (do not pass) on anything
+# unexpected:
+#   * check 1 fails if either statement cannot be extracted or they differ — set
+#     ALLOW_STMT_MISMATCH=1 to force past an extraction problem you have confirmed benign;
+#   * check 2 fails on sorryAx, and also on an axiom set other than the standard three —
+#     set ALLOW_EXTRA_AXIOMS=1 if a different (but sorryAx-free) axiom set is expected.
 
 set -uo pipefail
 
@@ -81,7 +84,11 @@ if printf '%s' "$AXOUT" | grep -q 'sorryAx'; then
 elif printf '%s' "$AXOUT" | grep -q "depends on axioms: \[propext, Classical.choice, Quot.sound\]"; then
   pass "clean axiom base — no sorry/admit anywhere in the dependency chain"
 elif printf '%s' "$AXOUT" | grep -q 'depends on axioms'; then
-  pass "no sorryAx (note: axiom set differs from the standard three — inspect above)"
+  if [ "${ALLOW_EXTRA_AXIOMS:-0}" = "1" ]; then
+    pass "no sorryAx; axiom set differs from the standard three — accepted via ALLOW_EXTRA_AXIOMS=1 (inspect above)"
+  else
+    fail "unexpected axiom set — no sorryAx, but not the standard [propext, Classical.choice, Quot.sound] (inspect above; set ALLOW_EXTRA_AXIOMS=1 if intended)"
+  fi
 else
   fail "could not run #print axioms (is the toolchain set up? try 'lake build' first)"
 fi

@@ -5,7 +5,7 @@
 This directory is the reviewer packet for a single-concept contribution to
 [PhysLean](https://github.com/leanprover-community/physlib). It is designed so the
 reviewer can understand and verify the work with the least possible effort — one
-command reproduces every check.
+command reproduces the mandatory checks (set `LINT=1` to also run `lint_all`).
 
 > **Status:** ready for upstream submission — prepared, self-checked, and verified
 > against a live Lean toolchain (see [`evidence/lean-run.txt`](evidence/lean-run.txt));
@@ -18,7 +18,7 @@ command reproduces every check.
 |---|---|
 | [`PR-BODY.md`](PR-BODY.md) | The pull-request description, written for a reviewer seeing this cold. |
 | [`proof/`](proof/) | The added Lean as an excerpt, plus the exact `+191/−15` patch. |
-| [`verify.sh`](verify.sh) | One command that reproduces every check (see §4). |
+| [`verify.sh`](verify.sh) | One command that reproduces the mandatory checks; `LINT=1` adds `lint_all` (see §4). |
 | [`docs/`](docs/) | Physics brief, conventional-maths writeup, literature comparison (`.qmd` + rendered `.pdf`). |
 | [`paper/`](paper/) | The conventional-maths proof as a standalone paper (`.qmd` + `.pdf`), plus [`paper/original/`](paper/original/) recording the classical source (Lindblad 1974). |
 | [`test/`](test/) | Fidelity and source-comparison checks that the paper faithfully tracks the Lean proof and the literature. |
@@ -35,8 +35,8 @@ quantum information theory: **joint convexity of the Umegaki quantum relative en
 $$\mathbf{D}\big(p[\rho_1\!\leftrightarrow\!\rho_2]\,\|\,p[\sigma_1\!\leftrightarrow\!\sigma_2]\big)\;\le\;p\,\mathbf{D}(\rho_1\|\sigma_1)+(1-p)\,\mathbf{D}(\rho_2\|\sigma_2).$$
 
 This submission **proves it** (removes the `sorry`), with no new axioms and no
-weakening of the statement. The proof route is standard and honest: it uses the
-already-proved **joint convexity of the sandwiched Rényi trace functional** `Q̃_α`
+weakening of the statement. The proof route uses the already-proved **joint convexity
+of the sandwiched Rényi trace functional** `Q̃_α`
 and takes the **α → 1⁺ limit**, in which the sandwiched Rényi relative entropy
 converges to the Umegaki relative entropy.
 
@@ -75,8 +75,8 @@ Four independent checks, in increasing strength. All are reproduced by
 |---|---|---|---|
 | 1 | **Statement diff vs master** | A silently *weakened* theorem (proving something easier than the original `sorry`) | ✅ matches original stub (proof body + attributes removed; no hypothesis/conclusion changed) |
 | 2 | **`#print axioms`** (kernel-level) | A hidden `sorry`/`admit` anywhere in the proof **or its dependency chain** (`sorryAx` would appear) | ✅ `[propext, Classical.choice, Quot.sound]` — **no `sorryAx`** |
-| 3 | **`lake build`** of the module | Broken code; downstream breakage | ✅ builds (full library green) |
-| 4 | **`scripts/lint-style.sh` / `lint_all`** | Style/convention violations PhysLean CI enforces | ✅ the added lines introduce **zero new** `ERR_LIN`; the pre-existing lint in `DPI.lean` (e.g. `:266`) and `Relative.lean` predates this PR and is left untouched |
+| 3 | **`lake build`** of the module | Broken code; downstream breakage | ✅ `QuantumInfo.Entropy.DPI` builds (`Build completed successfully`) |
+| 4 | **`scripts/lint-style.sh` / `lint_all`** | Style/convention violations PhysLean CI enforces | ✅ both clean (exit 0). Note the two changed files are on the upstream `LinterExemption.txt`, so `lint-style.sh` does not style-lint them today; run directly, the added lines still add no new `ERR_LIN` |
 
 Check #2 is the strongest: it is a property of the Lean *kernel*, not of any tool that
 could be worked around — `#print axioms` reports no `sorryAx`. A clean build alone is
@@ -85,7 +85,7 @@ proof step (per `AI-POLICY.md`).
 
 ---
 
-## 4. Reproduce every check with one command
+## 4. Reproduce the checks with one command
 
 ### 4.1 The reviewer script
 
