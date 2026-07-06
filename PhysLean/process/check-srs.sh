@@ -20,6 +20,8 @@ rows=(
   "FR-SUB-005|test/fidelity-check.sh|met"
   "FR-SUB-005|test/fidelity-results.txt|met"
   "FR-SUB-006|test/literature-correspondence.md|met"
+  "FR-SUB-006|test/source-comparison.md|met"
+  "FR-SUB-006|test/results.txt|met"
   "FR-SUB-006|docs/literature.qmd|met"
   "FR-SUB-007|README.md|met"
   "FR-SUB-008|evidence/build-environment.md|partial"

@@ -1,19 +1,22 @@
 # Proof correspondence — tests
 
-Two questions a reviewer might reasonably ask about the accompanying paper
+Three questions a reviewer might reasonably ask about the accompanying paper
 ([`../paper/joint-convexity-proof.qmd`](../paper/joint-convexity-proof.qmd) →
 [PDF](../paper/joint-convexity-proof.pdf)):
 
 1. **Does the paper faithfully track the Lean proof** — i.e. is the human-readable
    argument the *same* proof that Lean checks, not a different or hand-wavy one?
-2. **How does our proof route relate to the published literature** — is the result and
+2. **Does the paper agree with the authoritative literature** — are its definitions,
+   theorem, and correctness claims what the credible sources actually state?
+3. **How does our proof route relate to the published literature** — is the result and
    its method properly located against what is already known?
 
-These are answered by two artifacts here.
+These are answered by three artifacts here.
 
 | Test | What it checks | How | Result |
 |---|---|---|---|
 | [`fidelity-check.sh`](fidelity-check.sh) | Every Lean identifier the paper names as a proof step actually appears in the extracted Lean proof, and vice-versa for the new declarations. | Machine-runnable grep over the paper and `../proof/`. | [`fidelity-results.txt`](fidelity-results.txt) |
+| [`source-comparison.md`](source-comparison.md) + [`compare-sources.sh`](compare-sources.sh) | Each load-bearing claim in the paper (Umegaki formula, the theorem, DPI/SSA equivalence, route, axioms) vs the authoritative source — with a per-row verdict **and** the basis (source-read / standard / kernel). The script confirms the formula/theorem/axioms/route are stated consistently across paper, Lean, and brief. | Claim-by-claim table (Wilde lecture + Tropp read this session) + machine consistency check. | [`results.txt`](results.txt); 8/8 claims agree |
 | [`literature-correspondence.md`](literature-correspondence.md) | Our α→1⁺ route vs the classical Lindblad/Lieb route — same theorem, documented method, honest differences. | Structured correspondence table sourced from `../docs/literature.qmd`. | in-document |
 
 ## 1. Fidelity: paper ↔ Lean

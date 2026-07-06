@@ -12,11 +12,13 @@ FR-SUB-004    met      yes    paper/joint-convexity-proof.pdf
 FR-SUB-005    met      yes    test/fidelity-check.sh
 FR-SUB-005    met      yes    test/fidelity-results.txt
 FR-SUB-006    met      yes    test/literature-correspondence.md
+FR-SUB-006    met      yes    test/source-comparison.md
+FR-SUB-006    met      yes    test/results.txt
 FR-SUB-006    met      yes    docs/literature.qmd
 FR-SUB-007    met      yes    README.md
 FR-SUB-008    partial  yes    evidence/build-environment.md
 FR-SUB-009    met      yes    PR-BODY.md
 FR-SUB-010    met      yes    PR-BODY.md
 
-artifacts present: 14    of which partial: 1    missing: 0
+artifacts present: 16    of which partial: 1    missing: 0
 RESULT: PASS — every traced evidence artifact is present (1 marked partial, none silently passed).
