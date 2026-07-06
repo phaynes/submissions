@@ -9,7 +9,7 @@ Let `S = ../submitted/Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entr
 
 | Requirement | Evidence artifact | Status |
 |---|---|---|
-| FR-SUB-001 Statement integrity | `S/evidence/checks.md` (check 1: byte-identical); `S/proof/qrelent-joint-convexity.patch` | ✅ met |
+| FR-SUB-001 Statement integrity | `S/evidence/checks.md` (check 1: statement matches stub, proof/attributes removed); `S/proof/qrelent-joint-convexity.patch` | ✅ met |
 | FR-SUB-002 Kernel soundness | `S/evidence/checks.md` (check 2: `#print axioms`, no `sorryAx`) | ✅ met |
 | FR-SUB-003 One-command repro | `S/verify.sh` | ✅ met |
 | FR-SUB-004 Human-readable proof | `S/paper/joint-convexity-proof.qmd` → `S/paper/joint-convexity-proof.pdf` | ✅ met |

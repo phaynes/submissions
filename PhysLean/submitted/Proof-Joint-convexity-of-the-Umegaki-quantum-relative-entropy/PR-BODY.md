@@ -20,12 +20,12 @@ For all `ρ₁ ρ₂ σ₁ σ₂ : MState d` and `p : Prob`:
 
     𝐃(p [ρ₁ ↔ ρ₂]‖p [σ₁ ↔ σ₂]) ≤ p * 𝐃(ρ₁‖σ₁) + (1 - p) * 𝐃(ρ₂‖σ₂)
 
-The statement is **byte-identical** to the original stub — only the proof is new. The
-route is the α → 1⁺ limit over machinery already in the library: joint convexity of the
-sandwiched trace functional (`sandwichedTraceFunctional_jointly_convex`) plus continuity
-of α ↦ D̃_α (`sandwichedRelRentropy.continuousOn`) — the same limiting pattern the
-library already uses to derive the α = 1 DPI. No new deep analytic input; no
-differentiability at α = 1 is needed (a one-sided convergent majorant suffices).
+The statement matches the original stub (only the proof is new). The route is the
+α → 1⁺ limit over machinery already in the library: joint convexity of the sandwiched
+trace functional (`sandwichedTraceFunctional_jointly_convex`) plus continuity of
+α ↦ D̃_α (`sandwichedRelRentropy.continuousOn`) — the same limiting pattern the library
+already uses to derive the α = 1 DPI. Differentiability at α = 1 is not needed; a
+one-sided convergent majorant suffices (the added private lemma below).
 
 ### Declarations added / removed
 
@@ -43,8 +43,8 @@ No new files.
 The stub lived in `Relative.lean`, but the proof needs the `Q̃_α` machinery of
 `DPI.lean`, which **imports** `Relative.lean` — proving it in place would create an
 import cycle. It is therefore proved in `DPI.lean` (new section *Joint Convexity of the
-Relative Entropy*). If you'd prefer a dedicated file or a different home, it's a
-one-line move — say the word.
+Relative Entropy*). If you'd prefer a dedicated file or a different home, it is a
+one-line move.
 
 ### Reviewer map
 
@@ -57,12 +57,13 @@ one-line move — say the word.
 
 - `#print axioms qRelativeEnt_joint_convexity` → `[propext, Classical.choice,
   Quot.sound]` — no `sorryAx`.
-- `lake build` green; `lake exe lint_all`: the diff introduces zero new lint errors
-  (the only style flag in these files is a pre-existing 127-char comment line,
-  `DPI.lean:266`, already present on `master`).
+- `lake build` green. Style lint: the **added lines introduce no new `ERR_LIN`**; the
+  pre-existing lint in `DPI.lean` (e.g. the 127-char comment at `:266`) and in
+  `Relative.lean` predates this PR and is left untouched. A fresh
+  `#print axioms` / `lake build` / lint transcript is attached as `evidence/lean-run.txt`.
 - PR size: +191/−15 (net 176) — in the guidelines' "large (100–200)" band. It is one
-  theorem's proof and does not split meaningfully further; the boundary/⊤ cases could be
-  factored into helper lemmas on request.
+  theorem's proof; the boundary and ⊤ cases could be factored into helper lemmas if you
+  prefer a smaller main body.
 
 ### AI assistance
 

@@ -7,9 +7,10 @@ This directory is the reviewer packet for a single-concept contribution to
 reviewer can understand and verify the work with the least possible effort — one
 command reproduces every check.
 
-> **Status:** submitted upstream. This packet is the reviewer-facing material for the
-> pull request; it was prepared and self-checked here first (see the
-> [repository README](../../../README.md) for how reviewer contact is handled).
+> **Status:** ready for upstream submission — prepared, self-checked, and verified
+> against a live Lean toolchain (see [`evidence/lean-run.txt`](evidence/lean-run.txt));
+> the pull request has not yet been opened. See the
+> [repository README](../../../README.md) for how reviewer contact is handled.
 
 ### In this directory
 
@@ -54,8 +55,9 @@ Two files change. Net **+191 / −15** lines. **One `sorry` closed, none introdu
 | `QuantumInfo/Entropy/Relative.lean` | **−15 lines** | The `@[sorryful] theorem qRelativeEnt_joint_convexity := by sorry` (and its `TODO` comment block) is **removed** from where the stub lived. |
 | `QuantumInfo/Entropy/DPI.lean` | **+191 lines** | The theorem, now with a full proof, is **added here** — the proof needs the sandwiched-Rényi machinery in `DPI.lean`, and `DPI` imports `Relative`, so proving it in `Relative` would create an **import cycle**. |
 
-**The statement is byte-identical** to the original stub (only the proof is new) —
-this is checked automatically by `verify.sh` (§4.1). The theorem is kept a
+**The statement matches the original stub** after removing the proof body and
+attributes — no hypothesis or conclusion was changed (only the proof is new). This
+is checked automatically by `verify.sh` (§4.1). The theorem is kept a
 `theorem` (not `lemma`) because it is a headline result, per PhysLean style.
 
 > **Note for the reviewer on placement:** `DPI.lean` was chosen over a new file
@@ -71,7 +73,7 @@ Four independent checks, in increasing strength. All are reproduced by
 
 | # | Check | What it rules out | Result |
 |---|---|---|---|
-| 1 | **Statement diff vs master** | A silently *weakened* theorem (proving something easier than the original `sorry`) | ✅ byte-identical |
+| 1 | **Statement diff vs master** | A silently *weakened* theorem (proving something easier than the original `sorry`) | ✅ matches original stub (proof body + attributes removed; no hypothesis/conclusion changed) |
 | 2 | **`#print axioms`** (kernel-level) | A hidden `sorry`/`admit` anywhere in the proof **or its dependency chain** (`sorryAx` would appear) | ✅ `[propext, Classical.choice, Quot.sound]` — **no `sorryAx`** |
 | 3 | **`lake build`** of the module | Broken code; downstream breakage | ✅ builds (full library green) |
 | 4 | **`scripts/lint-style.sh` / `lint_all`** | Style/convention violations PhysLean CI enforces | ✅ the added proof introduces **zero** `ERR_LIN`; `lint-style.py` reports only one pre-existing long line (`DPI.lean:266`, present on `master`, unrelated to this PR) |

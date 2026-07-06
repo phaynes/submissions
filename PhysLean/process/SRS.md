@@ -26,8 +26,9 @@ Out of scope: performing the mathematics; contacting reviewers (done by a human)
 ## 2. Functional requirements
 
 ### FR-SUB-001 — Statement integrity
-The submission SHALL prove the target statement **unchanged**. The formal statement
-must be byte-identical to the stub/open-problem it closes; only the proof is new.
+The submission SHALL prove the target statement **unchanged**. After removing the proof
+body and attributes, the formal statement must match the stub/open-problem it closes —
+no hypothesis or conclusion altered; only the proof is new.
 
 ### FR-SUB-002 — Kernel-level soundness
 The submission SHALL carry evidence that the proof depends on **no** `sorry`/`sorryAx`

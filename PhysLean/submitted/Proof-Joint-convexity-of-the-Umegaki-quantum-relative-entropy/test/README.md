@@ -1,4 +1,12 @@
-# Proof correspondence — tests
+# Proof correspondence — consistency smoke tests
+
+> **What these are.** The artifacts here are **consistency smoke tests**: grep- and
+> table-based structural checks that the paper, the Lean excerpt, and the literature
+> notes are describing the *same* argument and agree on the load-bearing facts. They are
+> **not** evidence of mathematical correctness — that is the job of the Lean kernel and
+> `#print axioms` (see [`../evidence/checks.md`](../evidence/checks.md), check 2, and
+> [`../evidence/lean-run.txt`](../evidence/lean-run.txt)). A green run here means the
+> documentation is internally consistent, not that the theorem is true.
 
 Three questions a reviewer might reasonably ask about the accompanying paper
 ([`../paper/joint-convexity-proof.qmd`](../paper/joint-convexity-proof.qmd) →

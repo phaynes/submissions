@@ -1,0 +1,52 @@
+Fresh Lean verification transcript — qRelativeEnt_joint_convexity
+================================================================
+
+Generated: 2026-07-06
+Checkout:  physlib (QuantumInfo half)
+Branch:    feature/surfaces-torus-ellipsoid
+Commit:    db52bba8de15ef704c92bfae35bde885ac3052c7
+           (the qRelativeEnt_joint_convexity proof landed in commit bb18f8dc;
+            db52bba8 sits on top of it and touches only PhyslibAlpha surfaces,
+            not QuantumInfo, so it does not affect the checks below.)
+Toolchain: leanprover/lean4:v4.31.0
+Theorem:   QuantumInfo/Entropy/DPI.lean:1488
+
+This is a freshly generated transcript (not a recorded past build). Each
+command below was run in the checkout above and its real output captured.
+
+----------------------------------------------------------------
+1. #print axioms  (kernel-level; the decisive check)
+----------------------------------------------------------------
+$ printf 'import QuantumInfo.Entropy.DPI
+#print axioms qRelativeEnt_joint_convexity
+' | lake env lean --stdin
+'qRelativeEnt_joint_convexity' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+=> depends only on [propext, Classical.choice, Quot.sound]; NO sorryAx.
+   No sorry/admit anywhere in the proof or its dependency chain.
+
+----------------------------------------------------------------
+2. lake build
+----------------------------------------------------------------
+$ lake build QuantumInfo.Entropy.DPI
+Build completed successfully (8617 jobs).
+
+----------------------------------------------------------------
+3. Style lint  (scripts/lint-style.py on the two changed files)
+----------------------------------------------------------------
+$ python3 scripts/lint-style.py QuantumInfo/Entropy/DPI.lean QuantumInfo/Entropy/Relative.lean
+
+Interpretation (the linter scans WHOLE files, so most hits pre-date this PR):
+
+  * DPI.lean: this PR adds lines 1402-1596. Lint hits IN THAT ADDED RANGE:
+        (none) — the added proof introduces zero new lint errors.
+    The 3 DPI.lean hits outside that range are pre-existing:
+        QuantumInfo/Entropy/DPI.lean:266 : ERR_LIN : Line has more than 100 characters
+        QuantumInfo/Entropy/DPI.lean:1 : ERR_NUM_LIN : 1700 file contains 1595 lines, try to split it up
+        QuantumInfo/Entropy/DPI.lean:12 : ERR_MOD : Module docstring missing, or too late
+
+  * Relative.lean: this PR only DELETES 15 lines (at 2106); it adds none.
+    The file already carries 365 pre-existing lint lines, unaffected by the deletion.
+
+  Net: the change introduces NO new style-lint errors. It does not fix the
+  substantial pre-existing lint debt in these files (out of scope).

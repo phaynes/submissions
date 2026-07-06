@@ -15,9 +15,12 @@ come first.
 **Rules out:** a silently *weakened* theorem — proving something easier than the
 original open problem and passing it off as the real thing.
 
-We diff the statement being proved against the stub it replaces on `master`. It must
-be **byte-identical**: only the proof is new, never the statement. This is the first
-thing to confirm, because every later check is meaningless if the statement drifted.
+We diff the statement being proved against the stub it replaces on `master`. After
+removing the proof body and attributes and normalising whitespace, the two must be
+**identical** — no hypothesis or conclusion may change; only the proof is new. (This is
+a normalised statement match, not a raw byte comparison: formatting and attributes may
+differ, the logical statement may not.) This is the first thing to confirm, because
+every later check is meaningless if the statement drifted.
 
 ### 2. `#print axioms` (the decisive check)
 **Rules out:** a hidden `sorry` / `admit` anywhere in the proof **or its entire

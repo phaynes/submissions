@@ -2,12 +2,11 @@
 
 This records the environment the proof was built in, and the evidence that it compiled.
 
-> **Honesty note.** The evidence below is a **recorded past build** — the on-disk build
-> artifact (`.olean`) produced when the proof was developed. A *freshly generated*
-> `lake build` + `#print axioms` transcript is **not** included here, because the machine
-> assembling this packet does not have the Lean toolchain (`lake`/`elan`) installed. The
-> exact commands to regenerate a fresh transcript on a Lean-equipped machine are in §4;
-> the mandatory checks are also reproduced by [`../verify.sh`](../verify.sh).
+> **Note.** This file records the *environment* the proof was built in. A freshly
+> generated `lake build` + `#print axioms` + lint transcript, produced on a
+> Lean-equipped machine against the checkout described below, is in
+> [`lean-run.txt`](lean-run.txt). The mandatory checks are also reproduced by
+> [`../verify.sh`](../verify.sh); the exact regeneration commands are in §4.
 
 ## 1. Toolchain
 
@@ -68,7 +67,7 @@ On a machine with the toolchain installed (`elan` will fetch `v4.31.0` from
 `lean-toolchain` automatically), from a `physlib` checkout on the proof branch:
 
 ```bash
-# 1. Build the module (fetches/【builds Mathlib on first run — can be lengthy)
+# 1. Build the module (fetches/builds Mathlib on first run — can be lengthy)
 lake build QuantumInfo.Entropy.DPI
 
 # 2. The decisive check: no hidden sorry anywhere in the dependency chain

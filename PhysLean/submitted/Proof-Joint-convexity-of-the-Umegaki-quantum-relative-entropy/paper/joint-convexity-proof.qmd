@@ -26,6 +26,10 @@ format:
     colorlinks: true
     pdf-engine: xelatex
     include-in-header:
+      # Every non-ASCII symbol that can appear in prose or `code` spans (not just in
+      # $...$ math) is mapped to a math glyph, or xelatex silently drops it: the text
+      # and monospace fonts contain no Greek letters, subscripts, or relation symbols.
+      # Kept in sync with docs/_pdf-format.yml.
       text: |
         \usepackage{amsmath,amssymb}
         \usepackage{unicode-math}
@@ -34,6 +38,19 @@ format:
         \newunicodechar{𝐃}{\ensuremath{\mathbf{D}}}
         \newunicodechar{ℝ}{\ensuremath{\mathbb{R}}}
         \newunicodechar{ℂ}{\ensuremath{\mathbb{C}}}
+        \newunicodechar{α}{\ensuremath{\alpha}}
+        \newunicodechar{ι}{\ensuremath{\iota}}
+        \newunicodechar{ρ}{\ensuremath{\rho}}
+        \newunicodechar{σ}{\ensuremath{\sigma}}
+        \newunicodechar{₁}{\ensuremath{{}_{1}}}
+        \newunicodechar{₂}{\ensuremath{{}_{2}}}
+        \newunicodechar{‖}{\ensuremath{\|}}
+        \newunicodechar{→}{\ensuremath{\rightarrow}}
+        \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+        \newunicodechar{∀}{\ensuremath{\forall}}
+        \newunicodechar{∞}{\ensuremath{\infty}}
+        \newunicodechar{≤}{\ensuremath{\leq}}
+        \newunicodechar{≥}{\ensuremath{\geq}}
 fig-cap-location: bottom
 ---
 
