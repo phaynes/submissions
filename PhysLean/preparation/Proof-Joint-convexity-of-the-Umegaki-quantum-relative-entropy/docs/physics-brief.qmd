@@ -106,3 +106,66 @@ in the library (`QuantumInfo/Entropy/SSA.lean`, via purification and weak monoto
 so this theorem completes the convexity corner of the standard picture rather than
 serving as SSA's source. The proof introduces no new axioms: `#print axioms` reports only
 `propext`, `Classical.choice`, `Quot.sound`.
+
+## Grounding in the literature
+
+Every physical claim above is standard and appears in the canonical references. This
+section names the credible sources so the statements are traceable; full bibliographic
+detail (with the arXiv-checked eprint corrections) is in
+[`literature.qmd`](literature.qmd). Lindblad 1974, Wilde 2017 (+ its arXiv precursor and
+licence), and the Carlen AMS listing were checked directly against Springer, Project
+Euclid, arXiv, and AMS on 2026-07-06; the remaining primary-source DOIs (Umegaki, Lieb
+1973, Lieb–Ruskai 1973) are the standard published identifiers and are given for the
+reviewer to resolve.
+
+**Primary sources (the result itself).**
+
+- **Umegaki relative entropy** — H. Umegaki, *Conditional expectation in an operator
+  algebra IV (entropy and information)*, Kōdai Math. Sem. Rep. **14** (1962), 59–85.
+- **Joint convexity of the relative entropy** — G. Lindblad, *Expectations and entropy
+  inequalities for finite quantum systems*, Commun. Math. Phys. **39** (1974), 111–119,
+  DOI [10.1007/BF01608390](https://doi.org/10.1007/BF01608390). It follows from
+- **Lieb's concavity theorem** — E. H. Lieb, *Convex trace functions and the
+  Wigner–Yanase–Dyson conjecture*, Adv. Math. **11** (1973), 267–288, DOI
+  [10.1016/0001-8708(73)90011-X](https://doi.org/10.1016/0001-8708(73)90011-X).
+- **Strong subadditivity (equivalent statement)** — E. H. Lieb, M. B. Ruskai, *Proof of
+  the strong subadditivity of quantum-mechanical entropy*, J. Math. Phys. **14** (1973),
+  1938–1941, DOI [10.1063/1.1666274](https://doi.org/10.1063/1.1666274).
+
+**Textbook / course references (the physics context — openly available).**
+
+- **M. M. Wilde**, *Quantum Information Theory*, 2nd ed., Cambridge Univ. Press (2017),
+  DOI [10.1017/9781316809976](https://doi.org/10.1017/9781316809976). Its open-access
+  precursor is *From Classical to Quantum Shannon Theory*,
+  [arXiv:1106.1445](https://arxiv.org/abs/1106.1445) (v8, 2019), **CC BY-NC-SA 3.0** —
+  covers the relative entropy, its joint convexity, and the data-processing inequality,
+  and is freely redistributable.
+- **E. A. Carlen**, *Trace inequalities and quantum entropy: an introductory course*, in
+  *Entropy and the Quantum*, Contemp. Math. **529**, Amer. Math. Soc. (2010), 73–140 —
+  the self-contained mathematical route (Lieb concavity → joint convexity → SSA);
+  [AMS listing](https://www.ams.org/books/conm/529/).
+- **M. Tomamichel**, *Quantum Information Processing with Finite Resources*,
+  SpringerBriefs in Math. Phys. **5** (2016),
+  [arXiv:1504.00233](https://arxiv.org/abs/1504.00233).
+- **M. A. Nielsen, I. L. Chuang**, *Quantum Computation and Quantum Information*, 10th
+  Anniv. ed., Cambridge Univ. Press (2010) — §11.3 (quantum relative entropy) for the
+  standard graduate treatment.
+
+### A reviewer extract (openly licensed)
+
+For the reviewer's convenience, the standard textbook statement, as a paraphrase
+attributable to Wilde's openly-licensed text
+([arXiv:1106.1445](https://arxiv.org/abs/1106.1445), CC BY-NC-SA 3.0) and the equivalent
+treatments in Carlen and Nielsen–Chuang:
+
+> The quantum relative entropy $D(\rho\|\sigma)$ is jointly convex in its two arguments,
+> and equivalently is monotone (non-increasing) under the action of any quantum channel
+> — the data-processing inequality. This statement, the monotonicity of relative entropy,
+> and the strong subadditivity of the von Neumann entropy are mutually derivable, and all
+> rest on Lieb's concavity theorem.
+
+This is exactly the statement `qRelativeEnt_joint_convexity` formalizes (the joint-
+convexity half); the monotonicity half is the library's separately-formalized DPI. No
+paywalled source is reproduced: the passage is a paraphrase grounded in the CC-licensed
+Wilde text and the open Carlen notes, with the primary sources (Lindblad, Lieb) cited by
+DOI only.
