@@ -105,9 +105,10 @@ Three honest observations about this comparison:
    entropy — e.g. the Umegaki DPI as the $\alpha \to 1$ limit of the sandwiched DPI
    [MLDSFT13; Wilde17], which is exactly how the library already proves
    `sandwichedRenyiEntropy_DPI_eq_one`. Applying the same limiting pattern to joint
-   convexity is mathematically routine and, we believe, folklore; we do not claim a
-   specific published reference whose stated result is "joint convexity of Umegaki via
-   sandwiched $\alpha \to 1^{+}$", and we are not aware of one.
+   convexity is a routine application of the standard $\alpha \to 1^{+}$ transfer
+   pattern; we do not claim a specific published reference whose stated result is
+   "joint convexity of Umegaki via sandwiched $\alpha \to 1^{+}$", and we are not aware
+   of one.
 3. **Both routes rest on the same analytic core.** Whether one goes through
    $\operatorname{Tr}[K^\dagger A^s K B^{1-s}]$ or through $\widetilde Q_\alpha$, the
    deep input is a Lieb-type trace concavity theorem [Lieb73; Ando79; Epstein73].
@@ -141,9 +142,14 @@ Entries marked **[verified]** were checked against their arXiv abstract pages (a
 where noted, the publisher's listing) on 2026-07-06: title, full author list, eprint
 number, and the journal reference/DOI as shown there. Entries marked **[memory]** are
 standard references transcribed from memory: authors, titles and venues are stated with
-confidence, but volume/page/year details should be double-checked before this note is
-published anywhere citable. (Most [memory] entries predate arXiv, so no eprint check is
-possible; none is load-bearing for the correctness claims in this packet.)
+confidence, but volume/page/year details should be double-checked before being cited
+elsewhere. (Most [memory] entries predate arXiv, so no eprint check is possible.)
+
+**None of these references is load-bearing for the correctness of the contribution.**
+The correctness evidence is the Lean kernel (`#print axioms`, no `sorryAx`) and the
+build; this section is background context only. The [memory] entries in particular are
+not citation-ready and should not be treated as verified bibliography until an author
+has confirmed the volume/page details.
 
 - **[Umegaki62]** [memory] H. Umegaki, *Conditional expectation in an operator algebra,
   IV (entropy and information)*, Kōdai Math. Sem. Rep. **14** (1962), 59–85.
