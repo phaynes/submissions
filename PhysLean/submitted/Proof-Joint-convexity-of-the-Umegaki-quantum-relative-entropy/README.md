@@ -76,11 +76,12 @@ Four independent checks, in increasing strength. All are reproduced by
 | 1 | **Statement diff vs master** | A silently *weakened* theorem (proving something easier than the original `sorry`) | ✅ matches original stub (proof body + attributes removed; no hypothesis/conclusion changed) |
 | 2 | **`#print axioms`** (kernel-level) | A hidden `sorry`/`admit` anywhere in the proof **or its dependency chain** (`sorryAx` would appear) | ✅ `[propext, Classical.choice, Quot.sound]` — **no `sorryAx`** |
 | 3 | **`lake build`** of the module | Broken code; downstream breakage | ✅ builds (full library green) |
-| 4 | **`scripts/lint-style.sh` / `lint_all`** | Style/convention violations PhysLean CI enforces | ✅ the added proof introduces **zero** `ERR_LIN`; `lint-style.py` reports only one pre-existing long line (`DPI.lean:266`, present on `master`, unrelated to this PR) |
+| 4 | **`scripts/lint-style.sh` / `lint_all`** | Style/convention violations PhysLean CI enforces | ✅ the added lines introduce **zero new** `ERR_LIN`; the pre-existing lint in `DPI.lean` (e.g. `:266`) and `Relative.lean` predates this PR and is left untouched |
 
-Check #2 is the decisive one: it is a property of the Lean *kernel*, not of any
-tool that could be gamed. No amount of clever-but-vacuous Lean can produce a clean
-`#print axioms` on a non-trivial statement.
+Check #2 is the strongest: it is a property of the Lean *kernel*, not of any tool that
+could be worked around — `#print axioms` reports no `sorryAx`. A clean build alone is
+not sufficient; the author remains responsible for the meaning of every statement and
+proof step (per `AI-POLICY.md`).
 
 ---
 

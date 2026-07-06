@@ -32,9 +32,10 @@ on. A genuine proof shows only the standard foundations —
 the special axiom `sorryAx` would appear in this list.
 
 This is the **decisive** check: it is a property of the Lean *kernel*, not of any tool
-or convention that could be gamed. No amount of clever-but-vacuous Lean can produce a
-clean `#print axioms` on a non-trivial statement. If you only have time for one check,
-this is the one.
+or convention that could be worked around. A clean build alone is not sufficient — the
+author remains responsible for the meaning of every statement and proof step — but a
+clean `#print axioms` confirms no `sorry`/`admit` is reachable. If you only have time
+for one check, this is the one.
 
 ### 3. `lake build`
 **Rules out:** code that doesn't compile, or that breaks something downstream.
