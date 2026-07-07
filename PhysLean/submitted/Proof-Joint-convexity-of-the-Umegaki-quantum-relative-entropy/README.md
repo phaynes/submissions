@@ -2,15 +2,6 @@
 
 **This submission aims to close an open `sorry`: joint convexity of the Umegaki quantum relative entropy.**
 
-This directory is the reviewer packet for a single-concept contribution to
-[PhysLean](https://github.com/leanprover-community/physlib). It is designed so the
-reviewer can understand and verify the work with the least possible effort — one
-command reproduces the mandatory checks (set `LINT=1` to also run `lint_all`).
-
-> **Status:** ready for upstream submission — prepared, self-checked, and verified
-> against a live Lean toolchain (see [`evidence/lean-run.txt`](evidence/lean-run.txt));
-> the pull request has not yet been opened. See the
-> [repository README](../../../README.md) for how reviewer contact is handled.
 
 ### In this directory
 
@@ -60,7 +51,7 @@ attributes — no hypothesis or conclusion was changed (only the proof is new). 
 is checked automatically by `verify.sh` (§4.1). The theorem is kept a
 `theorem` (not `lemma`) because it is a headline result, per PhysLean style.
 
-> **Note for the reviewer on placement:** `DPI.lean` was chosen over a new file
+> **Reviewer note:** `DPI.lean` was chosen over a new file
 > purely to avoid the import cycle. If you would prefer it in a dedicated file or
 > relocated, that is a one-line move — happy to do it.
 
@@ -78,10 +69,6 @@ Four independent checks, in increasing strength. All are reproduced by
 | 3 | **`lake build`** of the module | Broken code; downstream breakage | ✅ `QuantumInfo.Entropy.DPI` builds (`Build completed successfully`) |
 | 4 | **`scripts/lint-style.sh` / `lint_all`** | Style/convention violations PhysLean CI enforces | ✅ both clean (exit 0). Note the two changed files are on the upstream `LinterExemption.txt`, so `lint-style.sh` does not style-lint them today; run directly, the added lines still add no new `ERR_LIN` |
 
-Check #2 is the strongest: it is a property of the Lean *kernel*, not of any tool that
-could be worked around — `#print axioms` reports no `sorryAx`. A clean build alone is
-not sufficient; the author remains responsible for the meaning of every statement and
-proof step (per `AI-POLICY.md`).
 
 ---
 
@@ -93,7 +80,7 @@ proof step (per `AI-POLICY.md`).
 # on a physlib checkout switched to branch  feat/qrelent-joint-convexity
 ./verify.sh /path/to/your/physlib
 #   → checks statement-unchanged, #print axioms (no sorryAx), build.
-#   → add  LINT=1  to also run lake exe lint_all (slow).
+#   → add  LINT=1  to also run lake exe lint_all and ./scripts/lint-style.sh (slow).
 ```
 
 It prints a pass/fail for each check and exits 0 iff the mandatory checks pass.
@@ -119,12 +106,8 @@ as the requirement set, each guideline is traced to the evidence that it is met.
 | **Style — `lemma` vs `theorem`** | Kept `theorem` — it is a headline result (the guideline's stated exception). | ✅ |
 | **PR & authorship — author understands the material** | Conventional-math writeup + literature comparison in `docs/` demonstrate the argument and its provenance. | ✅ |
 | **PR & authorship — single concept** | Exactly one: joint convexity of `𝐃`. | ✅ |
-| **PR length** | +186/−15 = **171 net lines → "large PR (100–200)".** Indivisible: it is one theorem's proof and cannot be meaningfully split. Flagged honestly. | ⚠️ noted |
+| **PR length** | +186/−15 = **171 net lines → "large PR (100–200)".** Indivisible: it is one theorem's proof and cannot be meaningfully split. | ⚠️ noted |
 | **Tag system** | Will tag `t-quantumInfo` (or as directed); PR opened non-draft. | ▶ at PR time |
-
-The one ⚠️ (PR length) is disclosed rather than hidden: the proof is a single
-logical unit. If the reviewer prefers, the boundary/⊤ cases could in principle be
-factored into helper lemmas to shrink the main body — happy to do so on request.
 
 ---
 
