@@ -129,6 +129,14 @@ helper lemma.
 Developed with AI assistance. I have reviewed the theorem statement, every proof step,
 and the supporting references, and I take responsibility for the submission under
 `AI-POLICY.md`.
+
+## Supporting material (optional)
+
+A self-contained review packet — conventional-maths write-up, a one-command verifier,
+recorded evidence, and paper↔Lean fidelity checks — is public at
+<https://github.com/phaynes/submissions/tree/qrelent-pr-v1/PhysLean/submitted/Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy>.
+It is optional context; the intended review path is the code diff and the Lean checks
+above.
 ```
 
 ---
@@ -139,14 +147,17 @@ and the supporting references, and I take responsibility for the submission unde
 short.*
 
 ```markdown
-Optional supporting material for reviewers who want more context:
+Optional supporting material for reviewers who want more context — a public, self-contained
+packet (pinned to a commit so it matches this PR):
+https://github.com/phaynes/submissions/tree/qrelent-pr-v1/PhysLean/submitted/Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy
 
-- Conventional mathematical proof: explains the Lean proof step-by-step in ordinary notation.
-- Literature note: compares this `α → 1⁺` sandwiched-Rényi route with the classical
-  Lindblad/Lieb route.
-- Verification script: one-command check for statement match, `#print axioms`, and build.
-- Evidence folder: recorded check outputs and build environment.
-- Copyright note: the Lindblad 1974 PDF is not committed because it is not openly licensed.
+- Conventional mathematical proof (Lean → ordinary notation), with a Lean↔paper dictionary:
+  paper/joint-convexity-proof.pdf and docs/proof-conventional.pdf
+- Literature note comparing this α → 1⁺ sandwiched-Rényi route with the classical
+  Lindblad/Lieb route: docs/literature.pdf
+- One-command verifier (statement match, #print axioms, build): verify.sh
+- Recorded check outputs, build environment, and the exact patch: evidence/ and proof/
+- Paper↔Lean fidelity + source-consistency checks: test/
 
 These files are not required reading for the PR. The intended review path is the code diff,
 the private majorant lemma, the main theorem, and the Lean checks.
