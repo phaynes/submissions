@@ -1,4 +1,4 @@
--- EXCERPT of the added code (PhysLean branch feat/qrelent-joint-convexity, commit f901e353).
+-- EXCERPT of the added code (PhysLean branch feat/qrelent-joint-convexity, commit 720c9fff).
 -- The contribution spans three files; this excerpt collects the added declarations for reading.
 -- The exact change set is in qrelent-joint-convexity.patch (git show of the commit).
 -- Reproduce all checks with ../verify.sh <your-physlib-checkout>.
@@ -6,7 +6,7 @@
 -- Added declarations:
 --   QuantumInfo/ClassicalInfo/Prob.lean : Mixable.mix_one           (@[simp]; partner of mix_zero)
 --   QuantumInfo/Entropy/Relative.lean   : qRelativeEnt_ne_top_iff, qRelativeEnt_eq_top_iff
---   QuantumInfo/Entropy/DPI.lean        : the theorem + its supporting private lemmas (below)
+--   QuantumInfo/Entropy/DPI.lean        : the theorem + its supporting lemmas (below)
 
 -- ── QuantumInfo/ClassicalInfo/Prob.lean (added next to `mix_zero`) ──────────────
 
@@ -48,7 +48,7 @@ difference quotient tends to `𝐃(ρ‖σ)` as well (since `Q̃_α = exp ((α -
 
 /-- As `α → 1⁺`, the sandwiched Rényi relative entropy `D̃_α(ρ‖σ)` tends to the relative
 entropy `𝐃(ρ‖σ) = D̃_1(ρ‖σ)`, by continuity of `α ↦ D̃_α` on `(0, ∞)`. -/
-private lemma sandwichedRelRentropy_tendsto_qRelativeEnt (ρ σ : MState d) :
+theorem sandwichedRelRentropy_tendsto_qRelativeEnt (ρ σ : MState d) :
     Filter.Tendsto (fun α : ℝ => D̃_ α(ρ‖σ)) (𝓝[>] 1) (𝓝 𝐃(ρ‖σ)) :=
   tendsto_nhdsWithin_of_tendsto_nhds
     ((sandwichedRelRentropy.continuousOn ρ σ).continuousAt (Ioi_mem_nhds zero_lt_one))
@@ -142,18 +142,6 @@ private lemma sandwichedTraceFunctional_mix_le (hα : 1 < α) (p : Prob)
     (mix_M_eq_weighted_sum p ρ₁ ρ₂) (mix_M_eq_weighted_sum p σ₁ σ₂)
     (by intro i; fin_cases i <;> [exact hker₁; exact hker₂])
 
-/-- `ENNReal.ofReal` of a `Prob`-weighted combination of `toReal`s of finite quantities
-is the corresponding `ENNReal`-valued combination. -/
-private lemma ofReal_prob_mix_toReal (p : Prob) {x y : ENNReal} (hx : x ≠ ⊤) (hy : y ≠ ⊤) :
-    ENNReal.ofReal ((p : ℝ) * x.toReal + (1 - (p : ℝ)) * y.toReal) = p * x + (1 - p) * y := by
-  have h1p : (0 : ℝ) ≤ 1 - (p : ℝ) := by simp
-  rw [ENNReal.ofReal_add (mul_nonneg p.zero_le_coe ENNReal.toReal_nonneg)
-      (mul_nonneg h1p ENNReal.toReal_nonneg),
-    ENNReal.ofReal_mul p.zero_le_coe, ENNReal.ofReal_mul h1p,
-    ENNReal.ofReal_toReal hx, ENNReal.ofReal_toReal hy,
-    ENNReal.ofReal_sub 1 p.zero_le_coe, ENNReal.ofReal_one]
-  simp only [← Prob.ofNNReal_toNNReal]
-
 /-- Joint convexity of the quantum relative entropy.
 
 This is stated using `Mixable`, rather than `ConvexOn`, because `MState d`
@@ -196,8 +184,19 @@ theorem qRelativeEnt_joint_convexity :
   have h_rhs : Filter.Tendsto
       (fun α : ℝ => ENNReal.ofReal ((p : ℝ) * u₁ α + (1 - (p : ℝ)) * u₂ α)) (𝓝[>] 1)
       (𝓝 (p * 𝐃(ρ₁‖σ₁) + (1 - p) * 𝐃(ρ₂‖σ₂))) := by
-    rw [← ofReal_prob_mix_toReal p (qRelativeEnt_ne_top_iff.mpr hker₁)
-      (qRelativeEnt_ne_top_iff.mpr hker₂)]
+    -- The limit is the `ENNReal`-valued convex combination of the two finite `𝐃`s,
+    -- rewritten via `ofReal` of the corresponding real combination.
+    have h_id : ENNReal.ofReal ((p : ℝ) * (𝐃(ρ₁‖σ₁)).toReal
+        + (1 - (p : ℝ)) * (𝐃(ρ₂‖σ₂)).toReal) = p * 𝐃(ρ₁‖σ₁) + (1 - p) * 𝐃(ρ₂‖σ₂) := by
+      have h1p : (0 : ℝ) ≤ 1 - (p : ℝ) := by simp
+      rw [ENNReal.ofReal_add (mul_nonneg p.zero_le_coe ENNReal.toReal_nonneg)
+          (mul_nonneg h1p ENNReal.toReal_nonneg),
+        ENNReal.ofReal_mul p.zero_le_coe, ENNReal.ofReal_mul h1p,
+        ENNReal.ofReal_toReal (qRelativeEnt_ne_top_iff.mpr hker₁),
+        ENNReal.ofReal_toReal (qRelativeEnt_ne_top_iff.mpr hker₂),
+        ENNReal.ofReal_sub 1 p.zero_le_coe, ENNReal.ofReal_one]
+      simp only [← Prob.ofNNReal_toNNReal]
+    rw [← h_id]
     exact (ENNReal.continuous_ofReal.tendsto _).comp
       ((hu₁.const_mul (p : ℝ)).add (hu₂.const_mul (1 - (p : ℝ))))
   -- The pointwise bound for `α > 1`, from joint convexity of `Q̃_α` and `log x ≤ x - 1`.

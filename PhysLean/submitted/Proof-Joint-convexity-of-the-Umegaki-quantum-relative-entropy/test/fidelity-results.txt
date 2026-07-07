@@ -8,7 +8,6 @@ sandwichedTraceFunctional_sub_one_div_eventually_le  new        yes      yes
 mix_M_eq_weighted_sum                                new        yes      yes     
 ker_mix_le                                           new        yes      yes     
 sandwichedTraceFunctional_mix_le                     new        yes      yes     
-ofReal_prob_mix_toReal                               new        yes      yes     
 qRelativeEnt_joint_convexity                         new        yes      yes     
 sandwichedTraceFunctional_jointly_convex             input      yes      yes     
 sandwichedRelRentropy.continuousOn                   input      yes      yes     
@@ -19,5 +18,5 @@ h_ev                                                 case       yes      yes
 h_lhs                                                case       yes      yes     
 h_rhs                                                case       yes      yes     
 
-correspondences confirmed: 15    missing: 0
+correspondences confirmed: 14    missing: 0
 RESULT: PASS — every load-bearing step named in the paper is present in the Lean proof.

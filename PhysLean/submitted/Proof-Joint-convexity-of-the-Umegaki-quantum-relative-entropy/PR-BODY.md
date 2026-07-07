@@ -50,9 +50,8 @@ The main theorem then handles:
    (`sandwichedTraceFunctional_mix_le`, the binary specialisation);
 4. the limit passage `α → 1⁺` (`sandwichedRelRentropy_tendsto_qRelativeEnt`).
 
-The mixture bookkeeping (`Fin 2` weighted sums, kernel inclusion) and the
-`ENNReal.ofReal` convex-combination identity are each factored into their own small
-`private` lemma so the main theorem reads as the four steps above.
+The mixture bookkeeping (`Fin 2` weighted sums, kernel inclusion) is factored into small
+`private` lemmas so the main theorem reads as the four steps above.
 
 ## Declarations added / removed
 
@@ -61,10 +60,9 @@ The mixture bookkeeping (`Fin 2` weighted sums, kernel inclusion) and the
 | removed `@[sorryful] qRelativeEnt_joint_convexity` | `QuantumInfo/Entropy/Relative.lean` | removes the old stub |
 | `Mixable.mix_one` | `QuantumInfo/ClassicalInfo/Prob.lean` | `@[simp]`; the `p = 1` partner of the existing `@[simp] mix_zero` |
 | `qRelativeEnt_ne_top_iff`, `qRelativeEnt_eq_top_iff` | `QuantumInfo/Entropy/Relative.lean` | finiteness ⇔ support condition; small API next to `qRelativeEnt_ker` |
-| `sandwichedRelRentropy_tendsto_qRelativeEnt` | `QuantumInfo/Entropy/DPI.lean` | private; `D̃_α → 𝐃` as `α → 1⁺` |
+| `sandwichedRelRentropy_tendsto_qRelativeEnt` | `QuantumInfo/Entropy/DPI.lean` | public `theorem`; `D̃_α → 𝐃` as `α → 1⁺` |
 | `sandwichedTraceFunctional_sub_one_div_eventually_le` | `QuantumInfo/Entropy/DPI.lean` | private; the majorant estimate |
 | `mix_M_eq_weighted_sum`, `ker_mix_le`, `sandwichedTraceFunctional_mix_le` | `QuantumInfo/Entropy/DPI.lean` | private; binary-mixture plumbing over `Fin 2` |
-| `ofReal_prob_mix_toReal` | `QuantumInfo/Entropy/DPI.lean` | private; `ENNReal.ofReal` of a `Prob`-weighted combination |
 | `qRelativeEnt_joint_convexity` | `QuantumInfo/Entropy/DPI.lean` | proves the old theorem statement |
 
 ## Placement
@@ -82,7 +80,7 @@ Suggested review order:
    `qRelativeEnt_*_top_iff` finiteness lemmas.
 3. `DPI.lean`: the continuity lemma and the private majorant lemma
    `sandwichedTraceFunctional_sub_one_div_eventually_le`.
-4. `DPI.lean`: the three mixture lemmas and the `ofReal` identity (mechanical plumbing).
+4. `DPI.lean`: the three mixture lemmas (mechanical plumbing).
 5. `DPI.lean`: review `qRelativeEnt_joint_convexity`, especially:
    - degenerate weights;
    - `⊤` support-failure cases;
@@ -119,7 +117,7 @@ your base remote is not `origin`, run it as
 ## Scope
 
 This is a single-concept PR: it closes one open `sorry` for joint convexity of `𝐃`. The
-change is +192/−15 (three files), so it is in the large-PR band, but it does not split
+change is +206/−15 (three files), so it is in the large-PR band, but it does not split
 naturally into separate PRs. The supporting reasoning is already factored into small
 single-purpose lemmas, and the one genuinely reusable analytic estimate is a private
 helper lemma.

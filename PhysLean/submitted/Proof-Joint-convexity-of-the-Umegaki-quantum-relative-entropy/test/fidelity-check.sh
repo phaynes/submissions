@@ -24,7 +24,6 @@ declare -a NEW=(
   "mix_M_eq_weighted_sum"                                 # mixture-as-Fin2-sum lemma (new)
   "ker_mix_le"                                            # kernel bookkeeping lemma (new)
   "sandwichedTraceFunctional_mix_le"                      # binary Q̃_α convexity lemma (new)
-  "ofReal_prob_mix_toReal"                               # ofReal convex-combo identity lemma (new)
   "qRelativeEnt_joint_convexity"                          # the theorem (new)
 )
 declare -a INPUTS=(

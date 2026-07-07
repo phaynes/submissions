@@ -42,22 +42,22 @@ kernel. The presence of this artifact is direct evidence that `DPI.lean` — the
 containing `qRelativeEnt_joint_convexity` and its supporting lemmas (the majorant
 `…_sub_one_div_eventually_le`, the mixture lemmas, and the `α → 1⁺` continuity lemma) —
 compiled successfully. The size/hash below are for a specific local build of commit
-`f901e353` and are machine-specific (`.olean`s are not bit-reproducible across machines);
+`720c9fff` and are machine-specific (`.olean`s are not bit-reproducible across machines);
 the portable evidence is the `#print axioms` check in [`checks.md`](checks.md) /
 [`lean-run.txt`](lean-run.txt).
 
 | | |
 |---|---|
 | File | `.lake/build/lib/lean/QuantumInfo/Entropy/DPI.olean` |
-| Size | 323,656 bytes |
-| Modified | 2026-07-07 19:21 (local) |
-| SHA-256 | `b17f5bc6b1beab638da51742c254669c27e2613606fba0a687a91ab38220a42c` |
+| Size | 326,912 bytes |
+| Modified | 2026-07-07 22:15 (local) |
+| SHA-256 | `054622962494d899d0f285fcd36a873cdbcac4278072a71ee5d69d4c2ae6e1d1` |
 
 Provenance of the source it was built from:
 
 | | |
 |---|---|
-| Commit | `f901e3534f35702ff1db999bebf97cbc8611f858` |
+| Commit | `720c9fffe5549c9dfbbb893cc3ca37305fc6536d` |
 | Author | Philip Haynes |
 | Date | 2026-07-07 18:37:17 +1000 |
 | Subject | `feat(QuantumInfo): prove qRelativeEnt_joint_convexity (joint convexity of Umegaki relative entropy)` |
@@ -89,4 +89,4 @@ lake env lean /tmp/axioms.lean
 
 Capturing the stdout of steps 1–2 into `evidence/lean-run.txt` gives the fresh transcript.
 Its expected content (the axiom list, no `sorryAx`) is already recorded in
-[`checks.md`](checks.md) and the commit message of `f901e353`.
+[`checks.md`](checks.md) and the commit message of `720c9fff`.

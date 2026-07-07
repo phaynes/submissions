@@ -5,7 +5,7 @@ format: html
 ---
 
 This note renders the Lean proof of `qRelativeEnt_joint_convexity`
-(`QuantumInfo/Entropy/DPI.lean`, line ~1534 as of commit `f901e353`) as a mathematician
+(`QuantumInfo/Entropy/DPI.lean`, line ~1534 as of commit `720c9fff`) as a mathematician
 would write it on paper. The structure of the argument below follows the Lean proof
 step for step; Lean identifiers are given in `code font` at the point where they are
 used. Nothing is included that is not in the formal proof, and the two pre-existing
@@ -85,7 +85,7 @@ $$
 
 ## 3. Theorem
 
-**Theorem (`qRelativeEnt_joint_convexity`, `DPI.lean:1534`).**
+**Theorem (`qRelativeEnt_joint_convexity`, `DPI.lean:1522`).**
 For all states $\rho_1, \rho_2, \sigma_1, \sigma_2$ on $\mathbb{C}^d$ and all
 $p \in [0,1]$, writing $\bar\rho := p\rho_1 + (1-p)\rho_2$ and
 $\bar\sigma := p\sigma_1 + (1-p)\sigma_2$,
@@ -321,10 +321,9 @@ $$
 \;=\; p\,D(\rho_1\|\sigma_1) + (1{-}p)\,D(\rho_2\|\sigma_2)
 $$
 (Lean: `h_rhs`). The identification of the $[\,\cdot\,]^{+}$ of the real convex
-combination with the $[0,\infty]$-valued convex combination — formerly the inline
-`have h_id` — is now the named lemma `ofReal_prob_mix_toReal` (`DPI.lean:1519`), whose
-hypotheses are exactly the two finiteness facts from Step 1 (supplied by
-`qRelativeEnt_ne_top_iff`). Since the inequality of Step 3 holds
+combination with the $[0,\infty]$-valued convex combination is the inline
+`have h_id` (`DPI.lean:1561`), whose hypotheses are exactly the two finiteness facts
+from Step 1 (supplied by `qRelativeEnt_ne_top_iff`). Since the inequality of Step 3 holds
 eventually along the (nontrivial) filter of right-neighbourhoods of $1$, the inequality
 passes to the limits (`le_of_tendsto_of_tendsto`):
 $$
@@ -334,7 +333,7 @@ $$
 
 ## 7. Lean–paper dictionary
 
-| Paper object / step | Lean identifier | Location (commit `f901e353`) |
+| Paper object / step | Lean identifier | Location (commit `720c9fff`) |
 |---|---|---|
 | Umegaki $D$ | `qRelativeEnt` / `𝐃` | `Relative.lean:1497` |
 | — trace-formula identification | `qRelativeEnt_ker` | `Relative.lean:1782` |
@@ -357,21 +356,21 @@ $$
 | Step 2, mixture as `Fin 2` sum (NEW; was `hM_ρ`,`hM_σ`) | `mix_M_eq_weighted_sum` | `DPI.lean:1485` |
 | Step 2, support of mixture (NEW; was `hkers`) | `ker_mix_le` | `DPI.lean:1493` |
 | Step 3, binary Prop. A (NEW; was `h_convex`) | `sandwichedTraceFunctional_mix_le` | `DPI.lean:1504` |
-| Step 4, ofReal convex-combo (NEW; was `h_id`) | `ofReal_prob_mix_toReal` | `DPI.lean:1519` |
-| Steps 0–4 | `qRelativeEnt_joint_convexity` | `DPI.lean:1534` |
-| Step 3 | `h_ev` (calls `sandwichedTraceFunctional_mix_le`) | in theorem, `DPI.lean:1534`+ |
-| Step 4 | `h_lhs`, `h_rhs`, `le_of_tendsto_of_tendsto` | in theorem, `DPI.lean:1534`+ |
+| Step 4, ofReal convex-combo | inline `have h_id` | `DPI.lean:1561` |
+| Steps 0–4 | `qRelativeEnt_joint_convexity` | `DPI.lean:1522` |
+| Step 3 | `h_ev` (calls `sandwichedTraceFunctional_mix_le`) | in theorem, `DPI.lean:1522`+ |
+| Step 4 | `h_lhs`, `h_rhs`, `le_of_tendsto_of_tendsto` | in theorem, `DPI.lean:1522`+ |
 
 ## 8. Remarks for the reviewer
 
 - **What is new.** Lemma E and the theorem itself (§5–§6), together with the supporting
-  private lemmas it is now factored into (`sandwichedRelRentropy_tendsto_qRelativeEnt`,
-  `mix_M_eq_weighted_sum`, `ker_mix_le`, `sandwichedTraceFunctional_mix_le`,
-  `ofReal_prob_mix_toReal`), account for +191 lines in `DPI.lean`. The previously
+  lemmas it is factored into (the public `sandwichedRelRentropy_tendsto_qRelativeEnt` and
+  the private `mix_M_eq_weighted_sum`, `ker_mix_le`, `sandwichedTraceFunctional_mix_le`),
+  account for +190 lines in `DPI.lean`. The previously
   `sorry`-stubbed statement was removed from `Relative.lean` (+11 / −15), where two small
   finiteness lemmas `qRelativeEnt_ne_top_iff` / `qRelativeEnt_eq_top_iff` were added; and
   a one-line `@[simp]` lemma `Mixable.mix_one` (+5) was added to `Prob.lean` — net
-  +192 / −15 across the three files. Propositions A and B and all deeper inputs
+  +206 / −15 across the three files. Propositions A and B and all deeper inputs
   (Lieb–Ando trace theorems) were already in the library. The theorem was placed in
   `DPI.lean` rather than `Relative.lean` because the $\widetilde Q_\alpha$ machinery lives
   there and importing it from `Relative.lean` would create a cycle.
@@ -386,4 +385,4 @@ $$
   matching the pre-existing `sorryful` statement it closes.
 - **Axioms.** The proof is `sorry`-free; `#print axioms qRelativeEnt_joint_convexity`
   reports only `propext`, `Classical.choice`, `Quot.sound` (recorded in the commit
-  message of `f901e353`).
+  message of `720c9fff`).

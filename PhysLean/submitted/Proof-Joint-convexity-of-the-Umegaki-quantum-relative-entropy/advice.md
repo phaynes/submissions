@@ -1,12 +1,40 @@
-# How to open the invited PR — updated for the Codex-refined refactor
+# PR #1378 playbook — current state
 
-This is the operator playbook for opening the PhysLean pull request from the **current**
-state of the proof (commit `f901e353`, the refactor JTS's "golf it a bit" note prompted,
-plus a Codex second-opinion pass). It is a delta on top of what `submit.sh` and
-`PR-BODY.md` already give you — read this first, then let `submit.sh` walk the mechanics.
+**The PR is already open: https://github.com/leanprover-community/physlib/pull/1378**
+(non-draft, from your fork `phaynes/physlib`). This file is the operator playbook for the
+**current** state of the proof — commit `720c9fff` — which now also incorporates JTS's
+first round of review. Per PhysLean `AI-POLICY.md` §3.1, reviewer communication and pushes
+are yours.
 
-Per PhysLean `AI-POLICY.md` §3.1, **you** open the PR and post to Zulip; no agent does.
-Nothing in this packet has been pushed anywhere.
+## Latest: what changed in this update (round 1 of JTS's review)
+
+JTS left four inline comments (all placement/visibility, proof accepted):
+
+- **`ofReal_prob_mix_toReal` → inline `have`**: done — it was single-use, now a `have h_id`
+  in the main proof.
+- **`sandwichedRelRentropy_tendsto_qRelativeEnt` made public**: done — now a `theorem`.
+- **`ker_mix_le` → `ClassicalInfo.Prob`?**: declined with reason — it references
+  `MState`/`HermitianMat.ker`, and `Prob.lean` is Mathlib-only while `MState` imports
+  `Prob`, so moving it would be an import cycle.
+- **dedicated `sandwichedRelRentropy` file**: agreed in principle; you queried JTS and
+  it's being handled as a **discrete follow-up PR**, not in #1378.
+
+**To push this update to the PR**, force-update your fork's branch (the commit was amended,
+so its hash changed `f901e353` → `720c9fff`):
+
+```bash
+cd /Volumes/second-store/devel/knowledge-base-mcp/mentormind/physlib-contrib
+git push --force-with-lease fork feat/qrelent-joint-convexity
+```
+
+PR #1378 picks up the new head automatically. Then re-verify if you like: `./verify.sh .`.
+
+---
+
+## Reference: original open-PR playbook (kept for provenance)
+
+The material below described opening the PR from scratch; it is retained for reference.
+Nothing new needs the fork-creation steps now — the fork and PR already exist.
 
 ---
 
@@ -16,7 +44,7 @@ He reviewed the first proof (commit `33cb766e`) and said: *"These look good, alt
 may want to golf them a bit. There are lots of `have` statements, the number of which can
 probably be reduced."*
 
-The current commit `f901e353` is the response:
+The current commit `720c9fff` is the response:
 
 - **Idiom polish** — collapsed the mechanical `have`s that read as beginner/AI Lean.
 - **Finiteness API** — `qRelativeEnt_ne_top_iff` / `qRelativeEnt_eq_top_iff` (Relative.lean),
@@ -41,7 +69,7 @@ unused — it is used twice). All build-verified.
 
 ---
 
-## 1. Verification state of `f901e353` (already run; re-runnable)
+## 1. Verification state of `720c9fff` (already run; re-runnable)
 
 | Check | Result |
 |---|---|
@@ -57,7 +85,7 @@ Re-confirm any time with: `./verify.sh /path/to/physlib` (add `LINT=1` for the l
 
 ## 2. The commit is on your branch, unpushed
 
-- Branch `feat/qrelent-joint-convexity` in `physlib-contrib` is at **`f901e353`**.
+- Branch `feat/qrelent-joint-convexity` in `physlib-contrib` is at **`720c9fff`**.
 - It carries the required trailers: `Signed-off-by: Philip Haynes` (author), and
   `Co-authored-by:` lines for `Helios`, `Claude Opus 4.8`, and `Codex gpt-5.5`
   (AGENTS.md "Commits" requires the AI co-author line; addresses use `@helios.local`
@@ -80,7 +108,7 @@ cd /Volumes/second-store/devel/knowledge-base-mcp/submissions/PhysLean/submitted
 ```
 
 It is interactive and prompts (y/N) before every outward-facing step. It will:
-0. check you are on `feat/qrelent-joint-convexity` at `f901e353`, clean tree, `gh` authed;
+0. check you are on `feat/qrelent-joint-convexity` at `720c9fff`, clean tree, `gh` authed;
 1. run `verify.sh` (+ `LINT=1`);
 2. run `lint_all` and `lint-style.sh` directly;
 3. ask how to publish the branch — **choose your fork** (not a direct upstream push);
@@ -96,7 +124,7 @@ Title (already in `PR-BODY.md`): `feat(QuantumInfo): prove qRelativeEnt_joint_co
 
 - **Body**: `PR-BODY.md` → the fenced ```markdown block under "**Body**". It now lists all
   added declarations (incl. `mix_one`, the two `_top_iff` lemmas, and the private mixture
-  lemmas), a 5-step reviewer map, and the updated +192/−15 scope line.
+  lemmas), a 5-step reviewer map, and the updated +206/−15 scope line.
 - **Two OPTIONAL separate comments** (not the body — keeps the review path short):
   the supporting-material pointer and the reviewer-focus questions. Post them as PR
   comments only if you want to.

@@ -7,7 +7,7 @@ abstract: |
   We give a self-contained, conventional-mathematics proof that the Umegaki quantum
   relative entropy is jointly convex. The argument is presented exactly as it is
   formalized in Lean 4 in the PhysLean library (theorem `qRelativeEnt_joint_convexity`,
-  commit `f901e353`): every step below corresponds to an identifiable step in the formal
+  commit `720c9fff`): every step below corresponds to an identifiable step in the formal
   proof, and §7 gives the full paper-to-Lean dictionary. The proof route is the
   Frank–Lieb / Leditzky–Rouzé–Datta variational argument for the sandwiched Rényi
   trace functional, taken to the limit $\alpha \to 1^{+}$; it deliberately avoids
@@ -56,14 +56,13 @@ fig-cap-location: bottom
 
 
 This note renders the Lean proof of `qRelativeEnt_joint_convexity`
-(`QuantumInfo/Entropy/DPI.lean`, line 1534 as of commit `f901e353`) as a mathematician
+(`QuantumInfo/Entropy/DPI.lean`, line 1534 as of commit `720c9fff`) as a mathematician
 would write it on paper. The structure of the argument below follows the Lean proof
 step for step; Lean identifiers are given in `code font` at the point where they are
-used. The main theorem delegates its constituent steps to a handful of private
-supporting lemmas (`mix_M_eq_weighted_sum`, `ker_mix_le`,
-`sandwichedTraceFunctional_mix_le`, `ofReal_prob_mix_toReal`,
-`sandwichedRelRentropy_tendsto_qRelativeEnt`) that sit immediately above it in
-`DPI.lean`; §7 gives the full correspondence. Nothing is included that is not in the
+used. The main theorem delegates its constituent steps to a handful of supporting
+lemmas — the public `sandwichedRelRentropy_tendsto_qRelativeEnt` and the private
+`mix_M_eq_weighted_sum`, `ker_mix_le`, `sandwichedTraceFunctional_mix_le` — that sit
+immediately above it in `DPI.lean`; §7 gives the full correspondence. Nothing is included that is not in the
 formal proof, and the two pre-existing ingredients it relies on (joint convexity of the
 trace functional, and continuity in $\alpha$) are stated as propositions with their own
 provenance.
@@ -141,7 +140,7 @@ $$
 
 ## 3. Theorem
 
-**Theorem (`qRelativeEnt_joint_convexity`, `DPI.lean:1534`).**
+**Theorem (`qRelativeEnt_joint_convexity`, `DPI.lean:1522`).**
 For all states $\rho_1, \rho_2, \sigma_1, \sigma_2$ on $\mathbb{C}^d$ and all
 $p \in [0,1]$, writing $\bar\rho := p\rho_1 + (1-p)\rho_2$ and
 $\bar\sigma := p\sigma_1 + (1-p)\sigma_2$,
@@ -372,8 +371,8 @@ $$
 \;=\; p\,D(\rho_1\|\sigma_1) + (1{-}p)\,D(\rho_2\|\sigma_2)
 $$
 (Lean: `h_rhs`; the identification of the $[\,\cdot\,]^{+}$ of the real convex
-combination with the $[0,\infty]$-valued convex combination is packaged as the lemma
-`ofReal_prob_mix_toReal` (`DPI.lean:1519`), which consumes the finiteness from Step 1
+combination with the $[0,\infty]$-valued convex combination is the inline `have h_id`
+(`DPI.lean:1561`), which consumes the finiteness from Step 1
 supplied by `qRelativeEnt_ne_top_iff`). Since the inequality of Step 3 holds
 eventually along the (nontrivial) filter of right-neighbourhoods of $1$, the inequality
 passes to the limits (`le_of_tendsto_of_tendsto`):
@@ -384,7 +383,7 @@ $$
 
 ## 7. Lean–paper dictionary
 
-| Paper object / step | Lean identifier | Location (commit `f901e353`) |
+| Paper object / step | Lean identifier | Location (commit `720c9fff`) |
 |---|---|---|
 | Umegaki $D$ | `qRelativeEnt` / `𝐃` | `Relative.lean:1497` |
 | Sandwiched $\widetilde D_\alpha$ | `SandwichedRelRentropy` / `D̃_α` | `Relative.lean:1480` |
@@ -405,18 +404,18 @@ $$
 | Mixture as $\sum_i w_i(\cdot)_i$ (Step 2 matrix identity) | `mix_M_eq_weighted_sum` | `DPI.lean:1485` |
 | $\operatorname{supp}\bar\rho\subseteq\operatorname{supp}\bar\sigma$ (Step 2, `hker_mix`) | `ker_mix_le` | `DPI.lean:1493` |
 | Binary $\widetilde Q_\alpha$ convexity (Step 3) | `sandwichedTraceFunctional_mix_le` | `DPI.lean:1504` |
-| ofReal of the convex combination (Step 4 identity) | `ofReal_prob_mix_toReal` | `DPI.lean:1519` |
+| ofReal of the convex combination (Step 4 identity) | inline `have h_id` | `DPI.lean:1561` |
 | $p=0$ / $p=1$ degenerate mixtures (Step 0) | `Mixable.mix_zero` / `Mixable.mix_one` | `Prob.lean:279, 284` |
-| Steps 0–4 | `qRelativeEnt_joint_convexity` | `DPI.lean:1534` |
-| Step 3 | `h_ev` (calling `sandwichedTraceFunctional_mix_le`) | in theorem body, `DPI.lean:1534` |
-| Step 4 | `h_lhs`, `h_rhs`, `le_of_tendsto_of_tendsto` | in theorem body, `DPI.lean:1534` |
+| Steps 0–4 | `qRelativeEnt_joint_convexity` | `DPI.lean:1522` |
+| Step 3 | `h_ev` (calling `sandwichedTraceFunctional_mix_le`) | in theorem body, `DPI.lean:1522` |
+| Step 4 | `h_lhs`, `h_rhs`, `le_of_tendsto_of_tendsto` | in theorem body, `DPI.lean:1522` |
 
 ## 8. Remarks for the reviewer
 
-- **What is new.** Lemma E and the theorem itself, together with the five private
-  supporting lemmas that carry the individual proof steps
-  (`sandwichedRelRentropy_tendsto_qRelativeEnt`, `mix_M_eq_weighted_sum`, `ker_mix_le`,
-  `sandwichedTraceFunctional_mix_le`, `ofReal_prob_mix_toReal`), account for the +191
+- **What is new.** Lemma E and the theorem itself, together with the supporting lemmas
+  that carry the individual proof steps — the public
+  `sandwichedRelRentropy_tendsto_qRelativeEnt` and the private `mix_M_eq_weighted_sum`,
+  `ker_mix_le`, `sandwichedTraceFunctional_mix_le` — account for the +190
   lines added to `DPI.lean` (§5–§6). In `Relative.lean` the previously `@[sorryful]`
   statement was removed and replaced by the two finiteness characterizations
   `qRelativeEnt_ne_top_iff` / `qRelativeEnt_eq_top_iff` (`Relative.lean:1789, 1795`; net
@@ -436,4 +435,4 @@ $$
   matching the pre-existing `sorryful` statement it closes.
 - **Axioms.** The proof is `sorry`-free; `#print axioms qRelativeEnt_joint_convexity`
   reports only `propext`, `Classical.choice`, `Quot.sound` (recorded in the commit
-  message of `f901e353`).
+  message of `720c9fff`).
