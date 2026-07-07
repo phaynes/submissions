@@ -5,7 +5,7 @@ format: html
 ---
 
 This note renders the Lean proof of `qRelativeEnt_joint_convexity`
-(`QuantumInfo/Entropy/DPI.lean`, line ~1483 as of commit `33cb766e`) as a mathematician
+(`QuantumInfo/Entropy/DPI.lean`, line ~1534 as of commit `a1303c7b`) as a mathematician
 would write it on paper. The structure of the argument below follows the Lean proof
 step for step; Lean identifiers are given in `code font` at the point where they are
 used. Nothing is included that is not in the formal proof, and the two pre-existing
@@ -85,7 +85,7 @@ $$
 
 ## 3. Theorem
 
-**Theorem (`qRelativeEnt_joint_convexity`, `DPI.lean:1483`).**
+**Theorem (`qRelativeEnt_joint_convexity`, `DPI.lean:1534`).**
 For all states $\rho_1, \rho_2, \sigma_1, \sigma_2$ on $\mathbb{C}^d$ and all
 $p \in [0,1]$, writing $\bar\rho := p\rho_1 + (1-p)\rho_2$ and
 $\bar\sigma := p\sigma_1 + (1-p)\sigma_2$,
@@ -173,7 +173,7 @@ condition (`sandwichedTraceFunctional_pos`, `DPI.lean:100`).
 
 ## 5. The key new lemma: a convergent majorant for the difference quotient
 
-**Lemma E (`sandwichedTraceFunctional_sub_one_div_eventually_le`, `DPI.lean:1425`,
+**Lemma E (`sandwichedTraceFunctional_sub_one_div_eventually_le`, `DPI.lean:1432`,
 new).** Let $\rho, \sigma$ be states with
 $\operatorname{supp}\rho \subseteq \operatorname{supp}\sigma$ (so
 $D(\rho\|\sigma) < \infty$). Then there is a function $u : \mathbb{R} \to \mathbb{R}$
@@ -196,8 +196,11 @@ and define $u(\alpha) := r(\alpha) + x(\alpha)\, r(\alpha)
 
 1. Under the support condition, $r(\alpha) \ge 0$ and
    $\widetilde D_\alpha(\rho\|\sigma) = [r(\alpha)]^{+}$ (Definition 3 with
-   `sandwichedRelRentropy_nonneg`), and $D(\rho\|\sigma) \neq \infty$. By Proposition B,
-   $r(\alpha) \to D(\rho\|\sigma)$ (as real numbers) as $\alpha \to 1^{+}$
+   `sandwichedRelRentropy_nonneg`), and $D(\rho\|\sigma) \neq \infty$ (Lean:
+   `qRelativeEnt_ne_top_iff`, `Relative.lean:1789`). By Proposition B — packaged as the
+   named lemma `sandwichedRelRentropy_tendsto_qRelativeEnt` (`DPI.lean:1423`), which
+   states $\widetilde D_\alpha(\rho\|\sigma) \to D(\rho\|\sigma)$ as $\alpha \to 1^{+}$ —
+   we get $r(\alpha) \to D(\rho\|\sigma)$ (as real numbers)
    (Lean: `h_r_tendsto`, passing through `ENNReal.tendsto_toReal`).
 2. Hence $x(\alpha) = (\alpha-1) r(\alpha) \to 0$, so eventually $|x(\alpha)| \le 1$
    (Lean: `h_eps`, `h_small`).
@@ -226,35 +229,46 @@ Fix $\rho_1,\rho_2,\sigma_1,\sigma_2$ and $p$. The proof splits exactly as the L
 source does.
 
 **Step 0 — degenerate weights.** If $p = 0$, then $\bar\rho = \rho_2$,
-$\bar\sigma = \sigma_2$ (in Lean via `Mixable.mix_zero`), and the right-hand side is
+$\bar\sigma = \sigma_2$ (in Lean via `Mixable.mix_zero`, `Prob.lean:279`), and the
+right-hand side is
 $0 \cdot D(\rho_1\|\sigma_1) + 1 \cdot D(\rho_2\|\sigma_2) = D(\rho_2\|\sigma_2)$ — note
 this uses $0 \cdot \infty = 0$, so the case is genuine, not vacuous. Equality holds.
-If $p = 1$, symmetrically $\bar\rho = \rho_1$, $\bar\sigma = \sigma_1$ (the mixture
-identity `1 [x₁ ↔ x₂] = x₁` is proved inline through injectivity of the underlying-matrix
-map, `Mixable.to_U_inj`), and the right side is $D(\rho_1\|\sigma_1)$.
+If $p = 1$, symmetrically $\bar\rho = \rho_1$, $\bar\sigma = \sigma_1$ via the mixture
+identity `1 [x₁ ↔ x₂] = x₁`, now the `@[simp]` lemma `Mixable.mix_one`
+(`Prob.lean:284`), and the right side is $D(\rho_1\|\sigma_1)$. In Lean both degenerate
+cases now close by a single `simp` (the `mix_zero` / `mix_one` simp lemmas discharge the
+mixture, and the $0 \cdot \infty = 0$ / $1 \cdot x = x$ arithmetic follows).
 Henceforth $0 < p < 1$ (Lean: `hp0'`, `hp1'`).
 
 **Step 1 — infinite right-hand side.** Suppose
 $\operatorname{supp}\rho_1 \not\subseteq \operatorname{supp}\sigma_1$ (Lean: `hker₁`
-fails). Then $D(\rho_1\|\sigma_1) = \infty$ by Definition 1, and since $p \neq 0$,
-$p \cdot \infty = \infty$, so the right-hand side is $\infty$ and the inequality is
-trivial (`le_top`). The case
+fails). Then $D(\rho_1\|\sigma_1) = \infty$ by Definition 1 — in Lean via the
+$\top$-characterization `qRelativeEnt_eq_top_iff` (`Relative.lean:1795`) — and since
+$p \neq 0$, $p \cdot \infty = \infty$, so the right-hand side is $\infty$ and the
+inequality is trivial (`le_top`). The case
 $\operatorname{supp}\rho_2 \not\subseteq \operatorname{supp}\sigma_2$ is identical,
 using $1 - p \neq 0$. So we may assume both support conditions
 $$
 \operatorname{supp}\rho_i \subseteq \operatorname{supp}\sigma_i \quad (i = 1,2),
 $$
-whence $D(\rho_1\|\sigma_1),\, D(\rho_2\|\sigma_2) < \infty$ (Lean: `h_ne₁`, `h_ne₂`).
+whence $D(\rho_1\|\sigma_1),\, D(\rho_2\|\sigma_2) < \infty$; in Lean this finiteness is
+supplied at point of use by the companion lemma `qRelativeEnt_ne_top_iff`
+(`Relative.lean:1789`) rather than a standing `have`.
 
 **Step 2 — setup for the main case.** Write the mixtures as weighted sums over
 $\iota = \{1,2\}$ (Lean: `Fin 2`) with weight vector $w = (p,\, 1-p)$:
 $$
 \bar\rho = \textstyle\sum_i w_i \rho_i, \qquad \bar\sigma = \sum_i w_i \sigma_i
 $$
-as matrix identities (Lean: `hM_ρ`, `hM_σ`, by unfolding `Mixable.mix`); $w_i \ge 0$ and
-$\sum_i w_i = 1$ (`hw_nonneg`, `hw_sum`). By Lemma C,
-$\operatorname{supp}\bar\rho \subseteq \operatorname{supp}\bar\sigma$ (Lean:
-`hker_mix`). Apply Lemma E to each pair to obtain majorants $u_1, u_2$ with
+as matrix identities. This unfolding of `Mixable.mix` into a `Fin 2` weighted sum, with
+$w_i \ge 0$ and $\sum_i w_i = 1$, is now the standalone lemma `mix_M_eq_weighted_sum`
+(`DPI.lean:1485`), replacing what were the inline `have`s `hM_ρ`, `hM_σ` (and the
+side facts `hw_nonneg`, `hw_sum`, now discharged locally inside that lemma and its
+consumers). By Lemma C, $\operatorname{supp}\bar\rho \subseteq \operatorname{supp}\bar\sigma$;
+this support-preservation of a binary mixture is likewise extracted as the lemma
+`ker_mix_le` (`DPI.lean:1493`), which absorbs the former kernel bookkeeping (`hkers`),
+so the theorem now simply sets `hker_mix := ker_mix_le p hker₁ hker₂` (Lean: `hker_mix`).
+Apply Lemma E to each pair to obtain majorants $u_1, u_2$ with
 $u_i(\alpha) \to D(\rho_i\|\sigma_i)$ as $\alpha \to 1^{+}$ and, eventually,
 $(\widetilde Q_\alpha(\rho_i\|\sigma_i) - 1)/(\alpha-1) \le u_i(\alpha)$.
 
@@ -276,7 +290,7 @@ $$
 &\;\le\;
 \frac{p\,\widetilde Q_\alpha(\rho_1\|\sigma_1)
       + (1{-}p)\,\widetilde Q_\alpha(\rho_2\|\sigma_2) - 1}{\alpha - 1}
-&&\text{[Proposition A, } \iota = \{1,2\}\text{]}
+&&\text{[Prop. A, binary form]}
 \\[2pt]
 &\;=\;
 p\,\frac{\widetilde Q_\alpha(\rho_1\|\sigma_1) - 1}{\alpha - 1}
@@ -292,17 +306,25 @@ $$
 \widetilde D_\alpha(\bar\rho\|\bar\sigma) \;\le\;
 \bigl[\,p\, u_1(\alpha) + (1{-}p)\, u_2(\alpha)\,\bigr]^{+}.
 $$
+The binary-mixture instance of Proposition A used in the second inequality is now the
+named lemma `sandwichedTraceFunctional_mix_le` (`DPI.lean:1504`) — the former inline
+`have h_convex` — which specializes `sandwichedTraceFunctional_jointly_convex` to a
+`Mixable` mixture over `Fin 2` (via `mix_M_eq_weighted_sum`). Positivity uses
+`hker_mix`; the whole chain is the Lean `have h_ev`.
 
 **Step 4 — pass to the limit $\alpha \to 1^{+}$.** By Proposition B (applied to the
-mixture pair), the left side tends to $D(\bar\rho\|\bar\sigma)$ (Lean: `h_lhs`). By
+mixture pair) — invoked as `sandwichedRelRentropy_tendsto_qRelativeEnt` (`DPI.lean:1423`)
+— the left side tends to $D(\bar\rho\|\bar\sigma)$ (Lean: `h_lhs`). By
 Lemma E and continuity of $t \mapsto [t]^{+}$, the right side tends to
 $$
 \bigl[\,p\,D(\rho_1\|\sigma_1) + (1{-}p)\,D(\rho_2\|\sigma_2)\,\bigr]^{+}
 \;=\; p\,D(\rho_1\|\sigma_1) + (1{-}p)\,D(\rho_2\|\sigma_2)
 $$
-(Lean: `h_rhs`; the identification of the $[\,\cdot\,]^{+}$ of the real convex
-combination with the $[0,\infty]$-valued convex combination uses the finiteness from
-Step 1, via `ENNReal.ofReal_toReal` and friends). Since the inequality of Step 3 holds
+(Lean: `h_rhs`). The identification of the $[\,\cdot\,]^{+}$ of the real convex
+combination with the $[0,\infty]$-valued convex combination — formerly the inline
+`have h_id` — is now the named lemma `ofReal_prob_mix_toReal` (`DPI.lean:1519`), whose
+hypotheses are exactly the two finiteness facts from Step 1 (supplied by
+`qRelativeEnt_ne_top_iff`). Since the inequality of Step 3 holds
 eventually along the (nontrivial) filter of right-neighbourhoods of $1$, the inequality
 passes to the limits (`le_of_tendsto_of_tendsto`):
 $$
@@ -312,33 +334,47 @@ $$
 
 ## 7. Lean–paper dictionary
 
-| Paper object / step | Lean identifier | Location (commit `33cb766e`) |
+| Paper object / step | Lean identifier | Location (commit `a1303c7b`) |
 |---|---|---|
 | Umegaki $D$ | `qRelativeEnt` / `𝐃` | `Relative.lean:1497` |
+| — trace-formula identification | `qRelativeEnt_ker` | `Relative.lean:1782` |
 | Sandwiched $\widetilde D_\alpha$ | `SandwichedRelRentropy` / `D̃_α` | `Relative.lean:1480` |
 | Trace functional $\widetilde Q_\alpha$ | `sandwichedTraceFunctional` / `Q̃_α` | `DPI.lean:66` |
 | $\widetilde D_\alpha = [\log \widetilde Q_\alpha / (\alpha{-}1)]^{+}$ | `sandwichedRelRentropy_eq_log_traceFunctional` | `DPI.lean:78` |
+| Mixture $p [\cdot \leftrightarrow \cdot]$ | `Mixable.mix` | `Prob.lean:267` |
+| — degenerate $p=0$ / $p=1$ | `Mixable.mix_zero` / `Mixable.mix_one` (NEW `@[simp]`) | `Prob.lean:279, 284` |
 | Proposition A | `sandwichedTraceFunctional_jointly_convex` | `DPI.lean:568` |
 | — variational formula | `traceFunctional_eq_iSup_f_alpha`, `f_alpha`, `H_hat` | `DPI.lean:434, 174, 180` |
 | — concavity in $\sigma$ | `HermitianMat.trace_conj_rpow_concave` | `LiebConcavity.lean:494` |
-| Proposition B | `sandwichedRelRentropy.continuousOn` | `Relative.lean:1769` |
+| Proposition B (continuity) | `sandwichedRelRentropy.continuousOn` | `Relative.lean:1769` |
+| — as $\alpha\to1^{+}$ limit (NEW) | `sandwichedRelRentropy_tendsto_qRelativeEnt` | `DPI.lean:1423` |
 | Lemma C | `HermitianMat.ker_weighted_sum_le` | `DPI.lean:545` |
 | D(i) | `Real.log_le_sub_one_of_pos` | Mathlib |
 | D(ii) | `Real.abs_exp_sub_one_sub_id_le` | Mathlib |
 | $\widetilde Q_\alpha > 0$ | `sandwichedTraceFunctional_pos` | `DPI.lean:100` |
-| Lemma E | `sandwichedTraceFunctional_sub_one_div_eventually_le` | `DPI.lean:1425` |
-| Steps 0–4 | `qRelativeEnt_joint_convexity` | `DPI.lean:1483` |
-| Step 3 | `h_ev` (with `h_convex`) | `DPI.lean:1572–1594` |
-| Step 4 | `h_lhs`, `h_rhs`, `le_of_tendsto_of_tendsto` | `DPI.lean:1548–1595` |
+| Lemma E | `sandwichedTraceFunctional_sub_one_div_eventually_le` | `DPI.lean:1432` |
+| Finiteness $D \ne \infty$ / $D = \infty$ (NEW) | `qRelativeEnt_ne_top_iff` / `qRelativeEnt_eq_top_iff` | `Relative.lean:1789, 1795` |
+| Step 2, mixture as `Fin 2` sum (NEW; was `hM_ρ`,`hM_σ`) | `mix_M_eq_weighted_sum` | `DPI.lean:1485` |
+| Step 2, support of mixture (NEW; was `hkers`) | `ker_mix_le` | `DPI.lean:1493` |
+| Step 3, binary Prop. A (NEW; was `h_convex`) | `sandwichedTraceFunctional_mix_le` | `DPI.lean:1504` |
+| Step 4, ofReal convex-combo (NEW; was `h_id`) | `ofReal_prob_mix_toReal` | `DPI.lean:1519` |
+| Steps 0–4 | `qRelativeEnt_joint_convexity` | `DPI.lean:1534` |
+| Step 3 | `h_ev` (calls `sandwichedTraceFunctional_mix_le`) | in theorem, `DPI.lean:1534`+ |
+| Step 4 | `h_lhs`, `h_rhs`, `le_of_tendsto_of_tendsto` | in theorem, `DPI.lean:1534`+ |
 
 ## 8. Remarks for the reviewer
 
-- **What is new.** Lemma E and the theorem itself (§5–§6), ~185 lines added to
-  `DPI.lean`; the previously `@[sorryful]` statement was removed from `Relative.lean`.
-  Propositions A and B and all deeper inputs (Lieb–Ando trace theorems) were already in
-  the library. The theorem was placed in `DPI.lean` rather than `Relative.lean` because
-  the $\widetilde Q_\alpha$ machinery lives there and importing it from `Relative.lean`
-  would create a cycle.
+- **What is new.** Lemma E and the theorem itself (§5–§6), together with the supporting
+  private lemmas it is now factored into (`sandwichedRelRentropy_tendsto_qRelativeEnt`,
+  `mix_M_eq_weighted_sum`, `ker_mix_le`, `sandwichedTraceFunctional_mix_le`,
+  `ofReal_prob_mix_toReal`), account for +191 lines in `DPI.lean`. The previously
+  `sorry`-stubbed statement was removed from `Relative.lean` (+11 / −15), where two small
+  finiteness lemmas `qRelativeEnt_ne_top_iff` / `qRelativeEnt_eq_top_iff` were added; and
+  a one-line `@[simp]` lemma `Mixable.mix_one` (+5) was added to `Prob.lean` — net
+  +192 / −15 across the three files. Propositions A and B and all deeper inputs
+  (Lieb–Ando trace theorems) were already in the library. The theorem was placed in
+  `DPI.lean` rather than `Relative.lean` because the $\widetilde Q_\alpha$ machinery lives
+  there and importing it from `Relative.lean` would create a cycle.
 - **No differentiability is needed.** The classical way to see
   $\widetilde D_\alpha \to D$ and to transfer convexity is to differentiate
   $\alpha \mapsto \widetilde Q_\alpha$ at $\alpha = 1$; the formal proof replaces this by
@@ -350,4 +386,4 @@ $$
   matching the pre-existing `sorryful` statement it closes.
 - **Axioms.** The proof is `sorry`-free; `#print axioms qRelativeEnt_joint_convexity`
   reports only `propext`, `Classical.choice`, `Quot.sound` (recorded in the commit
-  message of `33cb766e`).
+  message of `a1303c7b`).

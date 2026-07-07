@@ -8,7 +8,7 @@
 | Path | What it is |
 |---|---|
 | [`PR-BODY.md`](PR-BODY.md) | The pull-request description, written for a reviewer seeing this cold. |
-| [`proof/`](proof/) | The added Lean as an excerpt, plus the exact `+186/−15` patch. |
+| [`proof/`](proof/) | The added Lean as an excerpt, plus the exact `+192/−15` patch. |
 | [`verify.sh`](verify.sh) | One command that reproduces the mandatory checks; `LINT=1` adds `lint_all` (see §4). |
 | [`docs/`](docs/) | Physics brief, conventional-maths writeup, literature comparison (`.qmd` + rendered `.pdf`). |
 | [`paper/`](paper/) | The conventional-maths proof as a standalone paper (`.qmd` + `.pdf`), plus [`paper/original/`](paper/original/) recording the classical source (Lindblad 1974). |
@@ -39,17 +39,20 @@ converges to the Umegaki relative entropy.
 
 ## 2. Exactly where the code base changes
 
-Two files change. Net **+186 / −15** lines. **One `sorry` closed, none introduced.**
+Three files change. Net **+192 / −15** lines. **One `sorry` closed, none introduced.**
 
 | File | Change | Why |
 |---|---|---|
-| `QuantumInfo/Entropy/Relative.lean` | **−15 lines** | The `@[sorryful] theorem qRelativeEnt_joint_convexity := by sorry` (and its `TODO` comment block) is **removed** from where the stub lived. |
-| `QuantumInfo/Entropy/DPI.lean` | **+186 lines** | The theorem, now with a full proof, is **added here** — the proof needs the sandwiched-Rényi machinery in `DPI.lean`, and `DPI` imports `Relative`, so proving it in `Relative` would create an **import cycle**. |
+| `QuantumInfo/Entropy/Relative.lean` | **+11 / −15** | The `@[sorryful] theorem qRelativeEnt_joint_convexity := by sorry` (and its `TODO` block) is **removed**; two small finiteness-API lemmas (`qRelativeEnt_ne_top_iff`, `qRelativeEnt_eq_top_iff`) are added next to the existing `qRelativeEnt_ker`. |
+| `QuantumInfo/Entropy/DPI.lean` | **+191 lines** | The theorem, with its proof and a handful of small `private` supporting lemmas (the `α → 1⁺` continuity step, the binary-mixture plumbing, the `ENNReal.ofReal` convex-combination identity), is **added here** — the proof needs the sandwiched-Rényi machinery in `DPI.lean`, and `DPI` imports `Relative`, so proving it in `Relative` would create an **import cycle**. |
+| `QuantumInfo/ClassicalInfo/Prob.lean` | **+5 lines** | `@[simp] Mixable.mix_one`, the `p = 1` companion of the existing `@[simp] mix_zero`; both degenerate mixing cases then close by `simp`. |
 
 **The statement matches the original stub** after removing the proof body and
 attributes — no hypothesis or conclusion was changed (only the proof is new). This
 is checked automatically by `verify.sh` (§4.1). The theorem is kept a
-`theorem` (not `lemma`) because it is a headline result, per PhysLean style.
+`theorem` (not `lemma`) because it is a headline result, per PhysLean style. The
+supporting lemmas are the minimal API the proof needs; each replaces inline
+duplication, and the `private` ones are proof-internal.
 
 > **Reviewer note:** `DPI.lean` was chosen over a new file
 > purely to avoid the import cycle. If you would prefer it in a dedicated file or
@@ -98,7 +101,8 @@ as the requirement set, each guideline is traced to the evidence that it is met.
 | **Code quality — correct abstraction** | Reuses `MState`, `Prob`, `Mixable` mixture, the sandwiched-Rényi `Q̃_α`/`D̃_α` API; no new ad-hoc structures. | ✅ |
 | **Code quality — correct type theory** | Statement uses `Mixable` mixtures because `ConvexOn` can't be used (`MState` is not an `AddCommMonoid`); the theorem docstring states this. | ✅ |
 | **Code quality — no reproving Mathlib** | Builds on existing PhysLean lemmas (`sandwichedTraceFunctional_jointly_convex`, `sandwichedRelRentropy.continuousOn`, `HermitianMat.ker_weighted_sum_le`, …); introduces no re-derivation of library facts. | ✅ |
-| **Code quality — concise proofs** | Single theorem; case structure (degenerate → ⊤ → main limit) is minimal; no dead branches. | ✅ |
+| **Code quality — concise proofs** | Main theorem is short (degenerate → ⊤ → main limit); the supporting reasoning is factored into small single-purpose `private` lemmas per the repo's proof-structure guidance; no dead branches. | ✅ |
+| **Code quality — no duplication** | The finiteness characterisation of `𝐃` is stated once (`qRelativeEnt_*_top_iff`) and reused; the `Fin 2` mixture encoding and the `α → 1⁺` limit step are each a single lemma. | ✅ |
 | **Organization — correct place** | Placed in `DPI.lean` to avoid an import cycle with `Relative.lean` (documented; relocation offered). | ✅ (noted) |
 | **Organization — well-defined scope** | One theorem, one concept. | ✅ |
 | **Organization — naming/location** | No new files; existing name retained. | ✅ (n/a new file) |
@@ -106,7 +110,7 @@ as the requirement set, each guideline is traced to the evidence that it is met.
 | **Style — `lemma` vs `theorem`** | Kept `theorem` — it is a headline result (the guideline's stated exception). | ✅ |
 | **PR & authorship — author understands the material** | Conventional-math writeup + literature comparison in `docs/` demonstrate the argument and its provenance. | ✅ |
 | **PR & authorship — single concept** | Exactly one: joint convexity of `𝐃`. | ✅ |
-| **PR length** | +186/−15 = **171 net lines → "large PR (100–200)".** Indivisible: it is one theorem's proof and cannot be meaningfully split. | ⚠️ noted |
+| **PR length** | +192/−15 = **177 net lines → "large PR (100–200)".** One theorem with its minimal supporting API, already factored into small single-purpose lemmas; does not split meaningfully further. | ⚠️ noted |
 | **Tag system** | Will tag `t-quantumInfo` (or as directed); PR opened non-draft. | ▶ at PR time |
 
 ---
@@ -120,7 +124,7 @@ Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy/
 ├── PR-BODY.md                    ← the pull-request description, for a reviewer seeing this cold
 ├── proof/
 │   ├── qRelativeEnt_joint_convexity.lean  ← the added Lean, as a standalone excerpt
-│   └── qrelent-joint-convexity.patch      ← the exact +186/−15 patch (DPI.lean, Relative.lean)
+│   └── qrelent-joint-convexity.patch      ← the exact +192/−15 patch (DPI.lean, Relative.lean, Prob.lean)
 ├── docs/
 │   ├── physics-brief.qmd / .pdf  ← why relative entropy + joint convexity matter (for non-experts)
 │   ├── proof-conventional.qmd / .pdf  ← the Lean proof rendered as conventional mathematics

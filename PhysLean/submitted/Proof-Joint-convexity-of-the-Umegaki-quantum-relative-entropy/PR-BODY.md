@@ -44,17 +44,27 @@ bound on `exp x - 1 - x` are enough.
 
 The main theorem then handles:
 
-1. `p = 0` and `p = 1`;
-2. support-failure cases, where the right-hand side is `⊤`;
-3. the finite-support case, using joint convexity of `Q̃_α`;
-4. the limit passage `α → 1⁺`.
+1. `p = 0` and `p = 1` (each closes by `simp`, via `mix_zero` / `mix_one`);
+2. support-failure cases, where the right-hand side is `⊤` (via `qRelativeEnt_eq_top_iff`);
+3. the finite-support case, using joint convexity of `Q̃_α`
+   (`sandwichedTraceFunctional_mix_le`, the binary specialisation);
+4. the limit passage `α → 1⁺` (`sandwichedRelRentropy_tendsto_qRelativeEnt`).
+
+The mixture bookkeeping (`Fin 2` weighted sums, kernel inclusion) and the
+`ENNReal.ofReal` convex-combination identity are each factored into their own small
+`private` lemma so the main theorem reads as the four steps above.
 
 ## Declarations added / removed
 
 | Declaration | File | Notes |
 |---|---|---|
 | removed `@[sorryful] qRelativeEnt_joint_convexity` | `QuantumInfo/Entropy/Relative.lean` | removes the old stub |
-| `sandwichedTraceFunctional_sub_one_div_eventually_le` | `QuantumInfo/Entropy/DPI.lean` | new private helper lemma |
+| `Mixable.mix_one` | `QuantumInfo/ClassicalInfo/Prob.lean` | `@[simp]`; the `p = 1` partner of the existing `@[simp] mix_zero` |
+| `qRelativeEnt_ne_top_iff`, `qRelativeEnt_eq_top_iff` | `QuantumInfo/Entropy/Relative.lean` | finiteness ⇔ support condition; small API next to `qRelativeEnt_ker` |
+| `sandwichedRelRentropy_tendsto_qRelativeEnt` | `QuantumInfo/Entropy/DPI.lean` | private; `D̃_α → 𝐃` as `α → 1⁺` |
+| `sandwichedTraceFunctional_sub_one_div_eventually_le` | `QuantumInfo/Entropy/DPI.lean` | private; the majorant estimate |
+| `mix_M_eq_weighted_sum`, `ker_mix_le`, `sandwichedTraceFunctional_mix_le` | `QuantumInfo/Entropy/DPI.lean` | private; binary-mixture plumbing over `Fin 2` |
+| `ofReal_prob_mix_toReal` | `QuantumInfo/Entropy/DPI.lean` | private; `ENNReal.ofReal` of a `Prob`-weighted combination |
 | `qRelativeEnt_joint_convexity` | `QuantumInfo/Entropy/DPI.lean` | proves the old theorem statement |
 
 ## Placement
@@ -67,13 +77,15 @@ would create an import cycle. I therefore placed the proof in `DPI.lean`.
 
 Suggested review order:
 
-1. `Relative.lean`: confirm only the old `@[sorryful]` stub was removed.
-2. `DPI.lean`: review the private majorant lemma
+1. `Prob.lean`: `Mixable.mix_one` (mirrors `mix_zero` directly above it).
+2. `Relative.lean`: confirm the old `@[sorryful]` stub was removed, and skim the two
+   `qRelativeEnt_*_top_iff` finiteness lemmas.
+3. `DPI.lean`: the continuity lemma and the private majorant lemma
    `sandwichedTraceFunctional_sub_one_div_eventually_le`.
-3. `DPI.lean`: review `qRelativeEnt_joint_convexity`, especially:
+4. `DPI.lean`: the three mixture lemmas and the `ofReal` identity (mechanical plumbing).
+5. `DPI.lean`: review `qRelativeEnt_joint_convexity`, especially:
    - degenerate weights;
    - `⊤` support-failure cases;
-   - mixture kernel bookkeeping;
    - pointwise `α > 1` bound;
    - final `le_of_tendsto_of_tendsto` step.
 
@@ -107,9 +119,10 @@ your base remote is not `origin`, run it as
 ## Scope
 
 This is a single-concept PR: it closes one open `sorry` for joint convexity of `𝐃`. The
-proof is about 185 added lines, so it is in the large-PR band, but it does not split
-naturally into separate PRs. The main reusable estimate is already extracted as a
-private helper lemma.
+change is +192/−15 (three files), so it is in the large-PR band, but it does not split
+naturally into separate PRs. The supporting reasoning is already factored into small
+single-purpose lemmas, and the one genuinely reusable analytic estimate is a private
+helper lemma.
 
 ## AI assistance
 

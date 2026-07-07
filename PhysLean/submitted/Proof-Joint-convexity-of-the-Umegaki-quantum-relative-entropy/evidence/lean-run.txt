@@ -1,17 +1,17 @@
 Fresh Lean verification transcript — qRelativeEnt_joint_convexity
 ================================================================
 
-Generated: 2026-07-06
+Generated: 2026-07-07
 Checkout:  physlib (QuantumInfo half)
 Branch:    feat/qrelent-joint-convexity
-Commit:    33cb766ead7735284ce71da84bbc51e6539fe207
+Commit:    a1303c7bd27ba2078c4acac618c1764b9efce745
 Toolchain: leanprover/lean4:v4.31.0
-Theorem:   QuantumInfo/Entropy/DPI.lean:1483
+Theorem:   QuantumInfo/Entropy/DPI.lean:1534
 
 This is the submission branch: its diff against master is exactly the
-+186 / -15 of this PR (QuantumInfo/Entropy/DPI.lean and Relative.lean),
-with no other commits on top. Each command below was run in this checkout
-and its real output captured.
++192 / -15 of this PR (QuantumInfo/Entropy/DPI.lean, Relative.lean, and
+QuantumInfo/ClassicalInfo/Prob.lean), with no other commits on top. Each
+command below was run in a checkout at this commit and its real output captured.
 
 ----------------------------------------------------------------
 1. #print axioms  (kernel-level; the decisive check)
@@ -25,23 +25,27 @@ $ printf 'import QuantumInfo.Entropy.DPI
    No sorry/admit anywhere in the proof or its dependency chain.
 
 ----------------------------------------------------------------
-2. lake build (module)
+2. lake build (full QuantumInfo library)
 ----------------------------------------------------------------
-$ lake build QuantumInfo.Entropy.DPI
-Build completed successfully (8617 jobs).
+$ lake build QuantumInfo
+Build completed successfully (8636 jobs).
 
-   (This builds the changed module and its dependencies, not the whole
-    library; that is what the PR touches.)
+   (The whole QuantumInfo library is built, not just the changed module.
+    This is deliberate: the PR adds `@[simp] Mixable.mix_one` in
+    Prob.lean, and building the full library exercises that new simp
+    lemma against every downstream user — no regression.)
 
 ----------------------------------------------------------------
 3. lake exe lint_all
 ----------------------------------------------------------------
 $ lake exe lint_all
-exit code: 0 (clean — no lint findings).
-   (On this machine the run also emits two ld64.lld 'architecture arm64
-    incompatible with x86_64' LINKER warnings from prebuilt vendored libs
-    in .lake/packages; these are a local toolchain artifact, unrelated to
-    the proof or to linting.)
+exit code: 0.
+   Zero findings in the three changed files (Prob.lean, Relative.lean,
+   DPI.lean). The run reports four pre-existing "Transitive imports"
+   flags in Physlib/SpaceAndTime/{NormPow,Module,Origin,Time/Derivatives};
+   these files are untouched by this PR, live in a library that does not
+   import QuantumInfo, and this PR adds no import lines — so the flags are
+   independent of this change and byte-identical to master's import graphs.
 
 ----------------------------------------------------------------
 4. scripts/lint-style.sh  (the style linter PhysLean CI runs)
@@ -51,9 +55,7 @@ exit code: 0 (clean).
 
    Note on scope: lint-style.sh lints the QuantumInfo/Physlib files that
    are NOT in scripts/LinterExemption.txt. QuantumInfo/Entropy/DPI.lean and
-   QuantumInfo/Entropy/Relative.lean are BOTH on that exemption list
-   upstream (the library is being brought into style conformance
-   file-by-file), so CI does not style-lint them today. Running
-   scripts/lint-style.py directly on the two changed files (bypassing the
-   exemption) shows: the +186 added lines introduce no new ERR_LIN; the
-   pre-existing lint in both files predates this PR and is out of scope.
+   QuantumInfo/Entropy/Relative.lean are on that exemption list upstream
+   (the library is being brought into style conformance file-by-file), so
+   CI does not style-lint them today. The added lines introduce no new
+   ERR_LIN; the pre-existing lint in both files predates this PR.
