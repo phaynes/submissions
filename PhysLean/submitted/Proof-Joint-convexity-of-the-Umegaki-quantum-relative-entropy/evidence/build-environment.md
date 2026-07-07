@@ -42,7 +42,7 @@ kernel. The presence of this artifact is direct evidence that `DPI.lean` — the
 containing `qRelativeEnt_joint_convexity` and its supporting lemmas (the majorant
 `…_sub_one_div_eventually_le`, the mixture lemmas, and the `α → 1⁺` continuity lemma) —
 compiled successfully. The size/hash below are for a specific local build of commit
-`a1303c7b` and are machine-specific (`.olean`s are not bit-reproducible across machines);
+`f901e353` and are machine-specific (`.olean`s are not bit-reproducible across machines);
 the portable evidence is the `#print axioms` check in [`checks.md`](checks.md) /
 [`lean-run.txt`](lean-run.txt).
 
@@ -57,11 +57,12 @@ Provenance of the source it was built from:
 
 | | |
 |---|---|
-| Commit | `a1303c7bd27ba2078c4acac618c1764b9efce745` |
+| Commit | `f901e3534f35702ff1db999bebf97cbc8611f858` |
 | Author | Philip Haynes |
 | Date | 2026-07-07 18:37:17 +1000 |
 | Subject | `feat(QuantumInfo): prove qRelativeEnt_joint_convexity (joint convexity of Umegaki relative entropy)` |
-| Co-authored-by | Claude Opus 4.8; Codex gpt-5.5 (AI assistance, disclosed per `AI-POLICY.md`) |
+| Signed-off-by | Philip Haynes |
+| Co-authored-by | Helios; Claude Opus 4.8; Codex gpt-5.5 (AI assistance, disclosed per `AI-POLICY.md`) |
 
 (The artifact's mtime precedes the commit time by a few minutes: the file was compiled
 during development, then committed — the ordinary order of events.)
@@ -88,4 +89,4 @@ lake env lean /tmp/axioms.lean
 
 Capturing the stdout of steps 1–2 into `evidence/lean-run.txt` gives the fresh transcript.
 Its expected content (the axiom list, no `sorryAx`) is already recorded in
-[`checks.md`](checks.md) and the commit message of `a1303c7b`.
+[`checks.md`](checks.md) and the commit message of `f901e353`.

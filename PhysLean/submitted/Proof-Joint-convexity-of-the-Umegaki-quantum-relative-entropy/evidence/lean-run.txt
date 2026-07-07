@@ -4,7 +4,7 @@ Fresh Lean verification transcript — qRelativeEnt_joint_convexity
 Generated: 2026-07-07
 Checkout:  physlib (QuantumInfo half)
 Branch:    feat/qrelent-joint-convexity
-Commit:    a1303c7bd27ba2078c4acac618c1764b9efce745
+Commit:    f901e3534f35702ff1db999bebf97cbc8611f858
 Toolchain: leanprover/lean4:v4.31.0
 Theorem:   QuantumInfo/Entropy/DPI.lean:1534
 

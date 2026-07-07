@@ -1,7 +1,7 @@
 # How to open the invited PR — updated for the Codex-refined refactor
 
 This is the operator playbook for opening the PhysLean pull request from the **current**
-state of the proof (commit `a1303c7b`, the refactor JTS's "golf it a bit" note prompted,
+state of the proof (commit `f901e353`, the refactor JTS's "golf it a bit" note prompted,
 plus a Codex second-opinion pass). It is a delta on top of what `submit.sh` and
 `PR-BODY.md` already give you — read this first, then let `submit.sh` walk the mechanics.
 
@@ -16,7 +16,7 @@ He reviewed the first proof (commit `33cb766e`) and said: *"These look good, alt
 may want to golf them a bit. There are lots of `have` statements, the number of which can
 probably be reduced."*
 
-The current commit `a1303c7b` is the response:
+The current commit `f901e353` is the response:
 
 - **Idiom polish** — collapsed the mechanical `have`s that read as beginner/AI Lean.
 - **Finiteness API** — `qRelativeEnt_ne_top_iff` / `qRelativeEnt_eq_top_iff` (Relative.lean),
@@ -41,7 +41,7 @@ unused — it is used twice). All build-verified.
 
 ---
 
-## 1. Verification state of `a1303c7b` (already run; re-runnable)
+## 1. Verification state of `f901e353` (already run; re-runnable)
 
 | Check | Result |
 |---|---|
@@ -57,10 +57,11 @@ Re-confirm any time with: `./verify.sh /path/to/physlib` (add `LINT=1` for the l
 
 ## 2. The commit is on your branch, unpushed
 
-- Branch `feat/qrelent-joint-convexity` in `physlib-contrib` is at **`a1303c7b`**.
-- It carries the required trailers:
-  `Signed-off-by: Philip Haynes`, `Co-authored-by: Claude Opus 4.8 …`,
-  `Co-authored-by: Codex gpt-5.5 …` (AGENTS.md "Commits" requires the AI co-author line).
+- Branch `feat/qrelent-joint-convexity` in `physlib-contrib` is at **`f901e353`**.
+- It carries the required trailers: `Signed-off-by: Philip Haynes` (author), and
+  `Co-authored-by:` lines for `Helios`, `Claude Opus 4.8`, and `Codex gpt-5.5`
+  (AGENTS.md "Commits" requires the AI co-author line; addresses use `@helios.local`
+  placeholders, no vendor domains).
 - The repo's only git remote is upstream `leanprover-community/physlib` — so there is **no
   fork remote configured**. Before pushing you must either add your fork as a remote or let
   `submit.sh` step 3 push to a fork it helps you set. **Do not push the branch to the
@@ -79,7 +80,7 @@ cd /Volumes/second-store/devel/knowledge-base-mcp/submissions/PhysLean/submitted
 ```
 
 It is interactive and prompts (y/N) before every outward-facing step. It will:
-0. check you are on `feat/qrelent-joint-convexity` at `a1303c7b`, clean tree, `gh` authed;
+0. check you are on `feat/qrelent-joint-convexity` at `f901e353`, clean tree, `gh` authed;
 1. run `verify.sh` (+ `LINT=1`);
 2. run `lint_all` and `lint-style.sh` directly;
 3. ask how to publish the branch — **choose your fork** (not a direct upstream push);

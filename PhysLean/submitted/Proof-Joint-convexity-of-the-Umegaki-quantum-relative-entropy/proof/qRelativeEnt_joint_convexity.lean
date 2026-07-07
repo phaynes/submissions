@@ -1,4 +1,4 @@
--- EXCERPT of the added code (PhysLean branch feat/qrelent-joint-convexity, commit a1303c7b).
+-- EXCERPT of the added code (PhysLean branch feat/qrelent-joint-convexity, commit f901e353).
 -- The contribution spans three files; this excerpt collects the added declarations for reading.
 -- The exact change set is in qrelent-joint-convexity.patch (git show of the commit).
 -- Reproduce all checks with ../verify.sh <your-physlib-checkout>.

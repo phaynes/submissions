@@ -41,7 +41,7 @@ submission process itself, with its traceability map and test results.
 
 | Project | Submission | Status |
 |---|---|---|
-| [PhysLean](https://github.com/leanprover-community/physlib) | [PR#0 — Joint convexity of the Umegaki quantum relative entropy](PhysLean/submitted/Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy/) | **ready** — verified against a live Lean toolchain (`#print axioms` clean, module builds, linters clean); PR not yet opened (run its `submit.sh`) |
+| [PhysLean](https://github.com/leanprover-community/physlib) | [PR#0 — Joint convexity of the Umegaki quantum relative entropy](PhysLean/submitted/Proof-Joint-convexity-of-the-Umegaki-quantum-relative-entropy/) | **ready** (proof `a1303c7b`) — refactored after the maintainer's review + a Codex second-opinion pass, then re-verified against a live Lean toolchain (statement byte-identical, `#print axioms` clean, full `QuantumInfo` builds, linters clean); packet regenerated to match. PR not yet opened (run its `submit.sh`); see the packet's `advice.md`. |
 | [PhysLean](https://github.com/leanprover-community/physlib) | [PR#1 — Curved-surface measures](PhysLean/preparation/PR1-Surfaces/) | Cone proved; Torus/Ellipsoid not yet written (blocked on a ruling) |
 
 ## How verification works

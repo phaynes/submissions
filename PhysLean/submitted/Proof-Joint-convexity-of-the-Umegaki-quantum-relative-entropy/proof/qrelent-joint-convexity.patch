@@ -1,4 +1,4 @@
-commit a1303c7bd27ba2078c4acac618c1764b9efce745
+commit f901e3534f35702ff1db999bebf97cbc8611f858
 Author: Philip Haynes <Philip.haynes@me.com>
 Date:   Tue Jul 7 18:37:17 2026 +1000
 
@@ -12,8 +12,9 @@ Date:   Tue Jul 7 18:37:17 2026 +1000
     only propext/Classical.choice/Quot.sound.
     
     Signed-off-by: Philip Haynes <Philip.haynes@me.com>
-    Co-authored-by: Claude Opus 4.8 <no-reply+claude-opus-4-8@anthropic.com>
-    Co-authored-by: Codex gpt-5.5 <no-reply+codex@openai.com>
+    Co-authored-by: Helios <helios@helios.local>
+    Co-authored-by: Claude Opus 4.8 <claude@helios.local>
+    Co-authored-by: Codex gpt-5.5 <codex@helios.local>
 
 diff --git a/QuantumInfo/ClassicalInfo/Prob.lean b/QuantumInfo/ClassicalInfo/Prob.lean
 index ab934e42..cb1fe1c5 100644

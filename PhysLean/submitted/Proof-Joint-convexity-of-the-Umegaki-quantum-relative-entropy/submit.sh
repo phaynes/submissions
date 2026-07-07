@@ -28,7 +28,7 @@ PHYSLIB_DEFAULT="/Volumes/second-store/devel/knowledge-base-mcp/mentormind/physl
 PHYSLIB="${1:-$PHYSLIB_DEFAULT}"
 
 BRANCH="feat/qrelent-joint-convexity"
-EXPECTED_COMMIT="a1303c7bd27ba2078c4acac618c1764b9efce745"   # the AI-trailer commit (Codex-refined refactor)
+EXPECTED_COMMIT="f901e3534f35702ff1db999bebf97cbc8611f858"   # the AI-trailer commit (Codex-refined refactor)
 UPSTREAM_SLUG="leanprover-community/physlib"
 BASE_BRANCH="master"
 PR_TITLE="feat(QuantumInfo): prove qRelativeEnt_joint_convexity"

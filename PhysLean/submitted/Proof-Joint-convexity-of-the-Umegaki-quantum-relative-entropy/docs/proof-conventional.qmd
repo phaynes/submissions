@@ -5,7 +5,7 @@ format: html
 ---
 
 This note renders the Lean proof of `qRelativeEnt_joint_convexity`
-(`QuantumInfo/Entropy/DPI.lean`, line ~1534 as of commit `a1303c7b`) as a mathematician
+(`QuantumInfo/Entropy/DPI.lean`, line ~1534 as of commit `f901e353`) as a mathematician
 would write it on paper. The structure of the argument below follows the Lean proof
 step for step; Lean identifiers are given in `code font` at the point where they are
 used. Nothing is included that is not in the formal proof, and the two pre-existing
@@ -334,7 +334,7 @@ $$
 
 ## 7. Lean–paper dictionary
 
-| Paper object / step | Lean identifier | Location (commit `a1303c7b`) |
+| Paper object / step | Lean identifier | Location (commit `f901e353`) |
 |---|---|---|
 | Umegaki $D$ | `qRelativeEnt` / `𝐃` | `Relative.lean:1497` |
 | — trace-formula identification | `qRelativeEnt_ker` | `Relative.lean:1782` |
@@ -386,4 +386,4 @@ $$
   matching the pre-existing `sorryful` statement it closes.
 - **Axioms.** The proof is `sorry`-free; `#print axioms qRelativeEnt_joint_convexity`
   reports only `propext`, `Classical.choice`, `Quot.sound` (recorded in the commit
-  message of `a1303c7b`).
+  message of `f901e353`).
