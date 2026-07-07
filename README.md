@@ -1,16 +1,10 @@
-# submissions
+# Open Source Submissions Staging
 
 A **preparation and staging area** for contributions being prepared for external
 projects. Each submission is assembled and self-checked here first, so that when it
 is offered upstream, a reviewer can understand and verify it with the least possible
 effort. Within a project, work moves from `preparation/` (being written) to
 `submitted/` (verified and ready to offer upstream).
-
-> **This is not an official submission channel.** Nothing here has been sent to any
-> reviewer. For projects with an AI-contribution policy (e.g. PhysLean), all reviewer
-> communication — opening the pull request, posting to the forum — is conducted by a
-> human, who personally vouches for the work. This repository only *prepares* that
-> material.
 
 ## Layout
 
