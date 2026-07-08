@@ -1,0 +1,28 @@
+QuantumInfo/Capacity/Capacity.lean:158:  sorry
+QuantumInfo/Capacity/Capacity.lean:220:  sorry
+QuantumInfo/Capacity/Capacity.lean:226:  sorry
+QuantumInfo/ClassicalInfo/Capacity.lean:56:    sorry
+QuantumInfo/ClassicalInfo/Capacity.lean:58:    sorry
+QuantumInfo/ClassicalInfo/Capacity.lean:59:  enc_maps_length := sorry
+QuantumInfo/ClassicalInfo/Capacity.lean:60:  dec_maps_length := sorry
+QuantumInfo/Entropy/Axiomatized/Defs.lean:150:  sorry
+QuantumInfo/Entropy/Axiomatized/Defs.lean:166:    sorry --missing simp lemma
+QuantumInfo/Entropy/Axiomatized/Defs.lean:176:  DPI := sorry
+QuantumInfo/Entropy/Axiomatized/Defs.lean:177:  of_kron := sorry
+QuantumInfo/Entropy/Axiomatized/Defs.lean:178:  normalized := sorry
+QuantumInfo/Entropy/Axiomatized/Defs.lean:184:    sorry--TODO
+QuantumInfo/Entropy/Axiomatized/Defs.lean:189:  sorry --Tomamichel, https://www.marcotom.info/files/entropy-masterclass2022.pdf, (1.28)
+QuantumInfo/Entropy/Axiomatized/Defs.lean:212:    replace hv : σ.toMat.mulVec v = 0 := sorry --why is this not defeq??
+QuantumInfo/Entropy/Axiomatized/Defs.lean:218:    sorry
+QuantumInfo/Entropy/Axiomatized/Defs.lean:222:    sorry --log ("min nonzero eigenvalue of σ" / "max eigenvalue of ρ") should work
+QuantumInfo/Entropy/Axiomatized/Defs.lean:231:    sorry
+QuantumInfo/Entropy/Axiomatized/Defs.lean:237:  sorry --Tomamichel, https://www.marcotom.info/files/entropy-masterclass2022.pdf, (1.28)
+QuantumInfo/Entropy/Axiomatized/Renyi.lean:23:    sorry⟩
+QuantumInfo/Entropy/Axiomatized/Renyi.lean:30:  DPI := sorry
+QuantumInfo/Entropy/Axiomatized/Renyi.lean:31:  of_kron := sorry
+QuantumInfo/Entropy/Axiomatized/Renyi.lean:32:  normalized := sorry
+QuantumInfo/Entropy/Axiomatized/Renyi.lean:35:  nontrivial := sorry
+QuantumInfo/Entropy/SSA.lean:1300:  admit
+QuantumInfo/ForMathlib/Misc.lean:30:  sorry
+QuantumInfo/ForMathlib/Misc.lean:34:    ⨆ i, (⟨f i, h i⟩ : ↑s) = ⟨⨆ i, f i, by sorry⟩ := by
+QuantumInfo/States/Mixed/Fidelity.lean:134:  sorry

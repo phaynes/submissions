@@ -1,0 +1,9 @@
+rev: 720c9fffe5549c9dfbbb893cc3ca37305fc6536d
+date: 2026-07-08T00:47:40Z
+file: QuantumInfo/Entropy/Relative.lean
+file: QuantumInfo/Entropy/DPI.lean
+file: QuantumInfo/ClassicalInfo/Prob.lean
+file: QuantumInfo/Channels/Pinching.lean
+file: QuantumInfo/ResourceTheory/FreeState.lean
+file: QuantumInfo/ResourceTheory/HypothesisTesting.lean
+file: QuantumInfo/ResourceTheory/SteinsLemma.lean

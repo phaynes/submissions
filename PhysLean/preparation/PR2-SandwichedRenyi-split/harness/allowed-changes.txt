@@ -1,0 +1,17 @@
+# Whitelist for 20_check.sh — REVIEWED IN PHASE P1. Anything not listed here that
+# changes (inventory/privacy/files) fails the harness.
+# D1 (file name — flip both lines if SandwichedRelRentropy.lean is chosen):
+newfile QuantumInfo/Entropy/SandwichedRenyi.lean
+allow-file QuantumInfo/Entropy/Relative.lean
+allow-file QuantumInfo/Entropy/DPI.lean
+allow-file QuantumInfo.lean
+# D3: family-pure tendsto lemma added in the new file (the 𝐃-named original becomes a
+# one-line alias in Relative.lean — same name+statement, so no 'add' entry needed for it):
+add sandwichedRelRentropy_tendsto_one
+# Measured coupling: lowerSemicontinuous (stays in Relative) uses these currently-private
+# lemmas from the derivative engine — promoted to public in the new file (P4):
+promote eigenWeight
+promote inner_cfc_eq_sum_eigenWeight
+promote eigenWeight_nonneg
+promote eigenWeight_zero_of_eigenvalue_zero
+# NOTE P1 must confirm this promotion list is exactly sufficient (build will fail-fast if not)
