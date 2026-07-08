@@ -1,0 +1,1349 @@
+[
+{
+"name": "sandwiched_trace_pos",
+"kind": "theorem",
+"priv": "private",
+"line": 33,
+"nlines": 18,
+"uses": [],
+"used_by_count": 3
+},
+{
+"name": "weighted_jensen_rpow",
+"kind": "lemma",
+"priv": "public",
+"line": 51,
+"nlines": 11,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "doubly_stochastic_holder",
+"kind": "lemma",
+"priv": "public",
+"line": 62,
+"nlines": 42,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "HermitianMat.inner_le_trace_rpow_mul",
+"kind": "lemma",
+"priv": "public",
+"line": 104,
+"nlines": 25,
+"uses": [
+"doubly_stochastic_holder"
+],
+"used_by_count": 2
+},
+{
+"name": "MState.rpow_le_one'",
+"kind": "lemma",
+"priv": "public",
+"line": 129,
+"nlines": 15,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "HermitianMat.eigenvalues_le_one_of_le_one",
+"kind": "lemma",
+"priv": "public",
+"line": 144,
+"nlines": 30,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "HermitianMat.trace_rpow_le_trace_of_le_one",
+"kind": "lemma",
+"priv": "public",
+"line": 174,
+"nlines": 17,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "trace_conj_rpow_eq_inner",
+"kind": "lemma",
+"priv": "private",
+"line": 191,
+"nlines": 30,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "inner_rpow_le_one",
+"kind": "lemma",
+"priv": "private",
+"line": 221,
+"nlines": 11,
+"uses": [
+"HermitianMat.inner_le_trace_rpow_mul"
+],
+"used_by_count": 0
+},
+{
+"name": "sandwiched_trace_of_lt_1",
+"kind": "theorem",
+"priv": "private",
+"line": 232,
+"nlines": 27,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "HermitianMat.rpow_neg_mul_rpow_eq_supportProj",
+"kind": "lemma",
+"priv": "public",
+"line": 259,
+"nlines": 15,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "HermitianMat.supportProj_mul_self",
+"kind": "lemma",
+"priv": "public",
+"line": 274,
+"nlines": 28,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "HermitianMat.inner_supportProj_self",
+"kind": "lemma",
+"priv": "public",
+"line": 302,
+"nlines": 11,
+"uses": [
+"HermitianMat.supportProj_mul_self"
+],
+"used_by_count": 1
+},
+{
+"name": "HermitianMat.mul_supportProj_of_ker_le",
+"kind": "lemma",
+"priv": "public",
+"line": 313,
+"nlines": 49,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "HermitianMat.inner_supportProj_of_ker_le",
+"kind": "lemma",
+"priv": "public",
+"line": 362,
+"nlines": 5,
+"uses": [],
+"used_by_count": 3
+},
+{
+"name": "supportProj_inner_density",
+"kind": "lemma",
+"priv": "public",
+"line": 367,
+"nlines": 8,
+"uses": [
+"HermitianMat.inner_supportProj_of_ker_le"
+],
+"used_by_count": 1
+},
+{
+"name": "sandwiched_inner_eq_one",
+"kind": "lemma",
+"priv": "private",
+"line": 375,
+"nlines": 16,
+"uses": [
+"supportProj_inner_density"
+],
+"used_by_count": 1
+},
+{
+"name": "sandwiched_trace_of_gt_1",
+"kind": "theorem",
+"priv": "private",
+"line": 391,
+"nlines": 36,
+"uses": [
+"HermitianMat.inner_le_trace_rpow_mul",
+"sandwiched_inner_eq_one"
+],
+"used_by_count": 2
+},
+{
+"name": "sandwichedRelRentropy_nonneg_α_lt_1",
+"kind": "theorem",
+"priv": "private",
+"line": 427,
+"nlines": 8,
+"uses": [
+"sandwiched_trace_of_lt_1",
+"sandwiched_trace_pos"
+],
+"used_by_count": 1
+},
+{
+"name": "sandwichedRelRentropy_nonneg_α_gt_1",
+"kind": "theorem",
+"priv": "private",
+"line": 435,
+"nlines": 6,
+"uses": [
+"sandwiched_trace_of_gt_1"
+],
+"used_by_count": 2
+},
+{
+"name": "sandwichedRelRentropy.trace_at_one",
+"kind": "lemma",
+"priv": "private",
+"line": 441,
+"nlines": 7,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "hasDerivAt_trace_rpow_at_one",
+"kind": "lemma",
+"priv": "private",
+"line": 448,
+"nlines": 53,
+"uses": [],
+"used_by_count": 4
+},
+{
+"name": "trace_conj_eq_inner_rpow",
+"kind": "lemma",
+"priv": "private",
+"line": 501,
+"nlines": 23,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "eigenWeight",
+"kind": "def",
+"priv": "private",
+"line": 524,
+"nlines": 3,
+"uses": [],
+"used_by_count": 8
+},
+{
+"name": "inner_cfc_eq_sum_eigenWeight",
+"kind": "lemma",
+"priv": "private",
+"line": 527,
+"nlines": 19,
+"uses": [
+"eigenWeight"
+],
+"used_by_count": 5
+},
+{
+"name": "eigenWeight_nonneg",
+"kind": "lemma",
+"priv": "private",
+"line": 546,
+"nlines": 17,
+"uses": [
+"eigenWeight"
+],
+"used_by_count": 3
+},
+{
+"name": "eigenWeight_zero_of_eigenvalue_zero",
+"kind": "lemma",
+"priv": "private",
+"line": 563,
+"nlines": 20,
+"uses": [
+"eigenWeight",
+"inner_cfc_eq_sum_eigenWeight"
+],
+"used_by_count": 4
+},
+{
+"name": "hasDerivAt_inner_rpow_at_zero",
+"kind": "lemma",
+"priv": "private",
+"line": 583,
+"nlines": 26,
+"uses": [
+"eigenWeight",
+"eigenWeight_zero_of_eigenvalue_zero",
+"inner_cfc_eq_sum_eigenWeight"
+],
+"used_by_count": 1
+},
+{
+"name": "hasDerivAt_trace_conj_at_one",
+"kind": "lemma",
+"priv": "private",
+"line": 609,
+"nlines": 27,
+"uses": [
+"hasDerivAt_inner_rpow_at_zero",
+"trace_conj_eq_inner_rpow"
+],
+"used_by_count": 1
+},
+{
+"name": "scalar_rpow_cross_term",
+"kind": "lemma",
+"priv": "private",
+"line": 636,
+"nlines": 12,
+"uses": [
+"hasDerivAt_trace_rpow_at_one"
+],
+"used_by_count": 0
+},
+{
+"name": "hasDerivAt_trace_rpow_sub_trace",
+"kind": "lemma",
+"priv": "private",
+"line": 648,
+"nlines": 5,
+"uses": [
+"hasDerivAt_trace_rpow_at_one"
+],
+"used_by_count": 1
+},
+{
+"name": "B_of",
+"kind": "abbrev",
+"priv": "private",
+"line": 653,
+"nlines": 4,
+"uses": [],
+"used_by_count": 5
+},
+{
+"name": "B_of_one",
+"kind": "lemma",
+"priv": "private",
+"line": 657,
+"nlines": 4,
+"uses": [
+"B_of"
+],
+"used_by_count": 1
+},
+{
+"name": "B_of_nonneg",
+"kind": "lemma",
+"priv": "private",
+"line": 661,
+"nlines": 4,
+"uses": [
+"B_of"
+],
+"used_by_count": 1
+},
+{
+"name": "trace_rpow_sub_trace_at_one",
+"kind": "lemma",
+"priv": "private",
+"line": 665,
+"nlines": 5,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "cross_term_at_one",
+"kind": "lemma",
+"priv": "private",
+"line": 670,
+"nlines": 11,
+"uses": [
+"B_of",
+"B_of_one"
+],
+"used_by_count": 0
+},
+{
+"name": "scalar_rpow_cross_term_of_continuous",
+"kind": "lemma",
+"priv": "private",
+"line": 681,
+"nlines": 38,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "scalar_rpow_cross_term_of_continuous_zero",
+"kind": "lemma",
+"priv": "private",
+"line": 719,
+"nlines": 61,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "conj_supportProj_eq_of_ker_le",
+"kind": "lemma",
+"priv": "private",
+"line": 780,
+"nlines": 13,
+"uses": [
+"HermitianMat.mul_supportProj_of_ker_le"
+],
+"used_by_count": 1
+},
+{
+"name": "rpow_tendsto_supportProj",
+"kind": "lemma",
+"priv": "private",
+"line": 793,
+"nlines": 23,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "conj_rpow_continuousAt_zero",
+"kind": "lemma",
+"priv": "private",
+"line": 816,
+"nlines": 20,
+"uses": [
+"B_of",
+"conj_supportProj_eq_of_ker_le",
+"rpow_tendsto_supportProj"
+],
+"used_by_count": 1
+},
+{
+"name": "B_of_continuousAt",
+"kind": "lemma",
+"priv": "private",
+"line": 836,
+"nlines": 12,
+"uses": [
+"B_of",
+"conj_rpow_continuousAt_zero"
+],
+"used_by_count": 1
+},
+{
+"name": "trace_cfc_sub_le",
+"kind": "lemma",
+"priv": "private",
+"line": 848,
+"nlines": 9,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "eigenvalues_bounded_near",
+"kind": "lemma",
+"priv": "private",
+"line": 857,
+"nlines": 19,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "rpow_slope_tendsto_uniformly",
+"kind": "lemma",
+"priv": "private",
+"line": 876,
+"nlines": 103,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "trace_cfc_tendsto_of_tendsto",
+"kind": "lemma",
+"priv": "private",
+"line": 979,
+"nlines": 30,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "cross_term_slope_tendsto_zero",
+"kind": "lemma",
+"priv": "private",
+"line": 1009,
+"nlines": 82,
+"uses": [
+"eigenvalues_bounded_near",
+"rpow_slope_tendsto_uniformly",
+"trace_cfc_tendsto_of_tendsto"
+],
+"used_by_count": 1
+},
+{
+"name": "hasDerivAt_trace_rpow_sub_trace_variable_base",
+"kind": "lemma",
+"priv": "private",
+"line": 1091,
+"nlines": 17,
+"uses": [
+"cross_term_slope_tendsto_zero",
+"hasDerivAt_trace_rpow_sub_trace"
+],
+"used_by_count": 1
+},
+{
+"name": "rpow_trace_cross_term_vanishes",
+"kind": "lemma",
+"priv": "private",
+"line": 1108,
+"nlines": 18,
+"uses": [
+"B_of_continuousAt",
+"B_of_nonneg",
+"hasDerivAt_trace_rpow_at_one",
+"hasDerivAt_trace_rpow_sub_trace_variable_base"
+],
+"used_by_count": 1
+},
+{
+"name": "sandwichedRelRentropy.hasDerivAt_trace_at_one",
+"kind": "theorem",
+"priv": "private",
+"line": 1126,
+"nlines": 22,
+"uses": [
+"hasDerivAt_trace_conj_at_one",
+"hasDerivAt_trace_rpow_at_one",
+"rpow_trace_cross_term_vanishes"
+],
+"used_by_count": 1
+},
+{
+"name": "sandwichedRelRentropy.limit_at_one",
+"kind": "theorem",
+"priv": "private",
+"line": 1148,
+"nlines": 15,
+"uses": [
+"sandwichedRelRentropy.hasDerivAt_trace_at_one"
+],
+"used_by_count": 2
+},
+{
+"name": "inner_log_sub_log_nonneg",
+"kind": "theorem",
+"priv": "public",
+"line": 1163,
+"nlines": 16,
+"uses": [
+"sandwichedRelRentropy.limit_at_one",
+"sandwichedRelRentropy_nonneg_α_gt_1"
+],
+"used_by_count": 1
+},
+{
+"name": "sandwichedRelRentropy_nonneg",
+"kind": "theorem",
+"priv": "public",
+"line": 1179,
+"nlines": 17,
+"uses": [
+"inner_log_sub_log_nonneg",
+"sandwichedRelRentropy_nonneg_α_gt_1",
+"sandwichedRelRentropy_nonneg_α_lt_1"
+],
+"used_by_count": 1
+},
+{
+"name": "ker_kron_le_of_le",
+"kind": "lemma",
+"priv": "public",
+"line": 1196,
+"nlines": 53,
+"uses": [],
+"used_by_count": 2
+},
+{
+"name": "ker_le_of_ker_kron_le_left",
+"kind": "lemma",
+"priv": "public",
+"line": 1249,
+"nlines": 84,
+"uses": [],
+"used_by_count": 2
+},
+{
+"name": "ker_le_of_ker_kron_le_right",
+"kind": "lemma",
+"priv": "public",
+"line": 1333,
+"nlines": 76,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "ker_prod_le_iff",
+"kind": "lemma",
+"priv": "public",
+"line": 1409,
+"nlines": 8,
+"uses": [
+"ker_kron_le_of_le",
+"ker_le_of_ker_kron_le_left",
+"ker_le_of_ker_kron_le_right"
+],
+"used_by_count": 2
+},
+{
+"name": "HermitianMat.inner_kron",
+"kind": "lemma",
+"priv": "public",
+"line": 1417,
+"nlines": 22,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "continuousOn_rpow_uniform",
+"kind": "lemma",
+"priv": "public",
+"line": 1439,
+"nlines": 23,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "sandwichedRelRentropy_additive_alpha_one_aux",
+"kind": "theorem",
+"priv": "public",
+"line": 1462,
+"nlines": 18,
+"uses": [
+"HermitianMat.inner_kron",
+"HermitianMat.inner_supportProj_of_ker_le",
+"HermitianMat.inner_supportProj_self"
+],
+"used_by_count": 1
+},
+{
+"name": "SandwichedRelRentropy",
+"kind": "def",
+"priv": "public",
+"line": 1480,
+"nlines": 17,
+"uses": [
+"sandwichedRelRentropy_nonneg"
+],
+"used_by_count": 15
+},
+{
+"name": "qRelativeEnt",
+"kind": "def",
+"priv": "public",
+"line": 1497,
+"nlines": 8,
+"uses": [],
+"used_by_count": 8
+},
+{
+"name": "sandwichedRelRentropy_additive_alpha_one",
+"kind": "theorem",
+"priv": "private",
+"line": 1505,
+"nlines": 21,
+"uses": [
+"SandwichedRelRentropy",
+"ker_le_of_ker_kron_le_left",
+"ker_prod_le_iff",
+"sandwichedRelRentropy_additive_alpha_one_aux"
+],
+"used_by_count": 2
+},
+{
+"name": "sandwiched_term_product",
+"kind": "lemma",
+"priv": "public",
+"line": 1526,
+"nlines": 13,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "sandwichedRelRentropy_additive_alpha_ne_one",
+"kind": "theorem",
+"priv": "public",
+"line": 1539,
+"nlines": 26,
+"uses": [
+"SandwichedRelRentropy",
+"ker_prod_le_iff",
+"sandwiched_term_product",
+"sandwiched_trace_pos"
+],
+"used_by_count": 1
+},
+{
+"name": "sandwichedRelRentropy_additive",
+"kind": "theorem",
+"priv": "public",
+"line": 1565,
+"nlines": 8,
+"uses": [
+"sandwichedRelRentropy_additive_alpha_ne_one",
+"sandwichedRelRentropy_additive_alpha_one"
+],
+"used_by_count": 0
+},
+{
+"name": "qRelativeEnt_additive",
+"kind": "theorem",
+"priv": "public",
+"line": 1573,
+"nlines": 6,
+"uses": [
+"SandwichedRelRentropy",
+"sandwichedRelRentropy_additive_alpha_one"
+],
+"used_by_count": 0
+},
+{
+"name": "sandwichedRelRentropy_relabel",
+"kind": "theorem",
+"priv": "public",
+"line": 1579,
+"nlines": 7,
+"uses": [
+"SandwichedRelRentropy"
+],
+"used_by_count": 0
+},
+{
+"name": "sandwichedRelRentropy_self",
+"kind": "theorem",
+"priv": "public",
+"line": 1586,
+"nlines": 27,
+"uses": [
+"SandwichedRelRentropy"
+],
+"used_by_count": 0
+},
+{
+"name": "sandwichedRelEntropy_ne_top",
+"kind": "theorem",
+"priv": "public",
+"line": 1613,
+"nlines": 6,
+"uses": [
+"SandwichedRelRentropy"
+],
+"used_by_count": 0
+},
+{
+"name": "continuousOn_exponent",
+"kind": "lemma",
+"priv": "public",
+"line": 1619,
+"nlines": 4,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "Complex.continuousOn_cpow_const_Ioi",
+"kind": "lemma",
+"priv": "public",
+"line": 1623,
+"nlines": 9,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "maps_to_Iio_of_Ioi_1",
+"kind": "lemma",
+"priv": "public",
+"line": 1632,
+"nlines": 10,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "frontier_singleton",
+"kind": "theorem",
+"priv": "public",
+"line": 1642,
+"nlines": 4,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "sandwichedRelRentropy.continuousOn_Ioi_1_aux",
+"kind": "theorem",
+"priv": "private",
+"line": 1646,
+"nlines": 18,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "sandwichedRelRentropy.continuousOn_Ioi_1",
+"kind": "theorem",
+"priv": "private",
+"line": 1664,
+"nlines": 29,
+"uses": [
+"SandwichedRelRentropy",
+"sandwiched_trace_of_gt_1"
+],
+"used_by_count": 1
+},
+{
+"name": "sandwichedRelRentropy.continuousOn_Ioo_0_1_aux",
+"kind": "theorem",
+"priv": "private",
+"line": 1693,
+"nlines": 18,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "sandwichedRelRentropy.continuousOn_Ioo_0_1",
+"kind": "theorem",
+"priv": "private",
+"line": 1711,
+"nlines": 30,
+"uses": [
+"SandwichedRelRentropy",
+"sandwiched_trace_pos"
+],
+"used_by_count": 1
+},
+{
+"name": "sandwichedRelRentropy.continuousAt_1",
+"kind": "theorem",
+"priv": "private",
+"line": 1741,
+"nlines": 28,
+"uses": [
+"SandwichedRelRentropy",
+"sandwichedRelRentropy.limit_at_one"
+],
+"used_by_count": 1
+},
+{
+"name": "sandwichedRelRentropy.continuousOn",
+"kind": "theorem",
+"priv": "public",
+"line": 1769,
+"nlines": 13,
+"uses": [
+"sandwichedRelRentropy.continuousAt_1",
+"sandwichedRelRentropy.continuousOn_Ioi_1",
+"sandwichedRelRentropy.continuousOn_Ioo_0_1"
+],
+"used_by_count": 0
+},
+{
+"name": "qRelativeEnt_ker",
+"kind": "theorem",
+"priv": "public",
+"line": 1782,
+"nlines": 7,
+"uses": [
+"SandwichedRelRentropy",
+"qRelativeEnt"
+],
+"used_by_count": 4
+},
+{
+"name": "qRelativeEnt_ne_top_iff",
+"kind": "theorem",
+"priv": "public",
+"line": 1789,
+"nlines": 6,
+"uses": [
+"SandwichedRelRentropy",
+"qRelativeEnt"
+],
+"used_by_count": 1
+},
+{
+"name": "qRelativeEnt_eq_top_iff",
+"kind": "theorem",
+"priv": "public",
+"line": 1795,
+"nlines": 4,
+"uses": [
+"qRelativeEnt_ne_top_iff"
+],
+"used_by_count": 0
+},
+{
+"name": "qRelativeEnt_eq_neg_Sᵥₙ_add",
+"kind": "theorem",
+"priv": "public",
+"line": 1799,
+"nlines": 10,
+"uses": [
+"SandwichedRelRentropy",
+"qRelativeEnt",
+"qRelativeEnt_ker"
+],
+"used_by_count": 0
+},
+{
+"name": "qRelativeEnt_relabel",
+"kind": "theorem",
+"priv": "public",
+"line": 1809,
+"nlines": 5,
+"uses": [
+"qRelativeEnt"
+],
+"used_by_count": 0
+},
+{
+"name": "sandwichedRelRentropy_of_unique",
+"kind": "theorem",
+"priv": "public",
+"line": 1814,
+"nlines": 9,
+"uses": [
+"SandwichedRelRentropy"
+],
+"used_by_count": 1
+},
+{
+"name": "qRelEntropy_of_unique",
+"kind": "theorem",
+"priv": "public",
+"line": 1823,
+"nlines": 4,
+"uses": [
+"sandwichedRelRentropy_of_unique"
+],
+"used_by_count": 0
+},
+{
+"name": "sandwichedRelRentropy_heq_congr",
+"kind": "theorem",
+"priv": "public",
+"line": 1827,
+"nlines": 13,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "sandwichedRelRentropy_congr",
+"kind": "theorem",
+"priv": "public",
+"line": 1840,
+"nlines": 8,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "qRelEntropy_heq_congr",
+"kind": "theorem",
+"priv": "public",
+"line": 1848,
+"nlines": 6,
+"uses": [
+"sandwichedRelRentropy_heq_congr"
+],
+"used_by_count": 0
+},
+{
+"name": "qRelativeEnt_rank",
+"kind": "theorem",
+"priv": "public",
+"line": 1854,
+"nlines": 11,
+"uses": [
+"qRelativeEnt_ker"
+],
+"used_by_count": 0
+},
+{
+"name": "approxLog",
+"kind": "def",
+"priv": "private",
+"line": 1865,
+"nlines": 2,
+"uses": [],
+"used_by_count": 10
+},
+{
+"name": "approxLog_continuous",
+"kind": "lemma",
+"priv": "private",
+"line": 1867,
+"nlines": 5,
+"uses": [
+"approxLog"
+],
+"used_by_count": 1
+},
+{
+"name": "approxLog_ge_log_pos",
+"kind": "lemma",
+"priv": "private",
+"line": 1872,
+"nlines": 5,
+"uses": [
+"approxLog"
+],
+"used_by_count": 1
+},
+{
+"name": "continuous_inner_cfc_approxLog",
+"kind": "lemma",
+"priv": "private",
+"line": 1877,
+"nlines": 6,
+"uses": [
+"approxLog",
+"approxLog_continuous"
+],
+"used_by_count": 2
+},
+{
+"name": "approxLog_tendsto_at_pos",
+"kind": "lemma",
+"priv": "private",
+"line": 1883,
+"nlines": 8,
+"uses": [
+"approxLog"
+],
+"used_by_count": 2
+},
+{
+"name": "inner_cfc_approxLog_ge",
+"kind": "lemma",
+"priv": "private",
+"line": 1891,
+"nlines": 15,
+"uses": [
+"approxLog",
+"approxLog_ge_log_pos",
+"eigenWeight_nonneg",
+"eigenWeight_zero_of_eigenvalue_zero",
+"inner_cfc_eq_sum_eigenWeight"
+],
+"used_by_count": 2
+},
+{
+"name": "tendsto_inner_cfc_approxLog",
+"kind": "lemma",
+"priv": "private",
+"line": 1906,
+"nlines": 15,
+"uses": [
+"approxLog",
+"approxLog_tendsto_at_pos",
+"eigenWeight_zero_of_eigenvalue_zero",
+"inner_cfc_eq_sum_eigenWeight"
+],
+"used_by_count": 1
+},
+{
+"name": "inner_log_bounded_near",
+"kind": "lemma",
+"priv": "public",
+"line": 1921,
+"nlines": 22,
+"uses": [
+"approxLog",
+"continuous_inner_cfc_approxLog",
+"inner_cfc_approxLog_ge",
+"tendsto_inner_cfc_approxLog"
+],
+"used_by_count": 1
+},
+{
+"name": "eigenWeight_eq_zero_iff",
+"kind": "lemma",
+"priv": "private",
+"line": 1943,
+"nlines": 42,
+"uses": [
+"eigenWeight"
+],
+"used_by_count": 1
+},
+{
+"name": "ker_le_iff_eigenWeight_zero",
+"kind": "lemma",
+"priv": "private",
+"line": 1985,
+"nlines": 32,
+"uses": [
+"eigenWeight",
+"eigenWeight_eq_zero_iff",
+"eigenWeight_zero_of_eigenvalue_zero"
+],
+"used_by_count": 1
+},
+{
+"name": "neg_ker_exists_eigenWeight_pos",
+"kind": "lemma",
+"priv": "private",
+"line": 2017,
+"nlines": 7,
+"uses": [
+"eigenWeight",
+"eigenWeight_nonneg",
+"ker_le_iff_eigenWeight_zero"
+],
+"used_by_count": 1
+},
+{
+"name": "approxLog_at_zero",
+"kind": "lemma",
+"priv": "private",
+"line": 2024,
+"nlines": 3,
+"uses": [
+"approxLog"
+],
+"used_by_count": 1
+},
+{
+"name": "inner_cfc_approxLog_tendsto_bot",
+"kind": "lemma",
+"priv": "private",
+"line": 2027,
+"nlines": 22,
+"uses": [
+"approxLog",
+"approxLog_at_zero",
+"approxLog_tendsto_at_pos",
+"eigenWeight",
+"eigenWeight_nonneg",
+"inner_cfc_eq_sum_eigenWeight",
+"neg_ker_exists_eigenWeight_pos"
+],
+"used_by_count": 1
+},
+{
+"name": "qRelativeEnt_lowerSemicontinuous_2",
+"kind": "theorem",
+"priv": "public",
+"line": 2049,
+"nlines": 41,
+"uses": [
+"approxLog",
+"continuous_inner_cfc_approxLog",
+"inner_cfc_approxLog_ge",
+"inner_cfc_approxLog_tendsto_bot"
+],
+"used_by_count": 1
+},
+{
+"name": "qRelativeEnt.lowerSemicontinuous",
+"kind": "theorem",
+"priv": "public",
+"line": 2090,
+"nlines": 31,
+"uses": [
+"SandwichedRelRentropy",
+"inner_log_bounded_near",
+"qRelativeEnt",
+"qRelativeEnt_lowerSemicontinuous_2"
+],
+"used_by_count": 0
+},
+{
+"name": "qRelEntropy_self",
+"kind": "theorem",
+"priv": "public",
+"line": 2121,
+"nlines": 4,
+"uses": [
+"qRelativeEnt"
+],
+"used_by_count": 0
+},
+{
+"name": "qRelativeEnt_ne_top",
+"kind": "theorem",
+"priv": "public",
+"line": 2125,
+"nlines": 6,
+"uses": [
+"qRelativeEnt"
+],
+"used_by_count": 0
+},
+{
+"name": "inner_kron_one_eq_inner_traceRight",
+"kind": "lemma",
+"priv": "private",
+"line": 2131,
+"nlines": 9,
+"uses": [],
+"used_by_count": 2
+},
+{
+"name": "inner_one_kron_eq_inner_traceLeft",
+"kind": "lemma",
+"priv": "private",
+"line": 2140,
+"nlines": 7,
+"uses": [],
+"used_by_count": 2
+},
+{
+"name": "fixed_support_kron_right",
+"kind": "lemma",
+"priv": "private",
+"line": 2147,
+"nlines": 20,
+"uses": [
+"inner_kron_one_eq_inner_traceRight"
+],
+"used_by_count": 1
+},
+{
+"name": "fixed_support_kron_left",
+"kind": "lemma",
+"priv": "private",
+"line": 2167,
+"nlines": 25,
+"uses": [
+"inner_one_kron_eq_inner_traceLeft"
+],
+"used_by_count": 1
+},
+{
+"name": "qMutualInfo_as_qRelativeEnt",
+"kind": "theorem",
+"priv": "public",
+"line": 2192,
+"nlines": 108,
+"uses": [
+"fixed_support_kron_left",
+"fixed_support_kron_right",
+"inner_kron_one_eq_inner_traceRight",
+"inner_one_kron_eq_inner_traceLeft",
+"ker_kron_le_of_le",
+"qRelativeEnt_ker"
+],
+"used_by_count": 0
+},
+{
+"name": "pos_of_MState_le_smul",
+"kind": "lemma",
+"priv": "private",
+"line": 2300,
+"nlines": 11,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "HermitianMat.inner_log_mono_of_posDef_of_le",
+"kind": "lemma",
+"priv": "private",
+"line": 2311,
+"nlines": 6,
+"uses": [],
+"used_by_count": 0
+},
+{
+"name": "posDef_add_eps",
+"kind": "lemma",
+"priv": "private",
+"line": 2317,
+"nlines": 15,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "log_add_eps_eq_cfc",
+"kind": "lemma",
+"priv": "private",
+"line": 2332,
+"nlines": 8,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "inner_cfc_eq_sum",
+"kind": "lemma",
+"priv": "private",
+"line": 2340,
+"nlines": 8,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "eigenproj_coeff_zero_of_ker_le",
+"kind": "lemma",
+"priv": "private",
+"line": 2348,
+"nlines": 26,
+"uses": [],
+"used_by_count": 1
+},
+{
+"name": "inner_log_shift_tendsto",
+"kind": "lemma",
+"priv": "private",
+"line": 2374,
+"nlines": 14,
+"uses": [
+"eigenproj_coeff_zero_of_ker_le",
+"inner_cfc_eq_sum",
+"log_add_eps_eq_cfc"
+],
+"used_by_count": 1
+},
+{
+"name": "HermitianMat.inner_log_mono_of_psd_of_le",
+"kind": "lemma",
+"priv": "private",
+"line": 2388,
+"nlines": 13,
+"uses": [
+"inner_log_shift_tendsto",
+"posDef_add_eps"
+],
+"used_by_count": 0
+},
+{
+"name": "HermitianMat.inner_log_sub_le_log_alpha",
+"kind": "lemma",
+"priv": "private",
+"line": 2401,
+"nlines": 18,
+"uses": [
+"HermitianMat.inner_supportProj_of_ker_le",
+"pos_of_MState_le_smul"
+],
+"used_by_count": 1
+},
+{
+"name": "qRelEntropy_le_add_of_le_smul",
+"kind": "theorem",
+"priv": "public",
+"line": 2419,
+"nlines": 31,
+"uses": [
+"HermitianMat.inner_log_sub_le_log_alpha",
+"SandwichedRelRentropy",
+"qRelativeEnt",
+"qRelativeEnt_ker"
+],
+"used_by_count": 1
+},
+{
+"name": "qRelativeEnt_op_le",
+"kind": "theorem",
+"priv": "public",
+"line": 2450,
+"nlines": 3,
+"uses": [
+"qRelEntropy_le_add_of_le_smul"
+],
+"used_by_count": 0
+}
+]

@@ -1,0 +1,53 @@
+{
+ "clusters": {
+  "BC.limit+nonneg": [
+   26,
+   352
+  ],
+  "A.matrix-gen": [
+   19,
+   315
+  ],
+  "B1.engine": [
+   33,
+   810
+  ],
+  "D.Def+API": [
+   14,
+   212
+  ],
+  "H.kron-kernel": [
+   9,
+   304
+  ],
+  "F.RelEnt": [
+   17,
+   291
+  ],
+  "E.Continuity": [
+   6,
+   136
+  ]
+ },
+ "edges": {
+  "A.matrix-gen->B1.engine": 2,
+  "A.matrix-gen->BC.limit+nonneg": 2,
+  "B1.engine->BC.limit+nonneg": 13,
+  "BC.limit+nonneg->B1.engine": 1,
+  "H.kron-kernel->D.Def+API": 4,
+  "A.matrix-gen->D.Def+API": 1,
+  "BC.limit+nonneg->D.Def+API": 2,
+  "D.Def+API->F.RelEnt": 9,
+  "D.Def+API->E.Continuity": 3,
+  "BC.limit+nonneg->E.Continuity": 2,
+  "B1.engine->E.Continuity": 1,
+  "BC.limit+nonneg->F.RelEnt": 5,
+  "H.kron-kernel->F.RelEnt": 5,
+  "BC.limit+nonneg->A.matrix-gen": 2,
+  "A.matrix-gen->F.RelEnt": 1
+ },
+ "order": [
+  "H.kron-kernel"
+ ],
+ "acyclic": false
+}

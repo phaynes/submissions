@@ -1,0 +1,97 @@
+<h2 class="sr-only">The measured 7-file target partition of Relative.lean as a bottom-up dependency graph, with sizes, plus before/after metrics showing one 2452-line two-concept file becoming seven single-concept files.</h2>
+
+<style>
+  .wrap { padding: 1rem 0; font-family: var(--font-sans); color: var(--text-primary); }
+  .lede { font-size: 15px; line-height: 1.7; color: var(--text-secondary); max-width: 64ch; margin: 0 0 1.4rem; }
+  h3.sec { font-size: 16px; font-weight: 500; margin: 1.6rem 0 .7rem; }
+  .layer { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: .55rem; align-items: stretch; }
+  .lbl { flex: 0 0 92px; font-size: 12px; color: var(--text-muted); align-self: center; text-align: right; padding-right: .3rem; }
+  .node { flex: 1 1 0; min-width: 150px; border-radius: 10px; padding: .55rem .7rem; border: 1px solid; }
+  .node .nm { font-family: var(--font-mono); font-size: 12.5px; font-weight: 500; }
+  .node .sub { font-size: 11.5px; margin-top: .1rem; }
+  .node .sz { font-family: var(--font-mono); font-size: 11px; margin-top: .2rem; opacity: .85; }
+  .up { text-align: center; color: var(--text-muted); font-size: 15px; margin: .1rem 0; }
+  .gen  { background: var(--surface-1); border-color: var(--border-strong); }
+  .gen .nm { color: var(--text-secondary); }
+  .eng  { background: #FAEEDA55; border-color: #BA7517; }        .eng .nm,.eng .sub,.eng .sz{color:#854F0B;}
+  .conc { background: var(--bg-accent); border-color: #378ADD; } .conc .nm,.conc .sub,.conc .sz{color:var(--text-accent);}
+  .stay { background: #E1F5EE66; border-color: #1D9E75; }        .stay .nm,.stay .sub,.stay .sz{color:#0F6E56;}
+  .legend { display:flex; gap:1.1rem; flex-wrap:wrap; font-size:12px; color:var(--text-secondary); margin:.3rem 0 0; }
+  .chip { display:inline-flex; align-items:center; gap:.35rem; }
+  .sw { width:11px; height:11px; border-radius:3px; border:1px solid; }
+  table.m { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 14px; }
+  table.m th, table.m td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--border); }
+  table.m th { font-weight: 500; color: var(--text-secondary); font-size: 13px; }
+  table.m td.num { font-family: var(--font-mono); text-align: right; }
+  .bad{color:#854F0B;} .good{color:#0F6E56;}
+  .open { border-left: 3px solid #BA7517; border-radius:0; padding:.5rem .7rem; margin-top:1rem; background:#FAEEDA33; font-size:13px; line-height:1.6; }
+  .open code { font-size:12px; }
+  .foot { font-size: 12px; color: var(--text-muted); margin-top: 1rem; line-height: 1.6; }
+  :root[data-theme="dark"] .eng,:root[data-theme="dark"] .stay,:root[data-theme="dark"] .open,
+  :root[data-theme="dark"] .bad,:root[data-theme="dark"] .good{filter:brightness(1.6);}
+</style>
+
+<div class="wrap">
+  <p class="lede">A mechanical pass over all 124 declarations and their 156 dependency edges shows the file
+  is not two concepts but <strong>seven</strong> — including a second analytic engine and a general
+  tensor-kernel cluster that a by-eye read misses entirely. The graph below is the target: each box is
+  one file, arrows point from a file to the files it imports. It is bottom-up and acyclic, which is what
+  makes it a legal Lean partition.</p>
+
+  <h3 class="sec">Target structure — bottom (foundations) to top (theorems)</h3>
+
+  <div class="layer">
+    <div class="lbl">theorems</div>
+    <div class="node stay"><div class="nm">Relative.lean · F</div><div class="sub">𝐃 Umegaki relative entropy — stays</div><div class="sz">17 decls · 291 ln</div></div>
+    <div class="node conc"><div class="nm">…Continuity · E</div><div class="sub">continuity of the D̃_α family</div><div class="sz">6 · 136</div></div>
+  </div>
+  <div class="up"><i class="ti ti-arrow-up" aria-hidden="true"></i></div>
+  <div class="layer">
+    <div class="lbl">concept API</div>
+    <div class="node conc"><div class="nm">SandwichedRenyi · D</div><div class="sub">D̃_α definition + additivity/congruence</div><div class="sz">14 · 212</div></div>
+  </div>
+  <div class="up"><i class="ti ti-arrow-up" aria-hidden="true"></i></div>
+  <div class="layer">
+    <div class="lbl">analysis</div>
+    <div class="node eng"><div class="nm">…Limit · BC</div><div class="sub">approxLog limit + α→1 nonnegativity</div><div class="sz">26 · 352</div></div>
+    <div class="node eng"><div class="nm">…Deriv · B1</div><div class="sub">derivative-at-one engine</div><div class="sz">33 · 810</div></div>
+  </div>
+  <div class="up"><i class="ti ti-arrow-up" aria-hidden="true"></i></div>
+  <div class="layer">
+    <div class="lbl">general math<br>(upstream?)</div>
+    <div class="node gen"><div class="nm">HermitianMat helpers · A</div><div class="sub">Jensen / rpow / support projection</div><div class="sz">19 · 315</div></div>
+    <div class="node gen"><div class="nm">kron-kernel lemmas · H</div><div class="sub">kernels of tensor products</div><div class="sz">9 · 304</div></div>
+  </div>
+
+  <div class="legend">
+    <span class="chip"><span class="sw" style="background:#E1F5EE;border-color:#1D9E75;"></span>stays in Relative.lean</span>
+    <span class="chip"><span class="sw" style="background:var(--bg-accent);border-color:#378ADD;"></span>the D̃_α concept</span>
+    <span class="chip"><span class="sw" style="background:#FAEEDA;border-color:#BA7517;"></span>analytic engine (private)</span>
+    <span class="chip"><span class="sw" style="background:var(--surface-1);border-color:var(--border-strong);"></span>general math — Mathlib-upstream candidate</span>
+  </div>
+
+  <h3 class="sec">Before → after</h3>
+  <table class="m">
+    <thead><tr><th>Metric</th><th style="text-align:right">Before</th><th style="text-align:right">After</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>Files</td><td class="num bad">1</td><td class="num good">7</td><td>one bucket → seven single-concept files</td></tr>
+      <tr><td>Largest file (lines)</td><td class="num bad">2452</td><td class="num good">810</td><td>−67%; only the derivative engine is still large</td></tr>
+      <tr><td>Concepts in the biggest file</td><td class="num bad">7</td><td class="num good">1</td><td>each file names one idea</td></tr>
+      <tr><td>Concepts found by eye vs by graph</td><td class="num bad">2</td><td class="num good">7</td><td>the graph found 2 engines a read missed</td></tr>
+      <tr><td>Intra-file / cross-file edges</td><td class="num">156 / 0</td><td class="num good">100 / 56</td><td>64% of references now stay within a file</td></tr>
+      <tr><td>Theorem statements changed</td><td class="num">—</td><td class="num good">0</td><td>a move — kernel types verified identical</td></tr>
+    </tbody>
+  </table>
+
+  <div class="open">
+    <strong>Two open design decisions</strong> (the graph isolates them; a human decides):
+    <br>· <code>continuousAt_1</code> — public continuity: file with its concept (E) or its machinery (B1)?
+    <br>· <code>inner_log_mono_of_psd_of_le</code> — named "general" but its proof uses entropy-specific lemmas, so it is not actually general as written. Keep in the entropy layer, or refactor to make it upstreamable?
+  </div>
+
+  <p class="foot">Computed from the live file at commit <code>720c9fff</code>: 124 declarations, 156 dependency
+  edges extracted from real bodies (not names). The general clusters A and H are <em>not moved out of the
+  directory in this PR</em> — relocating general lemmas can break downstream importers, so that is left as an
+  offered call for the maintainer. B1 (810 lines) is itself a future sub-split candidate. Method + data in
+  <code>DESIGN.md</code> / <code>design-data/</code>.</p>
+</div>
