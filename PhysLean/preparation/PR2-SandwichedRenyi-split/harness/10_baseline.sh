@@ -36,6 +36,14 @@ for f in "${FILES[@]}"; do extract_inventory "$f" >> "$OUT/inventory.tsv"; done
 cut -f1-4 "$OUT/inventory.tsv" | sort > "$OUT/inventory.names"
 echo "inventory: $(wc -l < "$OUT/inventory.tsv" | tr -d ' ') declarations across ${#FILES[@]} files"
 
+# B1 SELF-TEST (Codex): confirm notation commands did NOT swallow adjacent declarations.
+# These three straddle notation commands in Relative.lean; all must be present.
+for must in qRelativeEnt SandwichedRelRentropy sandwichedRelRentropy_additive_alpha_one; do
+  awk -F'\t' -v n="$must" '$1==n{found=1} END{exit !found}' "$OUT/inventory.tsv" \
+    || { echo "SELF-TEST FAIL: '$must' missing — extractor regressed (notation swallow?)"; exit 4; }
+done
+echo "self-test: extractor OK (notation not swallowing)"
+
 grep -rnE "\bsorry\b|\badmit\b" QuantumInfo --include="*.lean" | grep -v "sorryful\|Sorry\|-- " \
   | sort > "$OUT/sorries.txt" || true
 echo "sorry/admit lines recorded: $(wc -l < "$OUT/sorries.txt" | tr -d ' ')"
@@ -49,6 +57,19 @@ if [[ "${1:-}" == "--axioms" ]]; then
   lake env lean "$probe" 2>&1 | grep "depends on axioms" | sort > "$OUT/axioms.txt"
   echo "axiom rows: $(wc -l < "$OUT/axioms.txt" | tr -d ' ')"
   rm -f "$probe"
+
+  echo "capturing kernel signature baseline (Codex B4)..."
+  cp "$HERE/sig_check.lean" "$PHYSLIB/sig_check.lean"
+  awk -F'\t' '$3=="public"{print $1}' "$OUT/inventory.tsv" | sort -u > "$PHYSLIB/sig_names.txt"
+  ( cd "$PHYSLIB" && lake env lean --run sig_check.lean 2>/dev/null ) \
+    | sed -E 's/_@\.[A-Za-z0-9_.]*_hyg[A-Za-z0-9._]*/_HYG_/g' \
+    | while IFS= read -r rec; do
+        n=$(printf '%s' "$rec" | cut -d' ' -f1)
+        h=$(printf '%s' "$rec" | shasum -a 256 | cut -c1-16)
+        printf '%s\t%s\n' "$h" "$n"
+      done | sort -k2 > "$OUT/sig.hashes"
+  rm -f "$PHYSLIB/sig_check.lean" "$PHYSLIB/sig_names.txt"
+  echo "signature rows: $(wc -l < "$OUT/sig.hashes" | tr -d ' ')"
 else
   echo "(axiom baseline skipped — rerun with --axioms once 'lake build' is green)"
 fi

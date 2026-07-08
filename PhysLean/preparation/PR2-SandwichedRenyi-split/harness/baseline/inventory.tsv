@@ -59,9 +59,10 @@ HermitianMat.inner_kron	lemma	public	4c616e71b5b1a251	QuantumInfo/Entropy/Relati
 continuousOn_rpow_uniform	lemma	public	9a161782807742c2	QuantumInfo/Entropy/Relative.lean	1439
 sandwichedRelRentropy_additive_alpha_one_aux	theorem	public	85d9af57b066559c	QuantumInfo/Entropy/Relative.lean	1462
 SandwichedRelRentropy	def	public	9dff0e6cead03e5f	QuantumInfo/Entropy/Relative.lean	1480
-notation:D̃_	notation	public	7836ad8e746a99dc	QuantumInfo/Entropy/Relative.lean	1492
+notation:D̃_	notation	public	efbde16b4ddb4fe6	QuantumInfo/Entropy/Relative.lean	1492
 qRelativeEnt	def	public	59b2a85d23d1a211	QuantumInfo/Entropy/Relative.lean	1497
-notation:𝐃(	notation	public	20597d22ef3aba34	QuantumInfo/Entropy/Relative.lean	1500
+notation:𝐃(	notation	public	a2eff19613ed98b8	QuantumInfo/Entropy/Relative.lean	1500
+sandwichedRelRentropy_additive_alpha_one	theorem	private	47ea0f8d4417d31c	QuantumInfo/Entropy/Relative.lean	1505
 sandwiched_term_product	lemma	public	8ee95c58e25d4f3c	QuantumInfo/Entropy/Relative.lean	1526
 sandwichedRelRentropy_additive_alpha_ne_one	theorem	public	efe8541d6769b43a	QuantumInfo/Entropy/Relative.lean	1539
 sandwichedRelRentropy_additive	theorem	public	a60461fdcea3cf0f	QuantumInfo/Entropy/Relative.lean	1565
@@ -124,7 +125,8 @@ HermitianMat.inner_log_sub_le_log_alpha	lemma	private	a64188d5078c4958	QuantumIn
 qRelEntropy_le_add_of_le_smul	theorem	public	d57221f222499374	QuantumInfo/Entropy/Relative.lean	2419
 qRelativeEnt_op_le	theorem	public	153aca41282a6689	QuantumInfo/Entropy/Relative.lean	2450
 sandwichedTraceFunctional	def	public	933d66a2525ff6b9	QuantumInfo/Entropy/DPI.lean	66
-notation:Q̃_	notation	public	524e004e268d7be1	QuantumInfo/Entropy/DPI.lean	70
+notation:Q̃_	notation	public	214882c87a5a8d4d	QuantumInfo/Entropy/DPI.lean	70
+sandwichedRelRentropy_eq_log_traceFunctional	theorem	public	dd16fb24dfe7e5ee	QuantumInfo/Entropy/DPI.lean	78
 sandwichedTraceFunctional_nonneg	theorem	public	5ff07994b01823eb	QuantumInfo/Entropy/DPI.lean	90
 sandwichedTraceFunctional_pos	theorem	public	02fb2a091d74e7ad	QuantumInfo/Entropy/DPI.lean	100
 sandwichedTraceFunctional_conj_unitary_hermitian	theorem	public	e4c09b68194182f2	QuantumInfo/Entropy/DPI.lean	123
@@ -239,7 +241,8 @@ mul_eq_one_iff	theorem	public	531fcce62d70d651	QuantumInfo/ClassicalInfo/Prob.le
 mix_ab	def	public	058575f240b0af8d	QuantumInfo/ClassicalInfo/Prob.lean	258
 mix	def	public	cf600be93afd55a1	QuantumInfo/ClassicalInfo/Prob.lean	267
 to_U_of_mkT	theorem	public	b47e7d2712c25a0f	QuantumInfo/ClassicalInfo/Prob.lean	271
-notation:[	notation	public	4ed942447aeff9f3	QuantumInfo/ClassicalInfo/Prob.lean	274
+notation:[	notation	public	e0c382c4b6b73073	QuantumInfo/ClassicalInfo/Prob.lean	274
+notation:[	notation	public	4769c77a5470917f	QuantumInfo/ClassicalInfo/Prob.lean	276
 mix_zero	theorem	public	9ba7d41439a18307	QuantumInfo/ClassicalInfo/Prob.lean	279
 mix_one	theorem	public	1a2f2fbb8669a523	QuantumInfo/ClassicalInfo/Prob.lean	284
 instUniv	instance	public	5a6a7b3fa356f9ce	QuantumInfo/ClassicalInfo/Prob.lean	289
@@ -255,6 +258,7 @@ to_U_mixable	theorem	public	6a31facdb0d1e3c8	QuantumInfo/ClassicalInfo/Prob.lean
 mkT_mixable	theorem	public	a6ba5c350beac63f	QuantumInfo/ClassicalInfo/Prob.lean	391
 mix	abbrev	public	b462b9524b5f80e5	QuantumInfo/ClassicalInfo/Prob.lean	397
 negLog	def	public	002663c515071be2	QuantumInfo/ClassicalInfo/Prob.lean	406
+notation:—log 	notation	public	a748684245cb8fec	QuantumInfo/ClassicalInfo/Prob.lean	411
 negLog_Antitone	theorem	public	c5a528e4d9956690	QuantumInfo/ClassicalInfo/Prob.lean	414
 negLog_zero	theorem	public	707cdb50557a90c3	QuantumInfo/ClassicalInfo/Prob.lean	431
 negLog_one	theorem	public	464c14bf77485766	QuantumInfo/ClassicalInfo/Prob.lean	435
@@ -295,16 +299,19 @@ prodRelabel	def	public	ef1be8ef81c55fcd	QuantumInfo/ResourceTheory/FreeState.lea
 prodRelabel_assoc	theorem	public	2e87322abf884552	QuantumInfo/ResourceTheory/FreeState.lean	81
 prodRelabel_relabel_cast_prod	theorem	public	1781470228067152	QuantumInfo/ResourceTheory/FreeState.lean	98
 prodCPTPMap	def	public	544bcfdfdcc3b727	QuantumInfo/ResourceTheory/FreeState.lean	109
+notation: ⊗ᶜᵖᵣ 	notation	public	33a9d9fcb4c995e5	QuantumInfo/ResourceTheory/FreeState.lean	114
 PosDef.prod	theorem	public	7061a28a68c75884	QuantumInfo/ResourceTheory/FreeState.lean	117
 qRelEntropy_prodRelabel	theorem	public	06900d4fa59c7a58	QuantumInfo/ResourceTheory/FreeState.lean	155
 sandwichedRelRentropy_prodRelabel	theorem	public	1c19848da794556a	QuantumInfo/ResourceTheory/FreeState.lean	160
 instance@179	instance	public	f931f45818a6e1e3	QuantumInfo/ResourceTheory/FreeState.lean	179
+notation:⊗^H[	notation	public	eed5300cf4e1cee0	QuantumInfo/ResourceTheory/FreeState.lean	193
 spacePow_zero	theorem	public	f10399d263d9085c	QuantumInfo/ResourceTheory/FreeState.lean	196
 spacePow_one	theorem	public	61aa5a13646584b8	QuantumInfo/ResourceTheory/FreeState.lean	200
 spacePow_succ	theorem	public	8bd154ccfd655a8c	QuantumInfo/ResourceTheory/FreeState.lean	203
 spacePow_add	theorem	public	7608db581b050249	QuantumInfo/ResourceTheory/FreeState.lean	206
 spacePow_mul	theorem	public	b2283c3c4f023f42	QuantumInfo/ResourceTheory/FreeState.lean	213
 statePow	def	public	1621fe7b9bfff1d0	QuantumInfo/ResourceTheory/FreeState.lean	219
+notation: ⊗ᵣ^[	notation	public	8816a9320b487ccf	QuantumInfo/ResourceTheory/FreeState.lean	223
 statePow_zero	theorem	public	841b1327be2faa90	QuantumInfo/ResourceTheory/FreeState.lean	226
 statePow_one	theorem	public	53c1ad239ece4893	QuantumInfo/ResourceTheory/FreeState.lean	230
 statePow_succ	theorem	public	3c47b0fc8ed73bc4	QuantumInfo/ResourceTheory/FreeState.lean	236
@@ -326,9 +333,11 @@ _root_.FreeStateTheory.IsFree.npow	theorem	public	921933ba163a9394	QuantumInfo/R
 relabel_cast_isFree	theorem	public	77d662cadf18290e	QuantumInfo/ResourceTheory/FreeState.lean	415
 relativeEntResource_ne_top	lemma	public	79a69f7fe68c0913	QuantumInfo/ResourceTheory/FreeState.lean	425
 RelativeEntResource	def	public	e1335ce83aa97ea1	QuantumInfo/ResourceTheory/FreeState.lean	438
+notation:𝑅ᵣ	notation	public	e7bf1e6734b279cf	QuantumInfo/ResourceTheory/FreeState.lean	441
 exists_isFree_relativeEntResource	theorem	public	158ec4b2a18eabb5	QuantumInfo/ResourceTheory/FreeState.lean	443
 RelativeEntResource.Subadditive	theorem	public	6e64a16f28851dce	QuantumInfo/ResourceTheory/FreeState.lean	452
 RegularizedRelativeEntResource	def	public	9e866c4e9177d187	QuantumInfo/ResourceTheory/FreeState.lean	471
+notation:𝑅ᵣ∞	notation	public	5c53977edd494c05	QuantumInfo/ResourceTheory/FreeState.lean	478
 RelativeEntResource.tendsto	theorem	public	fec58e4212756184	QuantumInfo/ResourceTheory/FreeState.lean	481
 RelativeEntResource.tendsto_ennreal	theorem	public	0786fe55c6c4881e	QuantumInfo/ResourceTheory/FreeState.lean	491
 GlobalRobustness	def	public	d087e9897219fe37	QuantumInfo/ResourceTheory/FreeState.lean	500

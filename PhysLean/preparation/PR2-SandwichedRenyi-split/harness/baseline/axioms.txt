@@ -85,6 +85,7 @@
 'sandwichedRelRentropy_additive_alpha_ne_one' depends on axioms: [propext, Classical.choice, Quot.sound]
 'sandwichedRelRentropy_additive_alpha_one_aux' depends on axioms: [propext, Classical.choice, Quot.sound]
 'sandwichedRelRentropy_congr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sandwichedRelRentropy_eq_log_traceFunctional' depends on axioms: [propext, Classical.choice, Quot.sound]
 'sandwichedRelRentropy_heq_congr' depends on axioms: [propext, Classical.choice, Quot.sound]
 'sandwichedRelRentropy_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
 'sandwichedRelRentropy_of_unique' depends on axioms: [propext, Classical.choice, Quot.sound]

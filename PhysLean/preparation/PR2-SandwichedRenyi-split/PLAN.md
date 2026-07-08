@@ -91,7 +91,7 @@ are genuinely about `𝐃`.
 | **P3** | Move the analytic prelude (~26–441) verbatim. | `lake build QuantumInfo.Entropy.Relative` green |
 | **P4** | Move the derivative engine (~448–1178) + `sandwichedRelRentropy_nonneg`. Apply the whitelisted `eigenWeight` promotions (private → public). | build green |
 | **P5** | Move def + notation + additivity cluster (1462–1495, sandwiched parts of 1505–1613), reconstructing section/variable context; Relative.lean gains `public import <new file>`. | build green |
-| **P6** | Move continuity cluster (1646–1780) + congruence lemmas (1814–1857). | build green |
+| **P6** | Move continuity cluster (1646–1780) + the **three** congruence lemmas *by name* (`sandwichedRelRentropy_of_unique`, `_heq_congr`, `_congr`). **NB (Codex B3):** the ~1814–1857 region is INTERLEAVED — `qRelEntropy_of_unique`, `qRelEntropy_heq_congr`, `qRelativeEnt_rank`, `qRelativeEnt_ker` mention `𝐃` and STAY. Never move this region by line range; move only the three `sandwichedRelRentropy_*` names. | build green |
 | **P7** | D3: add `sandwichedRelRentropy_tendsto_one` to the new file; convert the DPI-added `sandwichedRelRentropy_tendsto_qRelativeEnt` into the one-line alias **in Relative.lean**; delete it from DPI.lean. | build green (incl. DPI) |
 | **P8** | Full verification: `harness/20_check.sh` (inventory ∪ fidelity ∪ axioms ∪ diff-shape), `lake build` (full), `lake exe lint_all`, `scripts/lint-style.sh` (commit first — it reads committed state). | **all green** |
 | **P9** | PR packaging: body = "pure move" claim + harness evidence (auto-generated inventory table, the whitelist, axiom-surface diff = empty). Commit trailers per AGENTS.md (Signed-off-by Philip; Co-authored-by Helios/Claude/... `@helios.local`). Philip pushes fork + opens PR. | verify.sh-style checks in PR body reproducible |
@@ -144,3 +144,50 @@ manifest is the compensating control.
 - Rename anything (incl. the `RelEntropy` typo) or golf any proof.
 - Split DPI.lean's `Q̃_α` trace-functional machinery (a separate concept; JTS noted DPI is
   long too — that's PR3 material if he wants it).
+
+---
+
+## 7. Codex review resolutions (see CODEX-REVIEW.md)
+
+Codex reviewed this plan + harness against the live `720c9fff` checkout and typechecked
+the D3 alias (confirmed: `𝐃 = D̃_1` is a transparent `def`, so
+`exact sandwichedRelRentropy_tendsto_one ρ σ` proves the `𝐃`-worded statement by defeq —
+D3 is sound). Four blocking items, all resolved here:
+
+- **B1 (harness) — `notation` handling.** Notation commands have no `:=`; the extractor
+  must not let one swallow the following declaration. **Fix:** `lib.sh` treats `notation`
+  as a single-line command; `10_baseline.sh` self-tests that `qRelativeEnt`,
+  `SandwichedRelRentropy`, and `sandwichedRelRentropy_additive_alpha_one` are all present
+  in the inventory (fail-fast if the extractor regresses). *(The smoke test already showed
+  these present, but the self-test makes it a hard gate.)*
+
+- **B2 (harness) — H3 vs whitelisted additions.** New public names
+  (`sandwichedRelRentropy_tendsto_one`) and promoted lemmas (`eigenWeight_nonneg`, …) are
+  not in the axiom baseline, so a strict diff would false-fail. **Fix:** `20_check.sh
+  --axioms` excludes `add`/`promote` names from the strict baseline diff, then separately
+  asserts each excluded name's axiom set contains **no `sorryAx`** (and equals an expected
+  clean base). No axiom regression can hide.
+
+- **B3 (plan) — interleaved congruence region.** Fixed in P6 above: move the three
+  `sandwichedRelRentropy_*` congruence lemmas **by name**, never the 1814–1857 line range
+  (it interleaves `qRelEntropy_*`/`qRelativeEnt_rank`/`qRelativeEnt_ker`, which stay).
+
+- **B4 (harness) — elaborated-type drift (THE key gap).** Source-identical text can
+  elaborate to a *different type* if the ambient `variable`/instance/universe/scoped-open
+  context differs between old and new file — invisible to source-hash, build, and
+  `#print axioms`. **Fix:** add a kernel signature check —
+  `harness/sig_check.lean` prints `@[decl]`'s `ConstantInfo.type` with `pp.all`/
+  `pp.universes`/explicit-implicits for every public moved/affected declaration;
+  `20_check.sh` hashes that and diffs vs baseline. This is the real "pure move" guarantee.
+
+Also applied:
+- **`open scoped Topology`** must be in scope at the D3 alias site in `Relative.lean`
+  (the `𝓝[>]` notation). Verify/add in P7.
+- **H1 multiset** (not just name-set) so a private helper duplicated across old+new files
+  is caught.
+- **Baseline `rev`** is captured AFTER the harness/allowlist artifacts are committed, so
+  H5's diff-shape does not flag the harness itself.
+
+Feasibility (Codex): "mechanical-but-careful, not mathematically hard… a competent Lean
+engineer can do it with ordinary tools." **No Fable required — Opus executes, build-gated;
+Codex reviewed.** The tricky parts are exactly the four above, now guarded.

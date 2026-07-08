@@ -63,6 +63,7 @@ MOVE	SandwichedRelRentropy	def	public	QuantumInfo/Entropy/Relative.lean	1480
 MOVE	notation:D̃_	notation	public	QuantumInfo/Entropy/Relative.lean	1492
 STAY	qRelativeEnt	def	public	QuantumInfo/Entropy/Relative.lean	1497
 STAY	notation:𝐃(	notation	public	QuantumInfo/Entropy/Relative.lean	1500
+MOVE	sandwichedRelRentropy_additive_alpha_one	theorem	private	QuantumInfo/Entropy/Relative.lean	1505
 MOVE	sandwiched_term_product	lemma	public	QuantumInfo/Entropy/Relative.lean	1526
 MOVE	sandwichedRelRentropy_additive_alpha_ne_one	theorem	public	QuantumInfo/Entropy/Relative.lean	1539
 MOVE	sandwichedRelRentropy_additive	theorem	public	QuantumInfo/Entropy/Relative.lean	1565
@@ -126,6 +127,7 @@ STAY	qRelEntropy_le_add_of_le_smul	theorem	public	QuantumInfo/Entropy/Relative.l
 STAY	qRelativeEnt_op_le	theorem	public	QuantumInfo/Entropy/Relative.lean	2450
 STAY	sandwichedTraceFunctional	def	public	QuantumInfo/Entropy/DPI.lean	66
 STAY	notation:Q̃_	notation	public	QuantumInfo/Entropy/DPI.lean	70
+STAY	sandwichedRelRentropy_eq_log_traceFunctional	theorem	public	QuantumInfo/Entropy/DPI.lean	78
 STAY	sandwichedTraceFunctional_nonneg	theorem	public	QuantumInfo/Entropy/DPI.lean	90
 STAY	sandwichedTraceFunctional_pos	theorem	public	QuantumInfo/Entropy/DPI.lean	100
 STAY	sandwichedTraceFunctional_conj_unitary_hermitian	theorem	public	QuantumInfo/Entropy/DPI.lean	123

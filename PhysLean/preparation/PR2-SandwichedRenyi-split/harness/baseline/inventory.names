@@ -207,10 +207,17 @@ negLog_pos_ENNReal	theorem	public	365b915446d73147
 negLog_pos_Real	theorem	public	337487cfed848283
 negLog_zero	theorem	public	707cdb50557a90c3
 neg_ker_exists_eigenWeight_pos	lemma	private	7ec1e1d84cee5080
-notation:D̃_	notation	public	7836ad8e746a99dc
-notation:Q̃_	notation	public	524e004e268d7be1
-notation:[	notation	public	4ed942447aeff9f3
-notation:𝐃(	notation	public	20597d22ef3aba34
+notation: ⊗ᵣ^[	notation	public	8816a9320b487ccf
+notation: ⊗ᶜᵖᵣ 	notation	public	33a9d9fcb4c995e5
+notation:D̃_	notation	public	efbde16b4ddb4fe6
+notation:Q̃_	notation	public	214882c87a5a8d4d
+notation:[	notation	public	4769c77a5470917f
+notation:[	notation	public	e0c382c4b6b73073
+notation:—log 	notation	public	a748684245cb8fec
+notation:⊗^H[	notation	public	eed5300cf4e1cee0
+notation:𝐃(	notation	public	a2eff19613ed98b8
+notation:𝑅ᵣ	notation	public	e7bf1e6734b279cf
+notation:𝑅ᵣ∞	notation	public	5c53977edd494c05
 ofNNReal_toNNReal	theorem	public	722f5dc186fd3ddd
 of_empty	theorem	public	e2411f3f862c58cc
 of_singleton	theorem	public	39fb4243f148f2b7
@@ -289,8 +296,10 @@ sandwichedRelRentropy.limit_at_one	theorem	private	058bcca6f3d8cf07
 sandwichedRelRentropy.trace_at_one	lemma	private	e7d7b840debe8699
 sandwichedRelRentropy_additive	theorem	public	a60461fdcea3cf0f
 sandwichedRelRentropy_additive_alpha_ne_one	theorem	public	efe8541d6769b43a
+sandwichedRelRentropy_additive_alpha_one	theorem	private	47ea0f8d4417d31c
 sandwichedRelRentropy_additive_alpha_one_aux	theorem	public	85d9af57b066559c
 sandwichedRelRentropy_congr	theorem	public	71524fb7e65b47a7
+sandwichedRelRentropy_eq_log_traceFunctional	theorem	public	dd16fb24dfe7e5ee
 sandwichedRelRentropy_heq_congr	theorem	public	381fb3bd2787c57d
 sandwichedRelRentropy_nonneg	theorem	public	d0edf0acbf73382d
 sandwichedRelRentropy_nonneg_α_gt_1	theorem	private	1784cc90dfd1d7a6

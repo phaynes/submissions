@@ -3,19 +3,20 @@
 #
 # extract_inventory <file.lean>
 #   Emits one TSV row per declaration:  name<TAB>kind<TAB>privacy<TAB>stmt_sha16<TAB>file<TAB>line
-#   - "statement block" = attribute lines (@[...]) + the declaration head through the first
-#     line containing ':=' (text after ':=' dropped: proofs are NOT fidelity-checked).
-#     Docstrings are EXCLUDED (comments may legitimately be reworded in a move).
-#   - lines are whitespace-normalized and joined with the literal 2-char sequence '\n',
-#     so each declaration is exactly ONE output record; the join marker is deterministic
-#     on both sides of the refactor, which is all fidelity needs.
+#
+#   - `notation` (and other head-only commands) are emitted as ONE record on their own head
+#     line — they have no ':=' and MUST NOT put the parser into ':='-waiting mode, or they
+#     swallow the following declaration (Codex review B1). Verified by the self-test in
+#     10_baseline.sh.
+#   - For value declarations (theorem/lemma/def/...), the "statement block" = attribute
+#     lines (@[...]) + the head through the first line containing ':=' (text after ':='
+#     dropped: proofs are NOT fidelity-checked here — that is what H2 covers; H4/sig_check
+#     cover elaborated types). Docstrings are excluded (comments may be reworded in a move).
+#   - Whitespace-normalized; each declaration is exactly ONE output record.
 #
 # KNOWN LIMITATIONS (compensating control: human review of 00_manifest output in P1):
 #   * anonymous `instance :` declarations are keyed instance@<line>
-#   * `notation` rows are keyed by their first quoted token
-#   * decl heads not matching the keyword pattern below are not inventoried
-#   * a ':=' inside a comment/string on the head lines would mis-slice; none in the
-#     current move-set (spot-checked at 720c9fff)
+#   * a ':=' inside a comment/string on the head lines would mis-slice (none in the move-set)
 
 set -u
 
@@ -23,9 +24,26 @@ extract_inventory() {
   local f="$1"
   awk -v FNAME="$f" '
     function norm(s) { gsub(/[ \t]+/, " ", s); sub(/[ \t]+$/, "", s); sub(/^ /, "", s); return s }
+    function emit(nm, kind, priv, block, line) {
+      printf "%s\t%s\t%s\t%s\t%s\t%d\n", nm, kind, priv, block, FNAME, line
+    }
     BEGIN { attrs = ""; inblock = 0 }
     /^@\[/ && !inblock { attrs = attrs norm($0) "\\n"; next }
-    !inblock && /^(private[ \t]+)?(noncomputable[ \t]+)?(theorem|lemma|def|abbrev|instance|structure|axiom|notation)[ \t]/ {
+
+    # head-only commands: notation / infix* / prefix / postfix / macro_rules etc. — single record, no := wait
+    !inblock && /^(scoped[ \t]+)?(notation|infixl|infixr|infix|prefix|postfix)[ \t]/ {
+      priv = "public"
+      hd = $0; sub(/^scoped[ \t]+/, "", hd)
+      kind = hd; sub(/[ \t].*/, "", kind)
+      name = hd; sub(/^[a-z_]+[ \t]+/, "", name)
+      if (name ~ /"/) { sub(/^[^"]*"/, "", name); sub(/".*/, "", name) } else { sub(/[ \t].*/, "", name) }
+      name = "notation:" name
+      emit(name, kind, priv, norm($0), FNR)
+      attrs = ""
+      next
+    }
+
+    !inblock && /^(private[ \t]+)?(noncomputable[ \t]+)?(theorem|lemma|def|abbrev|instance|structure|axiom)[ \t]/ {
       inblock = 1
       block = attrs
       priv = ($0 ~ /^private/) ? "private" : "public"
@@ -34,19 +52,15 @@ extract_inventory() {
       sub(/^private[ \t]+/, "", hd); sub(/^noncomputable[ \t]+/, "", hd)
       kind = hd; sub(/[ \t].*/, "", kind)
       rest = hd; sub(/^[a-z]+[ \t]+/, "", rest)
-      if (kind == "notation") {
-        name = rest; sub(/^[^"]*"/, "", name); sub(/".*/, "", name); name = "notation:" name
-      } else {
-        name = rest; sub(/[ \t({:\[].*/, "", name)
-        if (name == "") name = kind "@" FNR
-      }
+      name = rest; sub(/[ \t({:\[].*/, "", name)
+      if (name == "") name = kind "@" FNR
     }
     inblock {
       l = $0
       if (index(l, ":=") > 0) {
         sub(/:=.*/, ":=", l)
         block = block norm(l)
-        printf "%s\t%s\t%s\t%s\t%s\t%d\n", name, kind, priv, block, FNAME, line0
+        emit(name, kind, priv, block, line0)
         inblock = 0; attrs = ""
       } else {
         block = block norm(l) "\\n"
