@@ -1,0 +1,88 @@
+// Naming conventions — casing, theorem-name construction, and the symbol dictionary.
+
+requirement NAM-001 {
+  title "Casing by syntactic category"
+  project mathlib
+  category naming
+  level shall
+  source "https://leanprover-community.github.io/contribute/naming.html"
+  statement "Names SHALL be cased by what they name: terms of `Prop`s (proofs, theorems) use `snake_case`; `Prop`s and `Type`s (inductives, structures, classes) use `UpperCamelCase`; other terms of `Type`s use `lowerCamelCase`. An `UpperCamelCase` item referenced inside a `snake_case` name is written in `lowerCamelCase`."
+  rationale "Casing encodes the syntactic role of a name, so a reader infers what a name is before reading its type."
+  acceptance [
+    "Theorem and proof names are snake_case.",
+    "Structures, classes, and inductive types are UpperCamelCase.",
+    "Other definitions (data) are lowerCamelCase."
+  ]
+  verify "The naming linter and reviewer check; see `#lint`."
+}
+
+requirement NAM-002 {
+  title "American English spelling in names"
+  project mathlib
+  category naming
+  level shall
+  source "https://leanprover-community.github.io/contribute/naming.html"
+  statement "Declaration names SHALL use American English spelling (e.g. `factorization`, not `factorisation`)."
+  rationale "A single spelling convention makes names predictable and searchable."
+  acceptance [
+    "Declaration names use American spellings."
+  ]
+}
+
+requirement NAM-003 {
+  title "Theorem names describe the conclusion"
+  project mathlib
+  category naming
+  level should
+  source "https://leanprover-community.github.io/contribute/naming.html"
+  statement "A theorem name SHOULD describe its conclusion, naming the operations/relations involved (e.g. `neg_mul_neg`). Hypotheses that must be named are introduced with `of` and listed in the order they appear in the statement, not in reverse."
+  rationale "Descriptive, statement-derived names make lemmas discoverable and let readers guess the exact name."
+  acceptance [
+    "The name reflects the conclusion's structure.",
+    "Hypotheses appear after `of` in statement order.",
+    "Only a prefix of the description is used when that suffices."
+  ]
+}
+
+requirement NAM-004 {
+  title "Symbol-to-word dictionary"
+  project mathlib
+  category naming
+  level shall
+  source "https://leanprover-community.github.io/contribute/naming.html"
+  statement "Names SHALL use the standard word for each symbol from the naming dictionary — e.g. `add` (+), `mul` (*), `neg`/`sub` (-), `pow` (^), `div` (/), `inv` (⁻¹), `le`/`ge` (≤), `lt`/`gt` (<), `mem` (∈), `union` (∪), `inter` (∩), `sup` (⊔), `inf` (⊓), `dvd` (∣), `sum` (∑), `prod` (∏)."
+  rationale "A fixed vocabulary makes names uniform across the whole library."
+  acceptance [
+    "Symbols in a name are spelled using their dictionary words.",
+    "`ge`/`gt` are used in place of `le`/`lt` per the argument-order rules."
+  ]
+}
+
+requirement NAM-005 {
+  title "Structural-lemma naming (ext, injective)"
+  project mathlib
+  category naming
+  level should
+  source "https://leanprover-community.github.io/contribute/naming.html"
+  statement "Structural lemmas SHOULD follow the standard suffixes: a lemma of the form `(∀ x, f x = g x) → f = g` is named `.ext` with the `@[ext]` attribute, and the iff form `.ext_iff`; injectivity as `f_injective` (`Function.Injective f`) and the unfolded biconditional as `f_inj`. `left`/`right` refer to the argument that changes."
+  rationale "Consistent structural-lemma names let tactics and readers find the standard API for a type."
+  acceptance [
+    "Extensionality lemmas use `.ext` / `.ext_iff` with `@[ext]`.",
+    "Injectivity lemmas use `_injective` / `_inj`.",
+    "`left`/`right` name the argument that varies."
+  ]
+}
+
+requirement NAM-006 {
+  title "PhysLean file names are UpperCamelCase, alphabetic"
+  project physlean
+  category naming
+  level shall
+  source "http://physlib.io/getting-started"
+  statement "A new PhysLean file SHALL have a descriptive name using only alphabetic characters, with each word starting with a capital letter, e.g. `MyNewFile.lean`."
+  rationale "A single file-naming form keeps the module hierarchy tidy and importable without surprises."
+  acceptance [
+    "The file name is UpperCamelCase.",
+    "The file name contains only alphabetic characters (plus the `.lean` extension)."
+  ]
+}

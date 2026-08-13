@@ -1,0 +1,40 @@
+pandoc 
+  to: html
+  output-file: physics-brief.html
+  standalone: true
+  section-divs: true
+  html-math-method: mathjax
+  wrap: none
+  default-image-extension: png
+  variables: {}
+  
+metadata
+  document-css: false
+  link-citations: true
+  date-format: long
+  lang: en
+  title: Physics and mathematics brief for the SandwichedRenyi split
+  subtitle: Why `D̃_α` and `𝐃` should have separate Lean homes
+  
+Output created: physics-brief.html
+
+pandoc 
+  to: html
+  output-file: refactor-methodology.html
+  standalone: true
+  section-divs: true
+  html-math-method: mathjax
+  wrap: none
+  default-image-extension: png
+  variables: {}
+  
+metadata
+  document-css: false
+  link-citations: true
+  date-format: long
+  lang: en
+  title: Refactor methodology
+  subtitle: Proof-graph-guided split of `Relative.lean`
+  
+Output created: refactor-methodology.html
+

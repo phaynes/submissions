@@ -1,0 +1,73 @@
+// Scope & remit — what belongs in each library, and how big a contribution should be.
+
+requirement SCOPE-001 {
+  title "Mathlib subject-matter remit"
+  project mathlib
+  category scope
+  level shall
+  source "https://leanprover-community.github.io/contribute/index.html"
+  statement "New material SHALL be of a kind typically taught or studied in a mathematics department, suitable at undergraduate, graduate, or research level. Mathlib's remit is not all of mathematics and related areas."
+  rationale "Mathlib is a curated mathematical library, not a general dumping ground; a bounded remit keeps it coherent and maintainable."
+  acceptance [
+    "The contribution's subject is standard mathematics (undergraduate, graduate, or research level).",
+    "If the subject is specialised or out-of-remit, it is instead released as a downstream project depending on Mathlib (see SCOPE-003)."
+  ]
+  verify "Reviewer judgement on Zulip #mathlib4 before opening the PR."
+}
+
+requirement SCOPE-002 {
+  title "Alignment with maintainer interests"
+  project mathlib
+  category scope
+  level should
+  source "https://leanprover-community.github.io/contribute/index.html"
+  statement "A proposed new theory SHOULD align with the mathematical interests of the Mathlib maintainers."
+  rationale "Maintainers must be willing to review and steward the area long-term; work with no maintainer interest cannot be sustained."
+  acceptance [
+    "The topic overlaps a maintainer's stated area, or a maintainer has expressed willingness to review it on Zulip."
+  ]
+  verify "Pre-PR discussion on Zulip #mathlib4."
+}
+
+requirement SCOPE-003 {
+  title "Downstream repository for out-of-remit or fast-moving work"
+  project mathlib
+  category scope
+  level should
+  source "https://leanprover-community.github.io/contribute/index.html"
+  statement "Specialised domains, or projects wanting rapid development, SHOULD be built as standalone repositories that take Mathlib as a dependency, rather than being merged into Mathlib."
+  rationale "A separate repo can move faster than Mathlib's review cadence and need not fit the shared remit; Mathlib-as-a-dependency is explicitly encouraged."
+  acceptance [
+    "Out-of-remit work is published as its own Lake project depending on Mathlib.",
+    "The project is discoverable (e.g. listed on Reservoir)."
+  ]
+}
+
+requirement SCOPE-004 {
+  title "PhysLean digitalises physics, formal or informal"
+  project physlean
+  category scope
+  level may
+  source "http://physlib.io/get-involved"
+  statement "PhysLean/Physlib contributions digitalise results from physics into Lean. Contributors without formal-verification experience MAY contribute informal (English) physics definitions and theorems, and semi-formal (mixed) results."
+  rationale "Lowering the barrier to physics knowledge — not only fully formal proof — is an explicit project goal, widening the contributor base."
+  acceptance [
+    "Formal contributions are Lean declarations with complete proofs.",
+    "Informal contributions are English results carrying tags and a dependency list (see DOC-007).",
+    "Semi-formal contributions mix formal and informal parts and carry tags."
+  ]
+}
+
+requirement SCOPE-005 {
+  title "Prefer small, self-contained contributions"
+  project both
+  category scope
+  level should
+  source "https://leanprover-community.github.io/contribute/how-to-contribute.html"
+  statement "Contributions SHOULD be kept small and self-contained; a single-lemma addition or a small fix is a welcome pull request. Large bodies of work SHOULD be split into many small, self-contained PRs."
+  rationale "Small PRs are reviewed faster, get feedback sooner, and are far easier to verify; 'the smaller the better'."
+  acceptance [
+    "The PR addresses one coherent change.",
+    "Unrelated changes are moved to separate PRs."
+  ]
+}

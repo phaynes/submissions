@@ -1,0 +1,89 @@
+---
+title: "Commit Conventions"
+---
+
+5 requirement(s) in this category.
+
+### CMT-001 — Conventional commit title format {#sec-cmt-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+A commit (and the PR title) SHALL follow the form `<type>(<optional-scope>): <subject>`.
+
+**Acceptance criteria**
+
+- The title matches `<type>(<scope>): <subject>`.
+- The type is drawn from the allowed set (see CMT-002).
+
+**Rationale.** A structured title drives changelog tooling and lets reviewers scan intent at a glance.
+
+**Source.** <https://leanprover-community.github.io/contribute/commit.html>
+
+---
+
+### CMT-002 — Allowed commit types {#sec-cmt-002}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+The commit `<type>` SHALL be one of: `feat` (feature), `fix` (bug fix), `doc` (documentation), `style` (formatting), `refactor`, `test` (adding missing tests), `chore` (maintenance), `perf` (performance), `ci` (automation/workflows).
+
+**Acceptance criteria**
+
+- The type is one of feat, fix, doc, style, refactor, test, chore, perf, ci.
+
+**Rationale.** A closed type vocabulary keeps history categorisable.
+
+**Source.** <https://leanprover-community.github.io/contribute/commit.html>
+
+---
+
+### CMT-003 — Subject line style {#sec-cmt-003}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+The subject SHALL use the imperative present tense ('change', not 'changed' or 'changes'), SHALL NOT capitalize the first letter, and SHALL NOT end with a period. The body, if present, uses imperative present tense and gives motivation and contrast with previous behaviour.
+
+**Acceptance criteria**
+
+- Subject is imperative present tense.
+- First letter is lower-case; there is no trailing period.
+
+**Rationale.** A consistent grammatical form makes histories uniform and greppable.
+
+**Source.** <https://leanprover-community.github.io/contribute/commit.html>
+
+---
+
+### CMT-004 — Scope omits the Mathlib prefix {#sec-cmt-004}
+
+**Mathlib** · Level **SHOULD**
+
+The optional `<scope>` SHOULD name the affected module or directory with the leading `Mathlib` prefix omitted (e.g. `Data/Nat/Basic`).
+
+**Acceptance criteria**
+
+- Scopes are written without the `Mathlib` prefix.
+
+**Rationale.** The prefix is redundant inside Mathlib and only lengthens the title.
+
+**Source.** <https://leanprover-community.github.io/contribute/commit.html>
+
+---
+
+### CMT-005 — Moves, deletions, and dependencies in the message {#sec-cmt-005}
+
+**Mathlib** · Level **SHOULD**
+
+A PR that moves or deletes declarations SHOULD list them in `Moves:` / `Deletions:` sections in the commit message before the `---` separator; PRs that depend on others SHOULD list them in checkbox form, e.g. `- [ ] depends on: #1234`.
+
+**Acceptance criteria**
+
+- Moves and deletions are listed before `---`.
+- Dependencies are listed as `- [ ] depends on: #XXXX`.
+
+**Rationale.** Structured move/deletion/dependency metadata lets automation track API changes and merge order.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+

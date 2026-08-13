@@ -1,0 +1,66 @@
+// contribution-spec — Varro requirements DSL (system header)
+// =============================================================================
+// A Varro-family specification of the Mathlib + PhysLean contribution guidelines.
+//
+// It uses VSL's own vocabulary — `system`, `mission`, `authority lane`, `domain`,
+// `maturity`, `enum`, `type … { field … }` — and adds one construct: first-class
+// `requirement <ID> { … }` blocks (one per guideline, each with a unique ID). The
+// requirement instances live in the sibling NN-*.varro files and are validated
+// against the `type Requirement` schema and the closed enums declared here.
+//
+//   Authoritative source : this file + the sibling NN-*.varro requirement files.
+//   Compiled / rendered by: ../tools/srs-site  (`cargo run -- check | generate`).
+//   Renders to           : the Quarto site under ../site/.
+//
+// Canonical ID grammar (enforced by the tool): <PREFIX>-<NNN>, zero-padded to three
+// digits, where PREFIX is bound one-to-one to a Category value:
+//
+//   SCOPE -> scope        NAM -> naming         CMT -> commit        RVW -> review
+//   AI    -> ai           STY -> style          PR  -> pull_request  COM -> community
+//   LIC   -> licensing    DOC -> documentation
+//
+// A requirement whose id prefix disagrees with its `category` field is a hard error.
+// =============================================================================
+
+system leanprover.contribution_spec {
+  mission "Specify the Mathlib and PhysLean contribution guidelines as governed, uniquely-identified requirements that a Rust tool can validate and render to a website"
+  authority lane "operator:submissions-steward"
+  domain formal-mathematics
+  maturity checked
+
+  // ---- Closed vocabularies (entropy control: only these values are legal) -----
+
+  // RFC 2119 obligation level. `info` marks a non-obligation process fact worth knowing.
+  enum Level { shall, shall_not, should, should_not, may, info }
+
+  // Which upstream project the requirement governs.
+  enum Project { mathlib, physlean, both }
+
+  // Guideline area. The requirement ID prefix is bound to this value (see grammar above).
+  enum Category {
+    scope,
+    ai,
+    licensing,
+    naming,
+    style,
+    documentation,
+    commit,
+    pull_request,
+    review,
+    community
+  }
+
+  // ---- The requirement schema (typed contract every `requirement` satisfies) --
+  type Requirement {
+    field id: ident required           // unique; <PREFIX>-<NNN>; prefix bound to category
+    field title: string required       // short human label
+    field project: Project required    // mathlib | physlean | both
+    field category: Category required  // guideline area (must agree with the id prefix)
+    field level: Level required        // shall | shall_not | should | should_not | may | info
+    field source: uri required         // canonical upstream URL the rule derives from
+    field statement: markdown required // the normative text (SHALL/SHOULD language)
+    field rationale: markdown optional // why the rule exists
+    field acceptance: list required    // >=1 concrete, checkable acceptance criteria
+    field verify: string optional      // command or method that checks conformance
+  }
+}

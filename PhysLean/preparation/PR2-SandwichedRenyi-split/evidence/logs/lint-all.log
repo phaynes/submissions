@@ -1,0 +1,193 @@
+ℹ [11/11] Replayed lint_all:exe
+info: stderr:
+ld64.lld: warning: /Volumes/second-store/devel/knowledge-base-mcp/mentormind/physlib-contrib/.lake/packages/leansqlite/.lake/build/lib/libleansqlite.a has architecture arm64 which is incompatible with target architecture x86_64
+ld64.lld: warning: /Volumes/second-store/devel/knowledge-base-mcp/mentormind/physlib-contrib/.lake/packages/MD4Lean/.lake/build/lib/libleanmd4c.a has architecture arm64 which is incompatible with target architecture x86_64
+[36m(1/7) Style lint [0m
+[2mThis linter is not checked by GitHub but if you have time please fix these errors.[0m
+
+
+[31mError:  Double empty line. [0m
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:201:1:  Double empty line. 
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:240:1:  Double empty line. 
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:899:1:  Double empty line. 
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:217:1:  Double empty line. 
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:266:1:  Double empty line. 
+Physlib/Particles/StandardModel/HiggsBoson/Basic.lean:430:1:  Double empty line. 
+Physlib/Particles/StandardModel/HiggsBoson/EffectivePotential.lean:31:1:  Double empty line. 
+Physlib/QuantumMechanics/FiniteTarget/HilbertSpace.lean:49:1:  Double empty line. 
+Physlib/QuantumMechanics/FiniteTarget/HilbertSpace.lean:69:1:  Double empty line. 
+Physlib/Relativity/Tensors/Basic.lean:546:1:  Double empty line. 
+Physlib/Relativity/Tensors/ComplexTensor/Weyl/Modules.lean:20:1:  Double empty line. 
+Physlib/Relativity/Tensors/ComplexTensor/Weyl/Modules.lean:120:1:  Double empty line. 
+Physlib/Relativity/Tensors/Product.lean:240:1:  Double empty line. 
+Physlib/Relativity/Tensors/RealTensor/CoVector/Representation.lean:22:1:  Double empty line. 
+Physlib/Relativity/Tensors/RealTensor/Vector/Representation.lean:22:1:  Double empty line. 
+Physlib/Relativity/Tensors/RealTensor/Vector/Tensorial.lean:20:1:  Double empty line. 
+Physlib/Relativity/Tensors/Reindexing.lean:66:1:  Double empty line. 
+Physlib/Relativity/Tensors/Reindexing.lean:71:1:  Double empty line. 
+Physlib/Relativity/Tensors/Reindexing.lean:458:1:  Double empty line. 
+
+
+[31mError:  Found instance of substring `  def `.[0m
+Physlib/SpaceAndTime/Space/Basic.lean:37:69:  Found instance of substring `  def `.
+
+
+[31mError:  Found instance of substring ` )`.[0m
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1253:38:  Found instance of substring ` )`.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1254:38:  Found instance of substring ` )`.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1262:26:  Found instance of substring ` )`.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1263:65:  Found instance of substring ` )`.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1266:38:  Found instance of substring ` )`.
+Physlib/Mathematics/InnerProductSpace/Basic.lean:215:51:  Found instance of substring ` )`.
+
+
+[31mError:  Found instance of substring `( `.[0m
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1257:21:  Found instance of substring `( `.
+
+
+[31mError:  Found instance of substring `):`.[0m
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:88:47:  Found instance of substring `):`.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:223:72:  Found instance of substring `):`.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:275:41:  Found instance of substring `):`.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:40:71:  Found instance of substring `):`.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:304:25:  Found instance of substring `):`.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:329:41:  Found instance of substring `):`.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:536:90:  Found instance of substring `):`.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:702:55:  Found instance of substring `):`.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:713:17:  Found instance of substring `):`.
+Physlib/Mathematics/Calculus/Wirtinger/Coordinate.lean:57:49:  Found instance of substring `):`.
+Physlib/Mathematics/Calculus/Wirtinger/Coordinate.lean:59:30:  Found instance of substring `):`.
+Physlib/Mathematics/Calculus/Wirtinger/Coordinate.lean:111:80:  Found instance of substring `):`.
+Physlib/Mathematics/Calculus/Wirtinger/Coordinate.lean:321:74:  Found instance of substring `):`.
+Physlib/Particles/SuperSymmetry/N1/Basic.lean:271:61:  Found instance of substring `):`.
+Physlib/Particles/SuperSymmetry/N1/Basic.lean:281:54:  Found instance of substring `):`.
+Physlib/Particles/SuperSymmetry/N1/Basic.lean:294:40:  Found instance of substring `):`.
+Physlib/Particles/SuperSymmetry/N1/Basic.lean:378:55:  Found instance of substring `):`.
+Physlib/SpaceAndTime/Space/IsDistBounded.lean:970:42:  Found instance of substring `):`.
+
+
+[31mError:  Found instance of substring `.-/`.[0m
+Physlib/Relativity/Tensors/Evaluation.lean:158:45:  Found instance of substring `.-/`.
+
+
+[31mError:  Found instance of substring `[ `.[0m
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:287:11:  Found instance of substring `[ `.
+Physlib/Particles/StandardModel/AnomalyCancellation/Basic.lean:131:16:  Found instance of substring `[ `.
+
+
+[31mError:  Non-initial double space in line.[0m
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:758:20:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1204:14:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1212:12:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1216:24:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1217:22:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1220:31:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1225:37:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1226:17:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1233:13:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1234:19:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1235:31:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1240:32:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1243:58:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1245:62:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1247:42:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1253:18:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1254:18:  Non-initial double space in line.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1261:9:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:96:32:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:102:19:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:133:97:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:136:12:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:195:62:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:202:9:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:256:22:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:257:66:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:287:75:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:299:77:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:324:37:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:333:18:  Non-initial double space in line.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:365:18:  Non-initial double space in line.
+Physlib/Electromagnetism/Kinematics/GaugeTransformation.lean:377:33:  Non-initial double space in line.
+Physlib/Electromagnetism/Kinematics/GaugeTransformation.lean:379:23:  Non-initial double space in line.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:42:44:  Non-initial double space in line.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:43:44:  Non-initial double space in line.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:82:32:  Non-initial double space in line.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:306:32:  Non-initial double space in line.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:469:41:  Non-initial double space in line.
+Physlib/Mathematics/Calculus/Wirtinger/Basic.lean:470:41:  Non-initial double space in line.
+Physlib/Mathematics/Calculus/Wirtinger/Coordinate.lean:40:47:  Non-initial double space in line.
+Physlib/Mathematics/Calculus/Wirtinger/Coordinate.lean:41:47:  Non-initial double space in line.
+Physlib/Mathematics/Calculus/Wirtinger/Coordinate.lean:46:44:  Non-initial double space in line.
+Physlib/Mathematics/Calculus/Wirtinger/Coordinate.lean:148:25:  Non-initial double space in line.
+Physlib/Mathematics/Calculus/Wirtinger/Coordinate.lean:658:32:  Non-initial double space in line.
+Physlib/Mathematics/InnerProductSpace/Basic.lean:215:36:  Non-initial double space in line.
+Physlib/Particles/BeyondTheStandardModel/RHN/AnomalyCancellation/Basic.lean:35:15:  Non-initial double space in line.
+Physlib/Particles/BeyondTheStandardModel/RHN/AnomalyCancellation/Basic.lean:37:10:  Non-initial double space in line.
+Physlib/Particles/StandardModel/HiggsBoson/EffectivePotential.lean:53:44:  Non-initial double space in line.
+Physlib/Particles/StandardModel/HiggsBoson/EffectivePotential.lean:135:10:  Non-initial double space in line.
+Physlib/Particles/StandardModel/HiggsBoson/EffectivePotential.lean:157:23:  Non-initial double space in line.
+Physlib/Particles/StandardModel/HiggsBoson/EffectivePotential.lean:188:56:  Non-initial double space in line.
+Physlib/Particles/StandardModel/HiggsBoson/EffectivePotential.lean:190:35:  Non-initial double space in line.
+Physlib/Particles/SuperSymmetry/N1/Basic.lean:164:16:  Non-initial double space in line.
+Physlib/Particles/SuperSymmetry/N1/Basic.lean:166:16:  Non-initial double space in line.
+Physlib/Particles/SuperSymmetry/N1/Basic.lean:167:16:  Non-initial double space in line.
+Physlib/Particles/SuperSymmetry/N1/Basic.lean:188:16:  Non-initial double space in line.
+Physlib/Particles/SuperSymmetry/N1/Basic.lean:190:16:  Non-initial double space in line.
+Physlib/Particles/SuperSymmetry/N1/Basic.lean:191:16:  Non-initial double space in line.
+Physlib/QuantumMechanics/DDimensions/Operators/Commutation.lean:142:8:  Non-initial double space in line.
+Physlib/Relativity/LorentzGroup/Boosts/Generalized.lean:118:39:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Constructors.lean:165:58:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Dual.lean:76:56:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Evaluation.lean:161:28:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Evaluation.lean:273:36:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Evaluation.lean:302:64:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Evaluation.lean:337:71:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Product.lean:285:18:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Product.lean:302:18:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Reindexing.lean:218:27:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Reindexing.lean:317:38:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Reindexing.lean:357:42:  Non-initial double space in line.
+Physlib/Relativity/Tensors/Reindexing.lean:371:23:  Non-initial double space in line.
+Physlib/SpaceAndTime/Space/Basic.lean:37:70:  Non-initial double space in line.
+Physlib/SpaceAndTime/Space/Basic.lean:39:82:  Non-initial double space in line.
+Physlib/SpaceAndTime/Space/Basic.lean:40:82:  Non-initial double space in line.
+Physlib/SpaceAndTime/Space/Basic.lean:41:82:  Non-initial double space in line.
+
+
+[31mError: Number of initial spaces is not even.[0m
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1218:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1219:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1228:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1229:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1232:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1240:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1241:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1242:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1243:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1244:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1245:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1246:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1247:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1248:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1251:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1252:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1253:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1254:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1255:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1256:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1257:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/HarmonicOscillator/Solution.lean:1258:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:123:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:124:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:219:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:221:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:224:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:253:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:277:1: Number of initial spaces is not even.
+Physlib/ClassicalMechanics/Lagrangian/TotalDerivativeEquivalence.lean:365:1: Number of initial spaces is not even.
+Physlib/Electromagnetism/Kinematics/MagneticField.lean:446:1: Number of initial spaces is not even.
+Physlib/Electromagnetism/Kinematics/MagneticField.lean:447:1: Number of initial spaces is not even.
+Physlib/Electromagnetism/Kinematics/MagneticField.lean:450:1: Number of initial spaces is not even.
+Physlib/Electromagnetism/Kinematics/MagneticField.lean:451:1: Number of initial spaces is not even.
+Physlib/SpaceAndTime/Space/EuclideanGroup/AffineGroup.lean:124:1: Number of initial spaces is not even.
+Physlib/SpaceAndTime/Space/EuclideanGroup/AffineGroup.lean:125:1: 

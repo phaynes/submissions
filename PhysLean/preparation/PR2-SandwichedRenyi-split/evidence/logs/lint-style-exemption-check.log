@@ -1,0 +1,9 @@
+lint-style tracked-file check
+QuantumInfo.lean
+QuantumInfo/Entropy/Relative.lean
+scripts/LinterExemption.txt
+
+exemption entry
+20:QuantumInfo/Entropy/SandwichedRenyi.lean
+
+filtered candidate output should be empty

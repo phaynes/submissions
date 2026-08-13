@@ -1,0 +1,20 @@
+[package]
+name = "srs-site"
+version = "0.1.0"
+edition = "2021"
+description = "Parse the Varro contribution-spec DSL, validate it fail-closed, and generate a Quarto website."
+license = "Apache-2.0"
+
+# Dependency-free on purpose: the tool must build offline on any machine that has a
+# Rust toolchain, with no registry access. std only.
+
+[lib]
+name = "srs_site"
+path = "src/lib.rs"
+
+[[bin]]
+name = "srs-site"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 2

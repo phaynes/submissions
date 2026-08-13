@@ -1,0 +1,84 @@
+// AI / LLM usage policy — disclosure, authorship, and the human-understanding bar.
+
+requirement AI-001 {
+  title "No LLM-written project communication"
+  project mathlib
+  category ai
+  level shall_not
+  source "https://leanprover-community.github.io/contribute/index.html"
+  statement "Contributors SHALL NOT use an LLM to write comments on GitHub or Zulip. Use your own words."
+  rationale "Community discussion depends on genuine human communication; LLM-authored comments erode trust and waste reviewer time."
+  acceptance [
+    "All GitHub and Zulip comments are written by the human contributor in their own words."
+  ]
+}
+
+requirement AI-002 {
+  title "Disclose AI assistance in the PR"
+  project both
+  category ai
+  level shall
+  source "https://leanprover-community.github.io/contribute/index.html"
+  statement "If artificial intelligence was used to help produce a contribution, the author SHALL explain this in the PR description, including which tools were used and the methodology."
+  rationale "Reviewers must know how the code was produced to calibrate scrutiny; non-disclosure is a policy violation."
+  acceptance [
+    "The PR description names the AI tools used.",
+    "The PR description explains the methodology by which AI was used."
+  ]
+}
+
+requirement AI-003 {
+  title "Label substantial AI-generated code"
+  project mathlib
+  category ai
+  level shall
+  source "https://leanprover-community.github.io/contribute/how-to-contribute.html"
+  statement "When a PR contains substantial AI-generated code, the author SHALL add the `LLM-generated` label."
+  rationale "The label routes the PR to the appropriate review posture and keeps the provenance signal machine-visible."
+  acceptance [
+    "The `LLM-generated` label is present on PRs with substantial AI-generated content."
+  ]
+  verify "Comment `LLM-generated` on the PR to add the label."
+}
+
+requirement AI-004 {
+  title "Author understands and can defend all AI output"
+  project both
+  category ai
+  level shall
+  source "https://leanprover-community.github.io/contribute/index.html"
+  statement "The author SHALL understand all content written by an AI, and SHALL be able to justify every design decision to reviewers without AI assistance. Code written by an AI without the supervision of a Lean subject expert does not meet the contribution bar."
+  rationale "Accountability for correctness and design rests with the human author; unsupervised AI output falls short by a large margin."
+  acceptance [
+    "The author can explain every line of the contribution unaided.",
+    "The author can justify each design decision to a reviewer without AI help.",
+    "A Lean subject expert supervised the work."
+  ]
+}
+
+requirement AI-005 {
+  title "Low-quality LLM PRs are closed; abuse risks a ban"
+  project mathlib
+  category ai
+  level info
+  source "https://leanprover-community.github.io/contribute/index.html"
+  statement "Reviewers MAY summarily close, without comment, any low-quality PR produced using an LLM. Opening multiple low-quality LLM PRs without community engagement risks temporary suspension or a permanent ban."
+  rationale "Stated consequence, recorded so contributors can calibrate risk before submitting AI-assisted work."
+  acceptance [
+    "The contributor engages the community and meets the quality bar before opening AI-assisted PRs."
+  ]
+}
+
+requirement AI-006 {
+  title "PhyslibAlpha is the lower-bar lane for AI-assisted work"
+  project physlean
+  category ai
+  level info
+  source "http://physlib.io/get-involved"
+  statement "PhyslibAlpha has lower review standards than Physlib and is the appropriate destination for large PRs, AI-generated content, or not-quite-perfect formalisations. PRs to PhyslibAlpha MUST still pass basic linter checks."
+  rationale "Provides a sanctioned path for exploratory or AI-assisted work without lowering the bar on Physlib proper."
+  acceptance [
+    "Large or AI-generated PhysLean contributions target PhyslibAlpha.",
+    "The PR passes the basic linters (see BLD/PR requirements)."
+  ]
+}

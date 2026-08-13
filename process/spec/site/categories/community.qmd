@@ -1,0 +1,39 @@
+---
+title: "Community"
+---
+
+2 requirement(s) in this category.
+
+### COM-001 — Discuss on Zulip before and during contribution {#sec-com-001}
+
+**Mathlib + PhysLean** · Level **SHOULD**
+
+Contributors SHOULD join the project's Zulip, introduce themselves, add their GitHub username to their Zulip profile, and discuss a contribution before and during development. Mathlib uses the `#mathlib4` channel; PhysLean uses the `#physlib` channel.
+
+**Acceptance criteria**
+
+- The contributor has raised the work on the relevant Zulip channel.
+- Their Zulip profile lists their GitHub username.
+
+**Rationale.** Early discussion catches scope, duplication, and design issues before review, and connects the contributor to a reviewer.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### COM-002 — Non-code ways to contribute (PhysLean) {#sec-com-002}
+
+**PhysLean** · Level **MAY**
+
+Beyond formalisation, contributors MAY help by promoting the project, clearing TODO-list items, answering Zulip questions, resolving GitHub issues, code-golfing and documenting existing code, contributing informal results, joining open GitHub projects, or picking up mini-projects.
+
+**Acceptance criteria**
+
+- Non-code contributions are directed through the listed channels (TODO list, Zulip, issues, projects).
+
+**Rationale.** A broad menu of contribution modes welcomes people of all backgrounds and keeps the project healthy beyond raw formalisation.
+
+**Source.** <http://physlib.io/get-involved>
+
+---
+

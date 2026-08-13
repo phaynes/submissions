@@ -47,8 +47,8 @@ new=$(comm -13 "$cur.base" "$cur.cur")
 # ONLY genuine changes. Classify by name against the whitelist.
 gone_names=$(printf '%s\n' "$gone" | awk -F'\t' 'NF{print $1}' | sort -u)
 new_names=$(printf '%s\n' "$new"  | awk -F'\t' 'NF{print $1}' | sort -u)
-allow_new=$(printf '%s\n%s\n' "$ALLOW_ADD" "$ALLOW_PRO" | grep -v '^$' | sort -u)
-allow_gone=$(printf '%s\n%s\n' "$ALLOW_DEL" "$ALLOW_PRO" | grep -v '^$' | sort -u)
+allow_new=$(printf '%s\n%s\n' "$ALLOW_ADD" "$ALLOW_PRO" | grep -v '^$' | sort -u) || true
+allow_gone=$(printf '%s\n%s\n' "$ALLOW_DEL" "$ALLOW_PRO" | grep -v '^$' | sort -u) || true
 bad_new=$(comm -23 <(printf '%s\n' $new_names | sort -u)  <(printf '%s\n' $allow_new)) || true
 bad_gone=$(comm -23 <(printf '%s\n' $gone_names | sort -u) <(printf '%s\n' $allow_gone)) || true
 if [[ -z "$bad_gone" ]]; then ok "no unwhitelisted removals / statement-drift / privacy-drop"

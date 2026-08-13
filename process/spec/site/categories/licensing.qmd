@@ -1,0 +1,68 @@
+---
+title: "Licensing & Copyright"
+---
+
+3 requirement(s) in this category.
+
+### LIC-001 — Apache-2.0 copyright header on every file {#sec-lic-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+Every source file SHALL begin with a copyright header naming the year and author(s) and releasing the file under the Apache-2.0 license, e.g.
+
+```
+/-
+Copyright (c) 2025 Your Name. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Your Name
+-/
+```
+
+**Acceptance criteria**
+
+- The file's first block is the copyright header.
+- The header names the release year and all authors.
+- The header cites the Apache-2.0 license and the LICENSE file.
+
+**Rationale.** A uniform, machine-checkable license header keeps provenance and licensing unambiguous for every file in the library.
+
+**Verify.** The style linter checks for a well-formed header (mathlib: lint-style; physlean: ./scripts/lint-style.sh).
+
+**Source.** <http://physlib.io/getting-started>
+
+---
+
+### LIC-002 — Authors line format {#sec-lic-002}
+
+**Mathlib** · Level **SHALL**
+
+The header SHALL use `Authors:` even when there is a single author, SHALL separate all author names with commas (not the word `and` before the final author), and SHALL NOT end the author line with a period.
+
+**Acceptance criteria**
+
+- The line begins `Authors:`.
+- Multiple authors are comma-separated with no `and`.
+- There is no trailing period.
+
+**Rationale.** A single fixed format lets tooling parse authorship reliably.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### LIC-003 — Contributions are Apache-2.0 licensed {#sec-lic-003}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+By contributing, the author SHALL release the contribution under the Apache-2.0 license, consistent with the project as a whole.
+
+**Acceptance criteria**
+
+- The contribution carries the Apache-2.0 header and introduces no incompatibly-licensed material.
+
+**Rationale.** A single permissive license across the library avoids licensing fragmentation and legal ambiguity for downstream users.
+
+**Source.** <http://physlib.io/get-involved>
+
+---
+

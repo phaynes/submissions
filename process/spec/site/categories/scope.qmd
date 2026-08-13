@@ -1,0 +1,95 @@
+---
+title: "Scope & Remit"
+---
+
+5 requirement(s) in this category.
+
+### SCOPE-001 — Mathlib subject-matter remit {#sec-scope-001}
+
+**Mathlib** · Level **SHALL**
+
+New material SHALL be of a kind typically taught or studied in a mathematics department, suitable at undergraduate, graduate, or research level. Mathlib's remit is not all of mathematics and related areas.
+
+**Acceptance criteria**
+
+- The contribution's subject is standard mathematics (undergraduate, graduate, or research level).
+- If the subject is specialised or out-of-remit, it is instead released as a downstream project depending on Mathlib (see SCOPE-003).
+
+**Rationale.** Mathlib is a curated mathematical library, not a general dumping ground; a bounded remit keeps it coherent and maintainable.
+
+**Verify.** Reviewer judgement on Zulip #mathlib4 before opening the PR.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### SCOPE-002 — Alignment with maintainer interests {#sec-scope-002}
+
+**Mathlib** · Level **SHOULD**
+
+A proposed new theory SHOULD align with the mathematical interests of the Mathlib maintainers.
+
+**Acceptance criteria**
+
+- The topic overlaps a maintainer's stated area, or a maintainer has expressed willingness to review it on Zulip.
+
+**Rationale.** Maintainers must be willing to review and steward the area long-term; work with no maintainer interest cannot be sustained.
+
+**Verify.** Pre-PR discussion on Zulip #mathlib4.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### SCOPE-003 — Downstream repository for out-of-remit or fast-moving work {#sec-scope-003}
+
+**Mathlib** · Level **SHOULD**
+
+Specialised domains, or projects wanting rapid development, SHOULD be built as standalone repositories that take Mathlib as a dependency, rather than being merged into Mathlib.
+
+**Acceptance criteria**
+
+- Out-of-remit work is published as its own Lake project depending on Mathlib.
+- The project is discoverable (e.g. listed on Reservoir).
+
+**Rationale.** A separate repo can move faster than Mathlib's review cadence and need not fit the shared remit; Mathlib-as-a-dependency is explicitly encouraged.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### SCOPE-004 — PhysLean digitalises physics, formal or informal {#sec-scope-004}
+
+**PhysLean** · Level **MAY**
+
+PhysLean/Physlib contributions digitalise results from physics into Lean. Contributors without formal-verification experience MAY contribute informal (English) physics definitions and theorems, and semi-formal (mixed) results.
+
+**Acceptance criteria**
+
+- Formal contributions are Lean declarations with complete proofs.
+- Informal contributions are English results carrying tags and a dependency list (see DOC-007).
+- Semi-formal contributions mix formal and informal parts and carry tags.
+
+**Rationale.** Lowering the barrier to physics knowledge — not only fully formal proof — is an explicit project goal, widening the contributor base.
+
+**Source.** <http://physlib.io/get-involved>
+
+---
+
+### SCOPE-005 — Prefer small, self-contained contributions {#sec-scope-005}
+
+**Mathlib + PhysLean** · Level **SHOULD**
+
+Contributions SHOULD be kept small and self-contained; a single-lemma addition or a small fix is a welcome pull request. Large bodies of work SHOULD be split into many small, self-contained PRs.
+
+**Acceptance criteria**
+
+- The PR addresses one coherent change.
+- Unrelated changes are moved to separate PRs.
+
+**Rationale.** Small PRs are reviewed faster, get feedback sooner, and are far easier to verify; 'the smaller the better'.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+

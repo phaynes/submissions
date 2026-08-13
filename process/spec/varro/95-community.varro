@@ -1,0 +1,28 @@
+// Community engagement — discuss first, on the right channel.
+
+requirement COM-001 {
+  title "Discuss on Zulip before and during contribution"
+  project both
+  category community
+  level should
+  source "https://leanprover-community.github.io/contribute/how-to-contribute.html"
+  statement "Contributors SHOULD join the project's Zulip, introduce themselves, add their GitHub username to their Zulip profile, and discuss a contribution before and during development. Mathlib uses the `#mathlib4` channel; PhysLean uses the `#physlib` channel."
+  rationale "Early discussion catches scope, duplication, and design issues before review, and connects the contributor to a reviewer."
+  acceptance [
+    "The contributor has raised the work on the relevant Zulip channel.",
+    "Their Zulip profile lists their GitHub username."
+  ]
+}
+
+requirement COM-002 {
+  title "Non-code ways to contribute (PhysLean)"
+  project physlean
+  category community
+  level may
+  source "http://physlib.io/get-involved"
+  statement "Beyond formalisation, contributors MAY help by promoting the project, clearing TODO-list items, answering Zulip questions, resolving GitHub issues, code-golfing and documenting existing code, contributing informal results, joining open GitHub projects, or picking up mini-projects."
+  rationale "A broad menu of contribution modes welcomes people of all backgrounds and keeps the project healthy beyond raw formalisation."
+  acceptance [
+    "Non-code contributions are directed through the listed channels (TODO list, Zulip, issues, projects)."
+  ]
+}

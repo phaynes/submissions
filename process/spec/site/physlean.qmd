@@ -1,0 +1,416 @@
+---
+title: "PhysLean Requirements"
+---
+
+Every requirement that applies to PhysLean. Items marked *Mathlib + PhysLean* apply to both projects.
+
+## Scope & Remit
+
+### SCOPE-004 — PhysLean digitalises physics, formal or informal {#sec-scope-004}
+
+**PhysLean** · Level **MAY**
+
+PhysLean/Physlib contributions digitalise results from physics into Lean. Contributors without formal-verification experience MAY contribute informal (English) physics definitions and theorems, and semi-formal (mixed) results.
+
+**Acceptance criteria**
+
+- Formal contributions are Lean declarations with complete proofs.
+- Informal contributions are English results carrying tags and a dependency list (see DOC-007).
+- Semi-formal contributions mix formal and informal parts and carry tags.
+
+**Rationale.** Lowering the barrier to physics knowledge — not only fully formal proof — is an explicit project goal, widening the contributor base.
+
+**Source.** <http://physlib.io/get-involved>
+
+---
+
+### SCOPE-005 — Prefer small, self-contained contributions {#sec-scope-005}
+
+**Mathlib + PhysLean** · Level **SHOULD**
+
+Contributions SHOULD be kept small and self-contained; a single-lemma addition or a small fix is a welcome pull request. Large bodies of work SHOULD be split into many small, self-contained PRs.
+
+**Acceptance criteria**
+
+- The PR addresses one coherent change.
+- Unrelated changes are moved to separate PRs.
+
+**Rationale.** Small PRs are reviewed faster, get feedback sooner, and are far easier to verify; 'the smaller the better'.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+## AI / LLM Policy
+
+### AI-002 — Disclose AI assistance in the PR {#sec-ai-002}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+If artificial intelligence was used to help produce a contribution, the author SHALL explain this in the PR description, including which tools were used and the methodology.
+
+**Acceptance criteria**
+
+- The PR description names the AI tools used.
+- The PR description explains the methodology by which AI was used.
+
+**Rationale.** Reviewers must know how the code was produced to calibrate scrutiny; non-disclosure is a policy violation.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### AI-004 — Author understands and can defend all AI output {#sec-ai-004}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+The author SHALL understand all content written by an AI, and SHALL be able to justify every design decision to reviewers without AI assistance. Code written by an AI without the supervision of a Lean subject expert does not meet the contribution bar.
+
+**Acceptance criteria**
+
+- The author can explain every line of the contribution unaided.
+- The author can justify each design decision to a reviewer without AI help.
+- A Lean subject expert supervised the work.
+
+**Rationale.** Accountability for correctness and design rests with the human author; unsupervised AI output falls short by a large margin.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### AI-006 — PhyslibAlpha is the lower-bar lane for AI-assisted work {#sec-ai-006}
+
+**PhysLean** · Level **INFO**
+
+PhyslibAlpha has lower review standards than Physlib and is the appropriate destination for large PRs, AI-generated content, or not-quite-perfect formalisations. PRs to PhyslibAlpha MUST still pass basic linter checks.
+
+**Acceptance criteria**
+
+- Large or AI-generated PhysLean contributions target PhyslibAlpha.
+- The PR passes the basic linters (see BLD/PR requirements).
+
+**Rationale.** Provides a sanctioned path for exploratory or AI-assisted work without lowering the bar on Physlib proper.
+
+**Source.** <http://physlib.io/get-involved>
+
+---
+
+## Licensing & Copyright
+
+### LIC-001 — Apache-2.0 copyright header on every file {#sec-lic-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+Every source file SHALL begin with a copyright header naming the year and author(s) and releasing the file under the Apache-2.0 license, e.g.
+
+```
+/-
+Copyright (c) 2025 Your Name. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Your Name
+-/
+```
+
+**Acceptance criteria**
+
+- The file's first block is the copyright header.
+- The header names the release year and all authors.
+- The header cites the Apache-2.0 license and the LICENSE file.
+
+**Rationale.** A uniform, machine-checkable license header keeps provenance and licensing unambiguous for every file in the library.
+
+**Verify.** The style linter checks for a well-formed header (mathlib: lint-style; physlean: ./scripts/lint-style.sh).
+
+**Source.** <http://physlib.io/getting-started>
+
+---
+
+### LIC-003 — Contributions are Apache-2.0 licensed {#sec-lic-003}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+By contributing, the author SHALL release the contribution under the Apache-2.0 license, consistent with the project as a whole.
+
+**Acceptance criteria**
+
+- The contribution carries the Apache-2.0 header and introduces no incompatibly-licensed material.
+
+**Rationale.** A single permissive license across the library avoids licensing fragmentation and legal ambiguity for downstream users.
+
+**Source.** <http://physlib.io/get-involved>
+
+---
+
+## Naming Conventions
+
+### NAM-006 — PhysLean file names are UpperCamelCase, alphabetic {#sec-nam-006}
+
+**PhysLean** · Level **SHALL**
+
+A new PhysLean file SHALL have a descriptive name using only alphabetic characters, with each word starting with a capital letter, e.g. `MyNewFile.lean`.
+
+**Acceptance criteria**
+
+- The file name is UpperCamelCase.
+- The file name contains only alphabetic characters (plus the `.lean` extension).
+
+**Rationale.** A single file-naming form keeps the module hierarchy tidy and importable without surprises.
+
+**Source.** <http://physlib.io/getting-started>
+
+---
+
+## Code Style
+
+### STY-001 — 100-character line limit {#sec-sty-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+Lines SHALL NOT be longer than 100 characters.
+
+**Acceptance criteria**
+
+- No source line exceeds 100 characters.
+- The style linter reports no line-length violations.
+
+**Rationale.** Short lines stay readable on small screens, in narrow windows, and in side-by-side diffs.
+
+**Verify.** lake exe lint-style   (physlean: ./scripts/lint-style.sh)
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+## Documentation
+
+### DOC-001 — Docstrings on definitions and major theorems {#sec-doc-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+Every definition and every major theorem SHALL carry a doc string delimited by `/-- … -/`. Doc strings on lemmas are encouraged, particularly when a lemma has mathematical content or may be reused. A complete-sentence doc string ends in a period.
+
+**Acceptance criteria**
+
+- Each definition has a `/-- … -/` docstring.
+- Each major theorem has a docstring.
+- `#lint only docBlame docBlameThm` reports no missing docstrings.
+
+**Rationale.** Docstrings are the primary API documentation; the `docBlame` linters enforce their presence.
+
+**Verify.** #lint only docBlame docBlameThm
+
+**Source.** <https://leanprover-community.github.io/contribute/doc.html>
+
+---
+
+### DOC-006 — Documentation in English {#sec-doc-006}
+
+**Mathlib + PhysLean** · Level **SHOULD**
+
+Documentation SHOULD be written in English; any common variety (British, American, Australian) is acceptable, though declaration names remain American (see NAM-002).
+
+**Acceptance criteria**
+
+- Prose documentation is in English.
+
+**Rationale.** A shared language keeps documentation usable by the whole community.
+
+**Source.** <https://leanprover-community.github.io/contribute/doc.html>
+
+---
+
+### DOC-007 — Tags and dependencies on informal results {#sec-doc-007}
+
+**PhysLean** · Level **SHALL**
+
+Informal (English-only) definitions and lemmas SHALL carry tags and a dependency list; semi-formal results SHALL carry tags.
+
+**Acceptance criteria**
+
+- Informal results carry tags and a dependency list.
+- Semi-formal results carry tags.
+
+**Rationale.** Tags and dependency lists make informal physics content searchable and connect it into the formal dependency graph.
+
+**Source.** <http://physlib.io/getting-started>
+
+---
+
+## Commit Conventions
+
+### CMT-001 — Conventional commit title format {#sec-cmt-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+A commit (and the PR title) SHALL follow the form `<type>(<optional-scope>): <subject>`.
+
+**Acceptance criteria**
+
+- The title matches `<type>(<scope>): <subject>`.
+- The type is drawn from the allowed set (see CMT-002).
+
+**Rationale.** A structured title drives changelog tooling and lets reviewers scan intent at a glance.
+
+**Source.** <https://leanprover-community.github.io/contribute/commit.html>
+
+---
+
+### CMT-002 — Allowed commit types {#sec-cmt-002}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+The commit `<type>` SHALL be one of: `feat` (feature), `fix` (bug fix), `doc` (documentation), `style` (formatting), `refactor`, `test` (adding missing tests), `chore` (maintenance), `perf` (performance), `ci` (automation/workflows).
+
+**Acceptance criteria**
+
+- The type is one of feat, fix, doc, style, refactor, test, chore, perf, ci.
+
+**Rationale.** A closed type vocabulary keeps history categorisable.
+
+**Source.** <https://leanprover-community.github.io/contribute/commit.html>
+
+---
+
+### CMT-003 — Subject line style {#sec-cmt-003}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+The subject SHALL use the imperative present tense ('change', not 'changed' or 'changes'), SHALL NOT capitalize the first letter, and SHALL NOT end with a period. The body, if present, uses imperative present tense and gives motivation and contrast with previous behaviour.
+
+**Acceptance criteria**
+
+- Subject is imperative present tense.
+- First letter is lower-case; there is no trailing period.
+
+**Rationale.** A consistent grammatical form makes histories uniform and greppable.
+
+**Source.** <https://leanprover-community.github.io/contribute/commit.html>
+
+---
+
+## Pull-Request Workflow
+
+### PR-001 — Target master with small, self-contained PRs {#sec-pr-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+A PR SHALL target the `master` branch of the upstream repository and SHALL be kept small and self-contained; the smaller the better.
+
+**Acceptance criteria**
+
+- The PR base branch is `master`.
+- The PR is one coherent, self-contained change.
+
+**Rationale.** Small PRs against master are reviewable and keep the mainline releasable.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### PR-003 — Build and cache locally before pushing {#sec-pr-003}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+Before pushing, the contributor SHALL build locally and use the compilation cache: run `lake exe cache get` to download built dependencies and `lake build` to build; after adding new files run `lake exe mk_all`. PhysLean setup uses `lake update; lake exe cache get; lake build`.
+
+**Acceptance criteria**
+
+- `lake exe cache get` and `lake build` were run locally and pass.
+- New files were registered with `lake exe mk_all`.
+
+**Rationale.** Local builds catch errors before they reach CI and reviewers.
+
+**Verify.** lake exe cache get && lake build
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### PR-004 — Run the linters locally {#sec-pr-004}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+Before submitting, the contributor SHALL run the project's linters locally and fix all reported issues. Mathlib: the style linter and `shake`; PhysLean: `lake exe lint_all` and `./scripts/lint-style.sh`. CI runs the linters on every PR.
+
+**Acceptance criteria**
+
+- The style linter passes locally.
+- PhysLean: `lake exe lint_all` and `./scripts/lint-style.sh` pass.
+
+**Rationale.** Linters enforce the style and structural rules automatically; running them locally avoids review round-trips.
+
+**Verify.** lake exe lint_all && ./scripts/lint-style.sh
+
+**Source.** <http://physlib.io/getting-started>
+
+---
+
+### PR-006 — Fork or branch workflow {#sec-pr-006}
+
+**Mathlib + PhysLean** · Level **MAY**
+
+A contributor MAY contribute either by (a) forking the repository, pushing to the fork, and opening a PR upstream, or (b) requesting collaborator access and pushing a feature branch (e.g. `feat(your-name): updating spacetime`) on the main repository, then opening a PR.
+
+**Acceptance criteria**
+
+- Changes arrive as a PR from either a fork or an upstream feature branch.
+
+**Rationale.** Both routes are supported; collaborator access streamlines repeat contributors.
+
+**Source.** <http://physlib.io/getting-started>
+
+---
+
+## Review Process
+
+### RVW-005 — PhysLean iterative review {#sec-rvw-005}
+
+**PhysLean** · Level **INFO**
+
+For PhysLean, the maintainer team reviews each PR and iterates with the author on feedback until it can be merged; smaller PRs receive feedback sooner.
+
+**Acceptance criteria**
+
+- The author engages with maintainer feedback until merge.
+
+**Rationale.** An explicit iterate-to-merge model sets expectations for new physics contributors.
+
+**Source.** <http://physlib.io/get-involved>
+
+---
+
+## Community
+
+### COM-001 — Discuss on Zulip before and during contribution {#sec-com-001}
+
+**Mathlib + PhysLean** · Level **SHOULD**
+
+Contributors SHOULD join the project's Zulip, introduce themselves, add their GitHub username to their Zulip profile, and discuss a contribution before and during development. Mathlib uses the `#mathlib4` channel; PhysLean uses the `#physlib` channel.
+
+**Acceptance criteria**
+
+- The contributor has raised the work on the relevant Zulip channel.
+- Their Zulip profile lists their GitHub username.
+
+**Rationale.** Early discussion catches scope, duplication, and design issues before review, and connects the contributor to a reviewer.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### COM-002 — Non-code ways to contribute (PhysLean) {#sec-com-002}
+
+**PhysLean** · Level **MAY**
+
+Beyond formalisation, contributors MAY help by promoting the project, clearing TODO-list items, answering Zulip questions, resolving GitHub issues, code-golfing and documenting existing code, contributing informal results, joining open GitHub projects, or picking up mini-projects.
+
+**Acceptance criteria**
+
+- Non-code contributions are directed through the listed channels (TODO list, Zulip, issues, projects).
+
+**Rationale.** A broad menu of contribution modes welcomes people of all backgrounds and keeps the project healthy beyond raw formalisation.
+
+**Source.** <http://physlib.io/get-involved>
+
+---
+

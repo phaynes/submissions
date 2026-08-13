@@ -1,0 +1,12 @@
+== H1/H2/H6 inventory + fidelity + privacy (multiset of name/kind/privacy/stmt-hash) ==
+  [32mPASS[0m no unwhitelisted removals / statement-drift / privacy-drop
+  [32mPASS[0m no unwhitelisted additions
+== H5 diff shape ==
+  [32mPASS[0m only planned files touched
+== H3 axiom surface (kernel) ==
+  [32mPASS[0m axiom surface identical (excl. whitelisted)
+  [32mPASS[0m whitelisted additions present & sorryAx-free
+== H4 kernel signature fidelity (elaborated types; Codex B4) ==
+  [32mPASS[0m elaborated signatures identical for all surviving public decls
+
+ALL CHECKS PASSED

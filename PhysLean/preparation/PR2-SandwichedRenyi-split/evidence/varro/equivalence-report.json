@@ -1,0 +1,184 @@
+{
+  "schema_version": "lra-pr2-v2-equivalence/v1",
+  "task_id": "fg-lra2-proofgraph-v2-refactor-20260709",
+  "status": "pass",
+  "claude_review": {
+    "path": "/Volumes/second-store/devel/knowledge-base-mcp/mentormind/helios-projects/project/yaqin/evidence/pr2-v2/claude-review/claude-review.md",
+    "blocking_findings": false,
+    "summary": "Claude review reported no blocking findings and recommended final validation."
+  },
+  "public_surface_delta": {
+    "expected": {
+      "relative_removed": [
+        "inner_log_bounded_near",
+        "qRelativeEnt_lowerSemicontinuous_2"
+      ],
+      "relative_added": [],
+      "sandwiched_added": [
+        "inner_log_bounded_near",
+        "qRelativeEnt_lowerSemicontinuous_2",
+        "sandwichedRelRentropy_one_lowerSemicontinuous"
+      ],
+      "sandwiched_removed": [
+        "eigenWeight",
+        "eigenWeight.eq_1",
+        "eigenWeight_nonneg",
+        "eigenWeight_zero_of_eigenvalue_zero",
+        "inner_cfc_eq_sum_eigenWeight"
+      ]
+    },
+    "observed": {
+      "relative_removed": [
+        "inner_log_bounded_near",
+        "qRelativeEnt_lowerSemicontinuous_2"
+      ],
+      "relative_added": [],
+      "sandwiched_added": [
+        "inner_log_bounded_near",
+        "qRelativeEnt_lowerSemicontinuous_2",
+        "sandwichedRelRentropy_one_lowerSemicontinuous"
+      ],
+      "sandwiched_removed": [
+        "eigenWeight",
+        "eigenWeight.eq_1",
+        "eigenWeight_nonneg",
+        "eigenWeight_zero_of_eigenvalue_zero",
+        "inner_cfc_eq_sum_eigenWeight"
+      ]
+    },
+    "matches_expected": true
+  },
+  "wrapper_equivalence": {
+    "declaration": "qRelativeEnt.lowerSemicontinuous",
+    "normalized_type_unchanged": true,
+    "baseline_normalized_type_hash": "sha256:c6f4b7803b3d796464fe65156f63e93e2f794bc240b01a5d709746c10a3f7f00",
+    "final_normalized_type_hash": "sha256:c6f4b7803b3d796464fe65156f63e93e2f794bc240b01a5d709746c10a3f7f00",
+    "final_body_depends_on_boundary_theorem": true,
+    "final_type_dependencies": [
+      "Fintype",
+      "DecidableEq",
+      "MState",
+      "LowerSemicontinuous",
+      "ENNReal",
+      "MState.instTopologicalSpace",
+      "PartialOrder.toPreorder",
+      "ENNReal.instPartialOrder",
+      "qRelativeEnt"
+    ],
+    "final_body_dependencies": [
+      "Fintype",
+      "DecidableEq",
+      "MState",
+      "id",
+      "LowerSemicontinuous",
+      "ENNReal",
+      "MState.instTopologicalSpace",
+      "PartialOrder.toPreorder",
+      "ENNReal.instPartialOrder",
+      "qRelativeEnt",
+      "sandwichedRelRentropy_one_lowerSemicontinuous"
+    ]
+  },
+  "new_boundary_theorem": {
+    "name": "sandwichedRelRentropy_one_lowerSemicontinuous",
+    "kind": "theorem",
+    "source": {
+      "column": 0,
+      "end_column": 14,
+      "end_line": 1754,
+      "file": "./QuantumInfo/Entropy/SandwichedRenyi.lean",
+      "line": 1724,
+      "module": "QuantumInfo.Entropy.SandwichedRenyi"
+    },
+    "body_dependency_count": 318
+  },
+  "private_helper_resolution": {
+    "eigenWeight": {
+      "status": "ok",
+      "kind": "def",
+      "resolved_name": "_private.QuantumInfo.Entropy.SandwichedRenyi.0.eigenWeight",
+      "is_private_resolved_name": true,
+      "source": {
+        "column": 0,
+        "end_column": 117,
+        "end_line": 525,
+        "file": "./QuantumInfo/Entropy/SandwichedRenyi.lean",
+        "line": 524,
+        "module": "QuantumInfo.Entropy.SandwichedRenyi"
+      }
+    },
+    "inner_cfc_eq_sum_eigenWeight": {
+      "status": "ok",
+      "kind": "theorem",
+      "resolved_name": "_private.QuantumInfo.Entropy.SandwichedRenyi.0.inner_cfc_eq_sum_eigenWeight",
+      "is_private_resolved_name": true,
+      "source": {
+        "column": 0,
+        "end_column": 35,
+        "end_line": 544,
+        "file": "./QuantumInfo/Entropy/SandwichedRenyi.lean",
+        "line": 527,
+        "module": "QuantumInfo.Entropy.SandwichedRenyi"
+      }
+    },
+    "eigenWeight_nonneg": {
+      "status": "ok",
+      "kind": "theorem",
+      "resolved_name": "_private.QuantumInfo.Entropy.SandwichedRenyi.0.eigenWeight_nonneg",
+      "is_private_resolved_name": true,
+      "source": {
+        "column": 0,
+        "end_column": 34,
+        "end_line": 560,
+        "file": "./QuantumInfo/Entropy/SandwichedRenyi.lean",
+        "line": 546,
+        "module": "QuantumInfo.Entropy.SandwichedRenyi"
+      }
+    },
+    "eigenWeight_zero_of_eigenvalue_zero": {
+      "status": "ok",
+      "kind": "theorem",
+      "resolved_name": "_private.QuantumInfo.Entropy.SandwichedRenyi.0.eigenWeight_zero_of_eigenvalue_zero",
+      "is_private_resolved_name": true,
+      "source": {
+        "column": 0,
+        "end_column": 21,
+        "end_line": 575,
+        "file": "./QuantumInfo/Entropy/SandwichedRenyi.lean",
+        "line": 563,
+        "module": "QuantumInfo.Entropy.SandwichedRenyi"
+      }
+    }
+  },
+  "validation_checks": {
+    "lake_build_sandwichedrenyi": {
+      "path": "/Volumes/second-store/devel/knowledge-base-mcp/mentormind/helios-projects/project/yaqin/evidence/pr2-v2/final/lake-build-sandwichedrenyi.post-review.log",
+      "ok": true,
+      "tail": "Build completed successfully (8616 jobs)."
+    },
+    "lake_build_relative": {
+      "path": "/Volumes/second-store/devel/knowledge-base-mcp/mentormind/helios-projects/project/yaqin/evidence/pr2-v2/final/lake-build-relative.post-review.log",
+      "ok": true,
+      "tail": "Build completed successfully (8617 jobs)."
+    },
+    "pr2_harness": {
+      "path": "/Volumes/second-store/devel/knowledge-base-mcp/mentormind/helios-projects/project/yaqin/evidence/pr2-v2/final/pr2-harness.log",
+      "ok": true,
+      "tail": "== H1/H2/H6 inventory + fidelity + privacy (multiset of name/kind/privacy/stmt-hash) ==\n  \u001b[32mPASS\u001b[0m no unwhitelisted removals / statement-drift / privacy-drop\n  \u001b[32mPASS\u001b[0m no unwhitelisted additions\n== H5 diff shape ==\n  \u001b[32mPASS\u001b[0m only planned files touched\n\nALL CHECKS PASSED"
+    },
+    "pr2_harness_axioms": {
+      "path": "/Volumes/second-store/devel/knowledge-base-mcp/mentormind/helios-projects/project/yaqin/evidence/pr2-v2/final/pr2-harness-axioms.log",
+      "ok": true,
+      "tail": "== H1/H2/H6 inventory + fidelity + privacy (multiset of name/kind/privacy/stmt-hash) ==\n  \u001b[32mPASS\u001b[0m no unwhitelisted removals / statement-drift / privacy-drop\n  \u001b[32mPASS\u001b[0m no unwhitelisted additions\n== H5 diff shape ==\n  \u001b[32mPASS\u001b[0m only planned files touched\n== H3 axiom surface (kernel) ==\n  \u001b[32mPASS\u001b[0m axiom surface identical (excl. whitelisted)\n  \u001b[32mPASS\u001b[0m whitelisted additions present & sorryAx-free\n== H4 kernel signature fidelity (elaborated types; Codex B4) ==\n  \u001b[32mPASS\u001b[0m elaborated signatures identical for all surviving public decls\n\nALL CHECKS PASSED"
+    },
+    "lake_build_full": {
+      "path": "/Volumes/second-store/devel/knowledge-base-mcp/mentormind/helios-projects/project/yaqin/evidence/pr2-v2/final/lake-build-full.post-review.log",
+      "ok": true,
+      "tail": "  simp ̵[̵L̵o̵r̵e̵n̵t̵z̵.̵V̵e̵c̵t̵o̵r̵.̵s̵m̵u̵l̵_̵a̵d̵d̵]̵\n\nNote: This linter can be disabled with `set_option linter.unusedSimpArgs false`\n✔ [9108/9116] Built QuantumInfo.Entropy.DPI (26s)\n✔ [9109/9116] Built QuantumInfo.Capacity.Capacity (7.1s)\n✔ [9110/9116] Built QuantumInfo.States.Entanglement (8.7s)\n✔ [9111/9116] Built QuantumInfo.ResourceTheory.FreeState (9.0s)\n✔ [9112/9116] Built QuantumInfo.ResourceTheory.HypothesisTesting (12s)\n✔ [9113/9116] Built QuantumInfo.Channels.Pinching (14s)\n✔ [9114/9116] Built QuantumInfo.ResourceTheory.SteinsLemma (26s)\n✔ [9115/9116] Built QuantumInfo (4.8s)\nBuild completed successfully (9116 jobs)."
+    }
+  },
+  "notes": [
+    "The first final Varro wrapper query for qRelativeEnt.lowerSemicontinuous returned lean-query-empty-output; direct Lean replay and a Varro retry both succeeded. The canonical final snapshot is the retry, and the first error is preserved as *.first-error.json.",
+    "The PR2 harness whitelist was updated to include the reviewed V2 public boundary theorem sandwichedRelRentropy_one_lowerSemicontinuous."
+  ]
+}

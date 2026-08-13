@@ -1,0 +1,116 @@
+---
+title: "Physics and mathematics brief for the SandwichedRenyi split"
+subtitle: "Why `D̃_α` and `𝐃` should have separate Lean homes"
+format: html
+---
+
+## The quantities
+
+The Umegaki quantum relative entropy is
+$$
+D(\rho\|\sigma) = \operatorname{Tr}\bigl[\rho(\log\rho-\log\sigma)\bigr],
+$$
+with the usual convention that it is infinite when the support of `ρ` is not
+contained in the support of `σ`. In PhysLean this is `qRelativeEnt`, with notation
+`𝐃(ρ‖σ)`.
+
+The sandwiched Renyi relative entropy is the one-parameter family
+$$
+\widetilde D_\alpha(\rho\|\sigma)
+= \frac{1}{\alpha-1}
+  \log \operatorname{Tr}
+  \left[
+    \left(
+      \sigma^{(1-\alpha)/(2\alpha)}
+      \rho
+      \sigma^{(1-\alpha)/(2\alpha)}
+    \right)^\alpha
+  \right].
+$$
+
+PhysLean writes this family as `D̃_ α(ρ‖σ)` via `SandwichedRelRentropy`.
+The Umegaki entropy is represented in the library by the definitional equality
+
+```lean
+def qRelativeEnt (ρ σ : MState d) : ENNReal :=
+  D̃_1(ρ‖σ)
+```
+
+That identity is the mathematical reason for the file split: `𝐃` is the
+alpha-equals-one interface, while `D̃_α` is the family that owns the analytic
+machinery.
+
+## Why the sandwiched family is its own concept
+
+The sandwiched family is not just a notation around `𝐃`. It carries:
+
+- the spectral trace expression involving
+  `σ^((1 - α) / (2 * α)) * ρ * σ^((1 - α) / (2 * α))`;
+- the nonnegativity and additivity theory for `D̃_α`;
+- the continuity of the map `α ↦ D̃_α(ρ‖σ)`;
+- the alpha-equals-one bridge to Umegaki relative entropy;
+- the proof machinery using eigenvalues, support projections, and functional
+  calculus.
+
+Those are statements about the alpha-family. Keeping them in `Relative.lean`
+made `Relative.lean` look like the owner of the family even though the Umegaki
+API is only the special case `α = 1`.
+
+## The support convention
+
+The kernel condition in the code,
+
+```lean
+σ.M.ker ≤ ρ.M.ker
+```
+
+is the finite-dimensional expression of
+`supp(ρ) ⊆ supp(σ)`. If the condition fails, there is a vector on which `σ` has
+zero support but `ρ` does not. Physically, an event can occur under `ρ` but is
+impossible under `σ`, so the relative entropy is infinite.
+
+The refactor does not change that convention. It changes where the supporting
+proofs live:
+
+- support-sensitive spectral estimates used by the sandwiched family live in
+  `SandwichedRenyi.lean`;
+- Umegaki-facing support facts such as `qRelativeEnt_ker` and
+  `qRelativeEnt_eq_top_iff` stay in `Relative.lean`.
+
+## Lower semicontinuity
+
+Lower semicontinuity of `𝐃(ρ‖σ)` is a key analytic property: it says relative
+entropy cannot jump downward under limiting perturbations of `σ`. This matters
+for approximation arguments, compactness arguments, and optimization over state
+spaces.
+
+The first split left `qRelativeEnt.lowerSemicontinuous` in `Relative.lean` with a
+proof depending on eigen-weight internals from the sandwiched engine. That was a
+bad ownership boundary: it forced implementation details of the sandwiched
+spectral proof to be public.
+
+The final refactor instead proves the family-facing theorem
+
+```lean
+sandwichedRelRentropy_one_lowerSemicontinuous :
+  LowerSemicontinuous fun σ => D̃_1(ρ‖σ)
+```
+
+inside `SandwichedRenyi.lean`. The Umegaki theorem then follows by the definition
+of `qRelativeEnt`.
+
+This is both better Lean organization and better mathematics: the alpha-family
+owns the alpha-equals-one analytic bridge, while `Relative.lean` owns only the
+Umegaki name and wrapper API.
+
+## What this PR does not claim
+
+This PR does not introduce a new proof of a physical theorem. The earlier
+joint-convexity submission closed a mathematical gap. This PR is a structural
+refactor that makes the existing quantum-information API easier to review,
+maintain, and extend.
+
+The physics contribution is therefore architectural: it aligns the formal file
+structure with the conceptual structure used by quantum information theory.
+Sandwiched Renyi relative entropy is a family; Umegaki relative entropy is the
+alpha-equals-one endpoint. The Lean modules should reflect that.

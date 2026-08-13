@@ -1,0 +1,101 @@
+// Documentation — docstrings, module headers, references, and markdown/LaTeX rules.
+
+requirement DOC-001 {
+  title "Docstrings on definitions and major theorems"
+  project both
+  category documentation
+  level shall
+  source "https://leanprover-community.github.io/contribute/doc.html"
+  statement "Every definition and every major theorem SHALL carry a doc string delimited by `/-- … -/`. Doc strings on lemmas are encouraged, particularly when a lemma has mathematical content or may be reused. A complete-sentence doc string ends in a period."
+  rationale "Docstrings are the primary API documentation; the `docBlame` linters enforce their presence."
+  acceptance [
+    "Each definition has a `/-- … -/` docstring.",
+    "Each major theorem has a docstring.",
+    "`#lint only docBlame docBlameThm` reports no missing docstrings."
+  ]
+  verify "#lint only docBlame docBlameThm"
+}
+
+requirement DOC-002 {
+  title "Module docstring after imports"
+  project mathlib
+  category documentation
+  level shall
+  source "https://leanprover-community.github.io/contribute/doc.html"
+  statement "Each file SHALL have a module docstring delimited by `/-!` and `-/` (each delimiter on its own line) placed after the imports, containing at least a first-level title and a summary, plus `Main definitions`, `Main statements`, `Notation`, `Implementation notes`, `References`, and `Tags` sections as applicable. `Notation` is required whenever the file introduces notation."
+  rationale "The module docstring is the file's front page for readers and for the generated documentation site."
+  acceptance [
+    "The file has a `/-! … -/` module docstring after the imports.",
+    "It contains a title and a summary.",
+    "Applicable sections (notation, references, tags, …) are present."
+  ]
+}
+
+requirement DOC-003 {
+  title "Docstrings convey mathematical meaning"
+  project mathlib
+  category documentation
+  level should
+  source "https://leanprover-community.github.io/contribute/doc.html"
+  statement "A doc string SHOULD convey the mathematical meaning of a declaration; it MAY lie slightly about the actual implementation in service of clarity. Named theorems referenced in prose SHOULD be shown in bold."
+  rationale "Readers want the mathematics, not the encoding; a faithful-in-spirit description beats an implementation dump."
+  acceptance [
+    "Docstrings describe the mathematical intent.",
+    "Named theorems appear in bold where referenced."
+  ]
+}
+
+requirement DOC-004 {
+  title "References via docs/references.bib"
+  project mathlib
+  category documentation
+  level shall
+  source "https://leanprover-community.github.io/contribute/doc.html"
+  statement "Bibliographic references SHALL be added to `docs/references.bib` and cited from docstrings as `[key]` or `[custom text][key]`."
+  rationale "A single shared bibliography keeps citations consistent and resolvable across the library."
+  acceptance [
+    "Cited works exist as entries in `docs/references.bib`.",
+    "Citations use the `[key]` / `[text][key]` forms."
+  ]
+}
+
+requirement DOC-005 {
+  title "Markdown and LaTeX conventions in docs"
+  project mathlib
+  category documentation
+  level should
+  source "https://leanprover-community.github.io/contribute/doc.html"
+  statement "In documentation, Lean declarations SHOULD be written in backticks (fully-qualified names become links); raw URLs SHOULD be enclosed in angle brackets `<…>`; inline math uses single `$…$`, display math uses `$$…$$`, and LaTeX environments use `\\begin{…}…\\end{…}` without dollar signs. Section comments use `/-! … -/` with `###` third-level headers."
+  rationale "Uniform markup renders correctly on the documentation site and keeps cross-references live."
+  acceptance [
+    "Lean names are backticked; URLs are angle-bracketed.",
+    "Math uses `$…$` / `$$…$$`; environments omit dollar signs."
+  ]
+}
+
+requirement DOC-006 {
+  title "Documentation in English"
+  project both
+  category documentation
+  level should
+  source "https://leanprover-community.github.io/contribute/doc.html"
+  statement "Documentation SHOULD be written in English; any common variety (British, American, Australian) is acceptable, though declaration names remain American (see NAM-002)."
+  rationale "A shared language keeps documentation usable by the whole community."
+  acceptance [
+    "Prose documentation is in English."
+  ]
+}
+
+requirement DOC-007 {
+  title "Tags and dependencies on informal results"
+  project physlean
+  category documentation
+  level shall
+  source "http://physlib.io/getting-started"
+  statement "Informal (English-only) definitions and lemmas SHALL carry tags and a dependency list; semi-formal results SHALL carry tags."
+  rationale "Tags and dependency lists make informal physics content searchable and connect it into the formal dependency graph."
+  acceptance [
+    "Informal results carry tags and a dependency list.",
+    "Semi-formal results carry tags."
+  ]
+}

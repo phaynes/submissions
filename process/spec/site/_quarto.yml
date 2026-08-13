@@ -1,0 +1,49 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Lean Contribution SRS"
+  description: "Mathlib & PhysLean contribution guidelines as a governed requirements catalogue"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Overview
+      - text: Categories
+        menu:
+          - href: categories/scope.qmd
+            text: "Scope & Remit"
+          - href: categories/ai.qmd
+            text: "AI / LLM Policy"
+          - href: categories/licensing.qmd
+            text: "Licensing & Copyright"
+          - href: categories/naming.qmd
+            text: "Naming Conventions"
+          - href: categories/style.qmd
+            text: "Code Style"
+          - href: categories/documentation.qmd
+            text: "Documentation"
+          - href: categories/commit.qmd
+            text: "Commit Conventions"
+          - href: categories/pull_request.qmd
+            text: "Pull-Request Workflow"
+          - href: categories/review.qmd
+            text: "Review Process"
+          - href: categories/community.qmd
+            text: "Community"
+      - href: mathlib.qmd
+        text: Mathlib
+      - href: physlean.qmd
+        text: PhysLean
+      - href: traceability.qmd
+        text: Traceability
+    right:
+      - icon: github
+        href: https://github.com/leanprover-community/mathlib4
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    number-sections: false

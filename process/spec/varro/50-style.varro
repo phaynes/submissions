@@ -1,0 +1,199 @@
+// Code style — layout, whitespace, tactic blocks, and API-design conventions.
+
+requirement STY-001 {
+  title "100-character line limit"
+  project both
+  category style
+  level shall
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "Lines SHALL NOT be longer than 100 characters."
+  rationale "Short lines stay readable on small screens, in narrow windows, and in side-by-side diffs."
+  acceptance [
+    "No source line exceeds 100 characters.",
+    "The style linter reports no line-length violations."
+  ]
+  verify "lake exe lint-style   (physlean: ./scripts/lint-style.sh)"
+}
+
+requirement STY-002 {
+  title "Declarations flush-left"
+  project mathlib
+  category style
+  level shall
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "All declarations SHALL appear flush-left; opening a `namespace` or `section` SHALL NOT indent its contents."
+  rationale "Flat, flush-left structure keeps files scannable regardless of section nesting."
+  acceptance [
+    "Top-level declarations start in column 1.",
+    "Contents of namespaces/sections are not indented."
+  ]
+}
+
+requirement STY-003 {
+  title "Whitespace around operators and binders"
+  project mathlib
+  category style
+  level shall
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "There SHALL be a space on both sides of `:`, `:=`, and infix operators, and a space after binders. When a line is broken, the operator SHALL go before the break, not at the start of the next line."
+  rationale "Uniform spacing makes expressions legible and diffs minimal."
+  acceptance [
+    "`:`, `:=`, and infix operators are surrounded by single spaces.",
+    "Line breaks keep the operator on the preceding line."
+  ]
+}
+
+requirement STY-004 {
+  title "Proof and continuation indentation"
+  project mathlib
+  category style
+  level shall
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "A proof SHALL be indented 2 spaces after the theorem statement. When a theorem statement spans multiple lines, continuation lines SHALL be indented 4 spaces (the proof is still only 2)."
+  rationale "A fixed indentation scheme separates statement from proof at a glance."
+  acceptance [
+    "Proof bodies are indented 2 spaces.",
+    "Multi-line statement continuations are indented 4 spaces."
+  ]
+}
+
+requirement STY-005 {
+  title "`by` at end of the preceding line"
+  project mathlib
+  category style
+  level shall
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "`by` SHALL be placed at the end of the line preceding the tactic block, never on a line by itself. For a short `have`, the justifying `by` goes on the same line."
+  rationale "Keeping `by` on the prior line avoids an orphan token and a wasted line."
+  acceptance [
+    "No line consists solely of `by`.",
+    "`by` terminates the line before the first tactic."
+  ]
+}
+
+requirement STY-006 {
+  title "Use `fun … ↦ …`; `λ` is disallowed"
+  project mathlib
+  category style
+  level shall
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "Anonymous functions SHALL be written with the `fun` keyword and the `↦` arrow. The `λ` lambda notation is disallowed in Mathlib."
+  rationale "One spelling of anonymous functions keeps the source uniform."
+  acceptance [
+    "Anonymous functions use `fun … ↦ …`.",
+    "No `λ` appears in submitted code."
+  ]
+}
+
+requirement STY-007 {
+  title "Tactic-block focusing dots and one-tactic-per-line"
+  project mathlib
+  category style
+  level should
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "Within a tactic block, when multiple goals arise each SHOULD be preceded by a focusing dot `·` (not indented), and generally one tactic SHOULD be written per line; newlines are preferred over semicolons even for short sequences."
+  rationale "Focusing dots make the goal structure explicit and keep proofs reviewable."
+  acceptance [
+    "Multiple goals are handled under focusing dots `·`.",
+    "Tactics are one per line except for short single-idea sequences."
+  ]
+}
+
+requirement STY-008 {
+  title "No empty lines inside declarations"
+  project mathlib
+  category style
+  level shall
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "Empty lines inside a declaration are disallowed and enforced by a linter; a comment SHALL be used instead of a blank line to separate parts of a proof."
+  rationale "Blank lines inside a declaration confuse the boundary between declarations; comments carry more information."
+  acceptance [
+    "No blank line appears inside a declaration.",
+    "Separation within a proof is done with comments."
+  ]
+  verify "The `empty lines inside declarations` linter."
+}
+
+requirement STY-009 {
+  title "Standard variable-letter conventions"
+  project mathlib
+  category style
+  level should
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "Variables SHOULD follow the usual letter conventions: `u v w` for universes; `α β γ` for generic types; `x y z` for elements; `h h₁` for hypotheses; `p q r` for predicates/relations; `s t` for sets/lists; `m n k` for naturals; `i j k` for integers. Mathematical types use conventional letters (`G` group, `R` ring, `K`/`𝕜` field, `E` vector space)."
+  rationale "Conventional names let a reader infer the role of a variable immediately."
+  acceptance [
+    "Variable names follow the conventional letter roles."
+  ]
+}
+
+requirement STY-010 {
+  title "Safe Unicode use"
+  project mathlib
+  category style
+  level should
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "Special Unicode characters, especially mathematical symbols, SHOULD be used where they develop good notation, but code SHALL avoid characters that change text direction, invisible characters (other than spaces and newlines), and characters that modify other characters."
+  rationale "Good notation aids readability; unsafe Unicode causes subtle rendering and security problems."
+  acceptance [
+    "Notation uses standard mathematical Unicode.",
+    "No direction-changing, invisible, or modifier characters are present."
+  ]
+}
+
+requirement STY-011 {
+  title "Explicit argument and return types"
+  project mathlib
+  category style
+  level shall
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "The type of every argument SHALL be given explicitly, and the return type of every declaration SHALL be stated."
+  rationale "Explicit types make declarations self-documenting and stable under refactoring."
+  acceptance [
+    "All arguments carry explicit types.",
+    "Every declaration states its return type."
+  ]
+}
+
+requirement STY-012 {
+  title "Definition transparency defaults"
+  project mathlib
+  category style
+  level should
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "Definitions SHOULD be `semireducible` (the `def` default). `irreducible_def` SHOULD be used only when a documented necessity from profiling requires it; prefer a type-synonym structure wrapper over `irreducible`. Reliance on `erw`, or `rfl` after `simp`, indicates missing API."
+  rationale "Transparency choices have large downstream effects on elaboration and should be deliberate and profiled."
+  acceptance [
+    "Definitions are semireducible unless profiling documents otherwise.",
+    "`irreducible_def` uses carry a profiling justification."
+  ]
+}
+
+requirement STY-013 {
+  title "Deprecate rather than delete"
+  project mathlib
+  category style
+  level should
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "When renaming or removing a public declaration, the old name SHOULD be kept with an `@[deprecated]` attribute carrying a deprecation date (a renamed declaration via a deprecated `alias`); a deprecation without a replacement needs a message. Deprecated declarations MAY be deleted after six months."
+  rationale "Deprecation windows protect downstream users from sudden breakage."
+  acceptance [
+    "Renamed/removed public decls retain a dated `@[deprecated]` alias.",
+    "Replacement-less deprecations carry a message."
+  ]
+}
+
+requirement STY-014 {
+  title "Performance awareness and benchmarking"
+  project mathlib
+  category style
+  level should
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "Authors SHOULD be aware of the performance impact of a contribution; changes to classes, instances, `simp` lemmas, imports, or definitions, and non-trivial refactors, SHOULD be benchmarked. Contributions SHOULD NOT cause significant performance regressions."
+  rationale "Mathlib compiles as one library; local slowdowns become everyone's slowdown."
+  acceptance [
+    "Performance-sensitive changes are benchmarked.",
+    "No significant regression is introduced."
+  ]
+  verify "Comment `!bench` on the PR to run the benchmarking infrastructure."
+}
