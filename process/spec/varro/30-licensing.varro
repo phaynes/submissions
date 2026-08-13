@@ -1,0 +1,45 @@
+// Licensing & copyright — the mandatory file header and the license of contributions.
+
+requirement LIC-001 {
+  title "Apache-2.0 copyright header on every file"
+  project both
+  category licensing
+  level shall
+  source "http://physlib.io/getting-started"
+  statement "Every source file SHALL begin with a copyright header naming the year and author(s) and releasing the file under the Apache-2.0 license, e.g.\n\n```\n/-\nCopyright (c) 2025 Your Name. All rights reserved.\nReleased under Apache 2.0 license as described in the file LICENSE.\nAuthors: Your Name\n-/\n```"
+  rationale "A uniform, machine-checkable license header keeps provenance and licensing unambiguous for every file in the library."
+  acceptance [
+    "The file's first block is the copyright header.",
+    "The header names the release year and all authors.",
+    "The header cites the Apache-2.0 license and the LICENSE file."
+  ]
+  verify "The style linter checks for a well-formed header (mathlib: lint-style; physlean: ./scripts/lint-style.sh)."
+}
+
+requirement LIC-002 {
+  title "Authors line format"
+  project mathlib
+  category licensing
+  level shall
+  source "https://leanprover-community.github.io/contribute/style.html"
+  statement "The header SHALL use `Authors:` even when there is a single author, SHALL separate all author names with commas (not the word `and` before the final author), and SHALL NOT end the author line with a period."
+  rationale "A single fixed format lets tooling parse authorship reliably."
+  acceptance [
+    "The line begins `Authors:`.",
+    "Multiple authors are comma-separated with no `and`.",
+    "There is no trailing period."
+  ]
+}
+
+requirement LIC-003 {
+  title "Contributions are Apache-2.0 licensed"
+  project both
+  category licensing
+  level shall
+  source "http://physlib.io/get-involved"
+  statement "By contributing, the author SHALL release the contribution under the Apache-2.0 license, consistent with the project as a whole."
+  rationale "A single permissive license across the library avoids licensing fragmentation and legal ambiguity for downstream users."
+  acceptance [
+    "The contribution carries the Apache-2.0 header and introduces no incompatibly-licensed material."
+  ]
+}

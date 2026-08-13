@@ -1,0 +1,70 @@
+// Review process — labels, roles, the merge queue, and what reviewers check.
+
+requirement RVW-001 {
+  title "Label lifecycle and resolving conversations"
+  project mathlib
+  category review
+  level should
+  source "https://leanprover-community.github.io/contribute/how-to-contribute.html"
+  statement "The PR moves through labels such as `awaiting-review`, `awaiting-author`, `awaiting-zulip`, and `WIP`; anyone may add or remove them via PR comments. When responding to review, the author SHOULD address each comment, click 'resolve conversation', and remove `awaiting-author` when the changes are complete."
+  rationale "The label state machine drives the review queue and tells each party whose turn it is."
+  acceptance [
+    "The author addresses and resolves each review comment.",
+    "`awaiting-author` is cleared once the author's changes are pushed."
+  ]
+}
+
+requirement RVW-002 {
+  title "Review is open; merge is maintainer-only"
+  project mathlib
+  category review
+  level info
+  source "https://leanprover-community.github.io/contribute/pr-review.html"
+  statement "Everyone is welcome and encouraged to review PRs, but only Mathlib maintainers have authority to merge. A history of helpful reviews is a key criterion for joining the Mathlib reviewer or maintainer teams."
+  rationale "Distributed review with a bounded merge authority scales review while keeping the mainline controlled."
+  acceptance [
+    "Contributors may review any PR.",
+    "Merge is performed by a maintainer (or a delegated author)."
+  ]
+}
+
+requirement RVW-003 {
+  title "Merge queue and delegation"
+  project mathlib
+  category review
+  level info
+  source "https://leanprover-community.github.io/contribute/how-to-contribute.html"
+  statement "An approved PR is merged via the `bors` merge queue (`bors merge` / `r+`), which manages `ready-to-merge`, `bors-staging`, and `awaiting-requeue` states. A `delegated` label lets the author complete the merge themselves by writing `bors merge`; delegations expire after two weeks."
+  rationale "The merge queue serialises builds against master; delegation lets trusted authors self-serve."
+  acceptance [
+    "Merges go through the bors queue.",
+    "Delegated merges are completed within the two-week window."
+  ]
+}
+
+requirement RVW-004 {
+  title "What reviewers check"
+  project mathlib
+  category review
+  level info
+  source "https://leanprover-community.github.io/contribute/pr-review.html"
+  statement "Reviewers evaluate a PR across five areas: style (formatting, naming, title/description), documentation (docstrings, cross-references, warnings), location (correct file, no duplication, import hygiene), improvements (refactoring, tactic/proof structure), and library integration (API design, generality, design alignment). For example, universe-polymorphic arguments use `Type*`, not `Type _`."
+  rationale "Naming the review dimensions helps authors self-review before submitting."
+  acceptance [
+    "The PR withstands review on style, documentation, location, improvements, and integration.",
+    "Universe arguments use `Type*` rather than `Type _`."
+  ]
+}
+
+requirement RVW-005 {
+  title "PhysLean iterative review"
+  project physlean
+  category review
+  level info
+  source "http://physlib.io/get-involved"
+  statement "For PhysLean, the maintainer team reviews each PR and iterates with the author on feedback until it can be merged; smaller PRs receive feedback sooner."
+  rationale "An explicit iterate-to-merge model sets expectations for new physics contributors."
+  acceptance [
+    "The author engages with maintainer feedback until merge."
+  ]
+}

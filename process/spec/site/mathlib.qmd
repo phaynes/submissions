@@ -1,0 +1,973 @@
+---
+title: "Mathlib Requirements"
+---
+
+Every requirement that applies to Mathlib. Items marked *Mathlib + PhysLean* apply to both projects.
+
+## Scope & Remit
+
+### SCOPE-001 — Mathlib subject-matter remit {#sec-scope-001}
+
+**Mathlib** · Level **SHALL**
+
+New material SHALL be of a kind typically taught or studied in a mathematics department, suitable at undergraduate, graduate, or research level. Mathlib's remit is not all of mathematics and related areas.
+
+**Acceptance criteria**
+
+- The contribution's subject is standard mathematics (undergraduate, graduate, or research level).
+- If the subject is specialised or out-of-remit, it is instead released as a downstream project depending on Mathlib (see SCOPE-003).
+
+**Rationale.** Mathlib is a curated mathematical library, not a general dumping ground; a bounded remit keeps it coherent and maintainable.
+
+**Verify.** Reviewer judgement on Zulip #mathlib4 before opening the PR.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### SCOPE-002 — Alignment with maintainer interests {#sec-scope-002}
+
+**Mathlib** · Level **SHOULD**
+
+A proposed new theory SHOULD align with the mathematical interests of the Mathlib maintainers.
+
+**Acceptance criteria**
+
+- The topic overlaps a maintainer's stated area, or a maintainer has expressed willingness to review it on Zulip.
+
+**Rationale.** Maintainers must be willing to review and steward the area long-term; work with no maintainer interest cannot be sustained.
+
+**Verify.** Pre-PR discussion on Zulip #mathlib4.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### SCOPE-003 — Downstream repository for out-of-remit or fast-moving work {#sec-scope-003}
+
+**Mathlib** · Level **SHOULD**
+
+Specialised domains, or projects wanting rapid development, SHOULD be built as standalone repositories that take Mathlib as a dependency, rather than being merged into Mathlib.
+
+**Acceptance criteria**
+
+- Out-of-remit work is published as its own Lake project depending on Mathlib.
+- The project is discoverable (e.g. listed on Reservoir).
+
+**Rationale.** A separate repo can move faster than Mathlib's review cadence and need not fit the shared remit; Mathlib-as-a-dependency is explicitly encouraged.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### SCOPE-005 — Prefer small, self-contained contributions {#sec-scope-005}
+
+**Mathlib + PhysLean** · Level **SHOULD**
+
+Contributions SHOULD be kept small and self-contained; a single-lemma addition or a small fix is a welcome pull request. Large bodies of work SHOULD be split into many small, self-contained PRs.
+
+**Acceptance criteria**
+
+- The PR addresses one coherent change.
+- Unrelated changes are moved to separate PRs.
+
+**Rationale.** Small PRs are reviewed faster, get feedback sooner, and are far easier to verify; 'the smaller the better'.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+## AI / LLM Policy
+
+### AI-001 — No LLM-written project communication {#sec-ai-001}
+
+**Mathlib** · Level **SHALL NOT**
+
+Contributors SHALL NOT use an LLM to write comments on GitHub or Zulip. Use your own words.
+
+**Acceptance criteria**
+
+- All GitHub and Zulip comments are written by the human contributor in their own words.
+
+**Rationale.** Community discussion depends on genuine human communication; LLM-authored comments erode trust and waste reviewer time.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### AI-002 — Disclose AI assistance in the PR {#sec-ai-002}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+If artificial intelligence was used to help produce a contribution, the author SHALL explain this in the PR description, including which tools were used and the methodology.
+
+**Acceptance criteria**
+
+- The PR description names the AI tools used.
+- The PR description explains the methodology by which AI was used.
+
+**Rationale.** Reviewers must know how the code was produced to calibrate scrutiny; non-disclosure is a policy violation.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### AI-003 — Label substantial AI-generated code {#sec-ai-003}
+
+**Mathlib** · Level **SHALL**
+
+When a PR contains substantial AI-generated code, the author SHALL add the `LLM-generated` label.
+
+**Acceptance criteria**
+
+- The `LLM-generated` label is present on PRs with substantial AI-generated content.
+
+**Rationale.** The label routes the PR to the appropriate review posture and keeps the provenance signal machine-visible.
+
+**Verify.** Comment `LLM-generated` on the PR to add the label.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### AI-004 — Author understands and can defend all AI output {#sec-ai-004}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+The author SHALL understand all content written by an AI, and SHALL be able to justify every design decision to reviewers without AI assistance. Code written by an AI without the supervision of a Lean subject expert does not meet the contribution bar.
+
+**Acceptance criteria**
+
+- The author can explain every line of the contribution unaided.
+- The author can justify each design decision to a reviewer without AI help.
+- A Lean subject expert supervised the work.
+
+**Rationale.** Accountability for correctness and design rests with the human author; unsupervised AI output falls short by a large margin.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### AI-005 — Low-quality LLM PRs are closed; abuse risks a ban {#sec-ai-005}
+
+**Mathlib** · Level **INFO**
+
+Reviewers MAY summarily close, without comment, any low-quality PR produced using an LLM. Opening multiple low-quality LLM PRs without community engagement risks temporary suspension or a permanent ban.
+
+**Acceptance criteria**
+
+- The contributor engages the community and meets the quality bar before opening AI-assisted PRs.
+
+**Rationale.** Stated consequence, recorded so contributors can calibrate risk before submitting AI-assisted work.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+## Licensing & Copyright
+
+### LIC-001 — Apache-2.0 copyright header on every file {#sec-lic-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+Every source file SHALL begin with a copyright header naming the year and author(s) and releasing the file under the Apache-2.0 license, e.g.
+
+```
+/-
+Copyright (c) 2025 Your Name. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Your Name
+-/
+```
+
+**Acceptance criteria**
+
+- The file's first block is the copyright header.
+- The header names the release year and all authors.
+- The header cites the Apache-2.0 license and the LICENSE file.
+
+**Rationale.** A uniform, machine-checkable license header keeps provenance and licensing unambiguous for every file in the library.
+
+**Verify.** The style linter checks for a well-formed header (mathlib: lint-style; physlean: ./scripts/lint-style.sh).
+
+**Source.** <http://physlib.io/getting-started>
+
+---
+
+### LIC-002 — Authors line format {#sec-lic-002}
+
+**Mathlib** · Level **SHALL**
+
+The header SHALL use `Authors:` even when there is a single author, SHALL separate all author names with commas (not the word `and` before the final author), and SHALL NOT end the author line with a period.
+
+**Acceptance criteria**
+
+- The line begins `Authors:`.
+- Multiple authors are comma-separated with no `and`.
+- There is no trailing period.
+
+**Rationale.** A single fixed format lets tooling parse authorship reliably.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### LIC-003 — Contributions are Apache-2.0 licensed {#sec-lic-003}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+By contributing, the author SHALL release the contribution under the Apache-2.0 license, consistent with the project as a whole.
+
+**Acceptance criteria**
+
+- The contribution carries the Apache-2.0 header and introduces no incompatibly-licensed material.
+
+**Rationale.** A single permissive license across the library avoids licensing fragmentation and legal ambiguity for downstream users.
+
+**Source.** <http://physlib.io/get-involved>
+
+---
+
+## Naming Conventions
+
+### NAM-001 — Casing by syntactic category {#sec-nam-001}
+
+**Mathlib** · Level **SHALL**
+
+Names SHALL be cased by what they name: terms of `Prop`s (proofs, theorems) use `snake_case`; `Prop`s and `Type`s (inductives, structures, classes) use `UpperCamelCase`; other terms of `Type`s use `lowerCamelCase`. An `UpperCamelCase` item referenced inside a `snake_case` name is written in `lowerCamelCase`.
+
+**Acceptance criteria**
+
+- Theorem and proof names are snake_case.
+- Structures, classes, and inductive types are UpperCamelCase.
+- Other definitions (data) are lowerCamelCase.
+
+**Rationale.** Casing encodes the syntactic role of a name, so a reader infers what a name is before reading its type.
+
+**Verify.** The naming linter and reviewer check; see `#lint`.
+
+**Source.** <https://leanprover-community.github.io/contribute/naming.html>
+
+---
+
+### NAM-002 — American English spelling in names {#sec-nam-002}
+
+**Mathlib** · Level **SHALL**
+
+Declaration names SHALL use American English spelling (e.g. `factorization`, not `factorisation`).
+
+**Acceptance criteria**
+
+- Declaration names use American spellings.
+
+**Rationale.** A single spelling convention makes names predictable and searchable.
+
+**Source.** <https://leanprover-community.github.io/contribute/naming.html>
+
+---
+
+### NAM-003 — Theorem names describe the conclusion {#sec-nam-003}
+
+**Mathlib** · Level **SHOULD**
+
+A theorem name SHOULD describe its conclusion, naming the operations/relations involved (e.g. `neg_mul_neg`). Hypotheses that must be named are introduced with `of` and listed in the order they appear in the statement, not in reverse.
+
+**Acceptance criteria**
+
+- The name reflects the conclusion's structure.
+- Hypotheses appear after `of` in statement order.
+- Only a prefix of the description is used when that suffices.
+
+**Rationale.** Descriptive, statement-derived names make lemmas discoverable and let readers guess the exact name.
+
+**Source.** <https://leanprover-community.github.io/contribute/naming.html>
+
+---
+
+### NAM-004 — Symbol-to-word dictionary {#sec-nam-004}
+
+**Mathlib** · Level **SHALL**
+
+Names SHALL use the standard word for each symbol from the naming dictionary — e.g. `add` (+), `mul` (*), `neg`/`sub` (-), `pow` (^), `div` (/), `inv` (⁻¹), `le`/`ge` (≤), `lt`/`gt` (<), `mem` (∈), `union` (∪), `inter` (∩), `sup` (⊔), `inf` (⊓), `dvd` (∣), `sum` (∑), `prod` (∏).
+
+**Acceptance criteria**
+
+- Symbols in a name are spelled using their dictionary words.
+- `ge`/`gt` are used in place of `le`/`lt` per the argument-order rules.
+
+**Rationale.** A fixed vocabulary makes names uniform across the whole library.
+
+**Source.** <https://leanprover-community.github.io/contribute/naming.html>
+
+---
+
+### NAM-005 — Structural-lemma naming (ext, injective) {#sec-nam-005}
+
+**Mathlib** · Level **SHOULD**
+
+Structural lemmas SHOULD follow the standard suffixes: a lemma of the form `(∀ x, f x = g x) → f = g` is named `.ext` with the `@[ext]` attribute, and the iff form `.ext_iff`; injectivity as `f_injective` (`Function.Injective f`) and the unfolded biconditional as `f_inj`. `left`/`right` refer to the argument that changes.
+
+**Acceptance criteria**
+
+- Extensionality lemmas use `.ext` / `.ext_iff` with `@[ext]`.
+- Injectivity lemmas use `_injective` / `_inj`.
+- `left`/`right` name the argument that varies.
+
+**Rationale.** Consistent structural-lemma names let tactics and readers find the standard API for a type.
+
+**Source.** <https://leanprover-community.github.io/contribute/naming.html>
+
+---
+
+## Code Style
+
+### STY-001 — 100-character line limit {#sec-sty-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+Lines SHALL NOT be longer than 100 characters.
+
+**Acceptance criteria**
+
+- No source line exceeds 100 characters.
+- The style linter reports no line-length violations.
+
+**Rationale.** Short lines stay readable on small screens, in narrow windows, and in side-by-side diffs.
+
+**Verify.** lake exe lint-style   (physlean: ./scripts/lint-style.sh)
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-002 — Declarations flush-left {#sec-sty-002}
+
+**Mathlib** · Level **SHALL**
+
+All declarations SHALL appear flush-left; opening a `namespace` or `section` SHALL NOT indent its contents.
+
+**Acceptance criteria**
+
+- Top-level declarations start in column 1.
+- Contents of namespaces/sections are not indented.
+
+**Rationale.** Flat, flush-left structure keeps files scannable regardless of section nesting.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-003 — Whitespace around operators and binders {#sec-sty-003}
+
+**Mathlib** · Level **SHALL**
+
+There SHALL be a space on both sides of `:`, `:=`, and infix operators, and a space after binders. When a line is broken, the operator SHALL go before the break, not at the start of the next line.
+
+**Acceptance criteria**
+
+- `:`, `:=`, and infix operators are surrounded by single spaces.
+- Line breaks keep the operator on the preceding line.
+
+**Rationale.** Uniform spacing makes expressions legible and diffs minimal.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-004 — Proof and continuation indentation {#sec-sty-004}
+
+**Mathlib** · Level **SHALL**
+
+A proof SHALL be indented 2 spaces after the theorem statement. When a theorem statement spans multiple lines, continuation lines SHALL be indented 4 spaces (the proof is still only 2).
+
+**Acceptance criteria**
+
+- Proof bodies are indented 2 spaces.
+- Multi-line statement continuations are indented 4 spaces.
+
+**Rationale.** A fixed indentation scheme separates statement from proof at a glance.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-005 — `by` at end of the preceding line {#sec-sty-005}
+
+**Mathlib** · Level **SHALL**
+
+`by` SHALL be placed at the end of the line preceding the tactic block, never on a line by itself. For a short `have`, the justifying `by` goes on the same line.
+
+**Acceptance criteria**
+
+- No line consists solely of `by`.
+- `by` terminates the line before the first tactic.
+
+**Rationale.** Keeping `by` on the prior line avoids an orphan token and a wasted line.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-006 — Use `fun … ↦ …`; `λ` is disallowed {#sec-sty-006}
+
+**Mathlib** · Level **SHALL**
+
+Anonymous functions SHALL be written with the `fun` keyword and the `↦` arrow. The `λ` lambda notation is disallowed in Mathlib.
+
+**Acceptance criteria**
+
+- Anonymous functions use `fun … ↦ …`.
+- No `λ` appears in submitted code.
+
+**Rationale.** One spelling of anonymous functions keeps the source uniform.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-007 — Tactic-block focusing dots and one-tactic-per-line {#sec-sty-007}
+
+**Mathlib** · Level **SHOULD**
+
+Within a tactic block, when multiple goals arise each SHOULD be preceded by a focusing dot `·` (not indented), and generally one tactic SHOULD be written per line; newlines are preferred over semicolons even for short sequences.
+
+**Acceptance criteria**
+
+- Multiple goals are handled under focusing dots `·`.
+- Tactics are one per line except for short single-idea sequences.
+
+**Rationale.** Focusing dots make the goal structure explicit and keep proofs reviewable.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-008 — No empty lines inside declarations {#sec-sty-008}
+
+**Mathlib** · Level **SHALL**
+
+Empty lines inside a declaration are disallowed and enforced by a linter; a comment SHALL be used instead of a blank line to separate parts of a proof.
+
+**Acceptance criteria**
+
+- No blank line appears inside a declaration.
+- Separation within a proof is done with comments.
+
+**Rationale.** Blank lines inside a declaration confuse the boundary between declarations; comments carry more information.
+
+**Verify.** The `empty lines inside declarations` linter.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-009 — Standard variable-letter conventions {#sec-sty-009}
+
+**Mathlib** · Level **SHOULD**
+
+Variables SHOULD follow the usual letter conventions: `u v w` for universes; `α β γ` for generic types; `x y z` for elements; `h h₁` for hypotheses; `p q r` for predicates/relations; `s t` for sets/lists; `m n k` for naturals; `i j k` for integers. Mathematical types use conventional letters (`G` group, `R` ring, `K`/`𝕜` field, `E` vector space).
+
+**Acceptance criteria**
+
+- Variable names follow the conventional letter roles.
+
+**Rationale.** Conventional names let a reader infer the role of a variable immediately.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-010 — Safe Unicode use {#sec-sty-010}
+
+**Mathlib** · Level **SHOULD**
+
+Special Unicode characters, especially mathematical symbols, SHOULD be used where they develop good notation, but code SHALL avoid characters that change text direction, invisible characters (other than spaces and newlines), and characters that modify other characters.
+
+**Acceptance criteria**
+
+- Notation uses standard mathematical Unicode.
+- No direction-changing, invisible, or modifier characters are present.
+
+**Rationale.** Good notation aids readability; unsafe Unicode causes subtle rendering and security problems.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-011 — Explicit argument and return types {#sec-sty-011}
+
+**Mathlib** · Level **SHALL**
+
+The type of every argument SHALL be given explicitly, and the return type of every declaration SHALL be stated.
+
+**Acceptance criteria**
+
+- All arguments carry explicit types.
+- Every declaration states its return type.
+
+**Rationale.** Explicit types make declarations self-documenting and stable under refactoring.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-012 — Definition transparency defaults {#sec-sty-012}
+
+**Mathlib** · Level **SHOULD**
+
+Definitions SHOULD be `semireducible` (the `def` default). `irreducible_def` SHOULD be used only when a documented necessity from profiling requires it; prefer a type-synonym structure wrapper over `irreducible`. Reliance on `erw`, or `rfl` after `simp`, indicates missing API.
+
+**Acceptance criteria**
+
+- Definitions are semireducible unless profiling documents otherwise.
+- `irreducible_def` uses carry a profiling justification.
+
+**Rationale.** Transparency choices have large downstream effects on elaboration and should be deliberate and profiled.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-013 — Deprecate rather than delete {#sec-sty-013}
+
+**Mathlib** · Level **SHOULD**
+
+When renaming or removing a public declaration, the old name SHOULD be kept with an `@[deprecated]` attribute carrying a deprecation date (a renamed declaration via a deprecated `alias`); a deprecation without a replacement needs a message. Deprecated declarations MAY be deleted after six months.
+
+**Acceptance criteria**
+
+- Renamed/removed public decls retain a dated `@[deprecated]` alias.
+- Replacement-less deprecations carry a message.
+
+**Rationale.** Deprecation windows protect downstream users from sudden breakage.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+### STY-014 — Performance awareness and benchmarking {#sec-sty-014}
+
+**Mathlib** · Level **SHOULD**
+
+Authors SHOULD be aware of the performance impact of a contribution; changes to classes, instances, `simp` lemmas, imports, or definitions, and non-trivial refactors, SHOULD be benchmarked. Contributions SHOULD NOT cause significant performance regressions.
+
+**Acceptance criteria**
+
+- Performance-sensitive changes are benchmarked.
+- No significant regression is introduced.
+
+**Rationale.** Mathlib compiles as one library; local slowdowns become everyone's slowdown.
+
+**Verify.** Comment `!bench` on the PR to run the benchmarking infrastructure.
+
+**Source.** <https://leanprover-community.github.io/contribute/style.html>
+
+---
+
+## Documentation
+
+### DOC-001 — Docstrings on definitions and major theorems {#sec-doc-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+Every definition and every major theorem SHALL carry a doc string delimited by `/-- … -/`. Doc strings on lemmas are encouraged, particularly when a lemma has mathematical content or may be reused. A complete-sentence doc string ends in a period.
+
+**Acceptance criteria**
+
+- Each definition has a `/-- … -/` docstring.
+- Each major theorem has a docstring.
+- `#lint only docBlame docBlameThm` reports no missing docstrings.
+
+**Rationale.** Docstrings are the primary API documentation; the `docBlame` linters enforce their presence.
+
+**Verify.** #lint only docBlame docBlameThm
+
+**Source.** <https://leanprover-community.github.io/contribute/doc.html>
+
+---
+
+### DOC-002 — Module docstring after imports {#sec-doc-002}
+
+**Mathlib** · Level **SHALL**
+
+Each file SHALL have a module docstring delimited by `/-!` and `-/` (each delimiter on its own line) placed after the imports, containing at least a first-level title and a summary, plus `Main definitions`, `Main statements`, `Notation`, `Implementation notes`, `References`, and `Tags` sections as applicable. `Notation` is required whenever the file introduces notation.
+
+**Acceptance criteria**
+
+- The file has a `/-! … -/` module docstring after the imports.
+- It contains a title and a summary.
+- Applicable sections (notation, references, tags, …) are present.
+
+**Rationale.** The module docstring is the file's front page for readers and for the generated documentation site.
+
+**Source.** <https://leanprover-community.github.io/contribute/doc.html>
+
+---
+
+### DOC-003 — Docstrings convey mathematical meaning {#sec-doc-003}
+
+**Mathlib** · Level **SHOULD**
+
+A doc string SHOULD convey the mathematical meaning of a declaration; it MAY lie slightly about the actual implementation in service of clarity. Named theorems referenced in prose SHOULD be shown in bold.
+
+**Acceptance criteria**
+
+- Docstrings describe the mathematical intent.
+- Named theorems appear in bold where referenced.
+
+**Rationale.** Readers want the mathematics, not the encoding; a faithful-in-spirit description beats an implementation dump.
+
+**Source.** <https://leanprover-community.github.io/contribute/doc.html>
+
+---
+
+### DOC-004 — References via docs/references.bib {#sec-doc-004}
+
+**Mathlib** · Level **SHALL**
+
+Bibliographic references SHALL be added to `docs/references.bib` and cited from docstrings as `[key]` or `[custom text][key]`.
+
+**Acceptance criteria**
+
+- Cited works exist as entries in `docs/references.bib`.
+- Citations use the `[key]` / `[text][key]` forms.
+
+**Rationale.** A single shared bibliography keeps citations consistent and resolvable across the library.
+
+**Source.** <https://leanprover-community.github.io/contribute/doc.html>
+
+---
+
+### DOC-005 — Markdown and LaTeX conventions in docs {#sec-doc-005}
+
+**Mathlib** · Level **SHOULD**
+
+In documentation, Lean declarations SHOULD be written in backticks (fully-qualified names become links); raw URLs SHOULD be enclosed in angle brackets `<…>`; inline math uses single `$…$`, display math uses `$$…$$`, and LaTeX environments use `\begin{…}…\end{…}` without dollar signs. Section comments use `/-! … -/` with `###` third-level headers.
+
+**Acceptance criteria**
+
+- Lean names are backticked; URLs are angle-bracketed.
+- Math uses `$…$` / `$$…$$`; environments omit dollar signs.
+
+**Rationale.** Uniform markup renders correctly on the documentation site and keeps cross-references live.
+
+**Source.** <https://leanprover-community.github.io/contribute/doc.html>
+
+---
+
+### DOC-006 — Documentation in English {#sec-doc-006}
+
+**Mathlib + PhysLean** · Level **SHOULD**
+
+Documentation SHOULD be written in English; any common variety (British, American, Australian) is acceptable, though declaration names remain American (see NAM-002).
+
+**Acceptance criteria**
+
+- Prose documentation is in English.
+
+**Rationale.** A shared language keeps documentation usable by the whole community.
+
+**Source.** <https://leanprover-community.github.io/contribute/doc.html>
+
+---
+
+## Commit Conventions
+
+### CMT-001 — Conventional commit title format {#sec-cmt-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+A commit (and the PR title) SHALL follow the form `<type>(<optional-scope>): <subject>`.
+
+**Acceptance criteria**
+
+- The title matches `<type>(<scope>): <subject>`.
+- The type is drawn from the allowed set (see CMT-002).
+
+**Rationale.** A structured title drives changelog tooling and lets reviewers scan intent at a glance.
+
+**Source.** <https://leanprover-community.github.io/contribute/commit.html>
+
+---
+
+### CMT-002 — Allowed commit types {#sec-cmt-002}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+The commit `<type>` SHALL be one of: `feat` (feature), `fix` (bug fix), `doc` (documentation), `style` (formatting), `refactor`, `test` (adding missing tests), `chore` (maintenance), `perf` (performance), `ci` (automation/workflows).
+
+**Acceptance criteria**
+
+- The type is one of feat, fix, doc, style, refactor, test, chore, perf, ci.
+
+**Rationale.** A closed type vocabulary keeps history categorisable.
+
+**Source.** <https://leanprover-community.github.io/contribute/commit.html>
+
+---
+
+### CMT-003 — Subject line style {#sec-cmt-003}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+The subject SHALL use the imperative present tense ('change', not 'changed' or 'changes'), SHALL NOT capitalize the first letter, and SHALL NOT end with a period. The body, if present, uses imperative present tense and gives motivation and contrast with previous behaviour.
+
+**Acceptance criteria**
+
+- Subject is imperative present tense.
+- First letter is lower-case; there is no trailing period.
+
+**Rationale.** A consistent grammatical form makes histories uniform and greppable.
+
+**Source.** <https://leanprover-community.github.io/contribute/commit.html>
+
+---
+
+### CMT-004 — Scope omits the Mathlib prefix {#sec-cmt-004}
+
+**Mathlib** · Level **SHOULD**
+
+The optional `<scope>` SHOULD name the affected module or directory with the leading `Mathlib` prefix omitted (e.g. `Data/Nat/Basic`).
+
+**Acceptance criteria**
+
+- Scopes are written without the `Mathlib` prefix.
+
+**Rationale.** The prefix is redundant inside Mathlib and only lengthens the title.
+
+**Source.** <https://leanprover-community.github.io/contribute/commit.html>
+
+---
+
+### CMT-005 — Moves, deletions, and dependencies in the message {#sec-cmt-005}
+
+**Mathlib** · Level **SHOULD**
+
+A PR that moves or deletes declarations SHOULD list them in `Moves:` / `Deletions:` sections in the commit message before the `---` separator; PRs that depend on others SHOULD list them in checkbox form, e.g. `- [ ] depends on: #1234`.
+
+**Acceptance criteria**
+
+- Moves and deletions are listed before `---`.
+- Dependencies are listed as `- [ ] depends on: #XXXX`.
+
+**Rationale.** Structured move/deletion/dependency metadata lets automation track API changes and merge order.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+## Pull-Request Workflow
+
+### PR-001 — Target master with small, self-contained PRs {#sec-pr-001}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+A PR SHALL target the `master` branch of the upstream repository and SHALL be kept small and self-contained; the smaller the better.
+
+**Acceptance criteria**
+
+- The PR base branch is `master`.
+- The PR is one coherent, self-contained change.
+
+**Rationale.** Small PRs against master are reviewable and keep the mainline releasable.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### PR-002 — master always compiles {#sec-pr-002}
+
+**Mathlib** · Level **SHALL**
+
+It is essential that everything in `master` compiles without errors; a PR SHALL NOT be merged in a state that breaks the build.
+
+**Acceptance criteria**
+
+- CI is green on the PR before merge.
+- The change builds locally with `lake build`.
+
+**Rationale.** `master` is the production version depended on by the whole ecosystem.
+
+**Verify.** lake build
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### PR-003 — Build and cache locally before pushing {#sec-pr-003}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+Before pushing, the contributor SHALL build locally and use the compilation cache: run `lake exe cache get` to download built dependencies and `lake build` to build; after adding new files run `lake exe mk_all`. PhysLean setup uses `lake update; lake exe cache get; lake build`.
+
+**Acceptance criteria**
+
+- `lake exe cache get` and `lake build` were run locally and pass.
+- New files were registered with `lake exe mk_all`.
+
+**Rationale.** Local builds catch errors before they reach CI and reviewers.
+
+**Verify.** lake exe cache get && lake build
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### PR-004 — Run the linters locally {#sec-pr-004}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+Before submitting, the contributor SHALL run the project's linters locally and fix all reported issues. Mathlib: the style linter and `shake`; PhysLean: `lake exe lint_all` and `./scripts/lint-style.sh`. CI runs the linters on every PR.
+
+**Acceptance criteria**
+
+- The style linter passes locally.
+- PhysLean: `lake exe lint_all` and `./scripts/lint-style.sh` pass.
+
+**Rationale.** Linters enforce the style and structural rules automatically; running them locally avoids review round-trips.
+
+**Verify.** lake exe lint_all && ./scripts/lint-style.sh
+
+**Source.** <http://physlib.io/getting-started>
+
+---
+
+### PR-005 — "easy" PR criteria {#sec-pr-005}
+
+**Mathlib** · Level **INFO**
+
+A PR MAY be labelled `easy` when it adds a single lemma or fixes typos, with a diff generally under 25 lines, changing no existing definitions or theorem statements and adding no new definitions, files, `simp` lemmas, or instances.
+
+**Acceptance criteria**
+
+- The diff is small (~25 lines) and adds no new defs/files/simp/instances.
+- No existing statement is changed.
+
+**Rationale.** The `easy` label routes trivial PRs to a fast lane and sets reviewer expectations.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### PR-006 — Fork or branch workflow {#sec-pr-006}
+
+**Mathlib + PhysLean** · Level **MAY**
+
+A contributor MAY contribute either by (a) forking the repository, pushing to the fork, and opening a PR upstream, or (b) requesting collaborator access and pushing a feature branch (e.g. `feat(your-name): updating spacetime`) on the main repository, then opening a PR.
+
+**Acceptance criteria**
+
+- Changes arrive as a PR from either a fork or an upstream feature branch.
+
+**Rationale.** Both routes are supported; collaborator access streamlines repeat contributors.
+
+**Source.** <http://physlib.io/getting-started>
+
+---
+
+### PR-007 — Squash-merge; do not rebase after review starts {#sec-pr-007}
+
+**Mathlib** · Level **SHOULD**
+
+Mathlib PRs are squashed on merge, so intermediate commit history is not retained. Once a PR has seen review activity, the author SHOULD NOT rebase or squash, as that obfuscates the review history.
+
+**Acceptance criteria**
+
+- No rebase/squash is performed after review begins.
+- The author relies on squash-on-merge for a clean final history.
+
+**Rationale.** Preserving the post-review commit graph keeps the review auditable.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+## Review Process
+
+### RVW-001 — Label lifecycle and resolving conversations {#sec-rvw-001}
+
+**Mathlib** · Level **SHOULD**
+
+The PR moves through labels such as `awaiting-review`, `awaiting-author`, `awaiting-zulip`, and `WIP`; anyone may add or remove them via PR comments. When responding to review, the author SHOULD address each comment, click 'resolve conversation', and remove `awaiting-author` when the changes are complete.
+
+**Acceptance criteria**
+
+- The author addresses and resolves each review comment.
+- `awaiting-author` is cleared once the author's changes are pushed.
+
+**Rationale.** The label state machine drives the review queue and tells each party whose turn it is.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### RVW-002 — Review is open; merge is maintainer-only {#sec-rvw-002}
+
+**Mathlib** · Level **INFO**
+
+Everyone is welcome and encouraged to review PRs, but only Mathlib maintainers have authority to merge. A history of helpful reviews is a key criterion for joining the Mathlib reviewer or maintainer teams.
+
+**Acceptance criteria**
+
+- Contributors may review any PR.
+- Merge is performed by a maintainer (or a delegated author).
+
+**Rationale.** Distributed review with a bounded merge authority scales review while keeping the mainline controlled.
+
+**Source.** <https://leanprover-community.github.io/contribute/pr-review.html>
+
+---
+
+### RVW-003 — Merge queue and delegation {#sec-rvw-003}
+
+**Mathlib** · Level **INFO**
+
+An approved PR is merged via the `bors` merge queue (`bors merge` / `r+`), which manages `ready-to-merge`, `bors-staging`, and `awaiting-requeue` states. A `delegated` label lets the author complete the merge themselves by writing `bors merge`; delegations expire after two weeks.
+
+**Acceptance criteria**
+
+- Merges go through the bors queue.
+- Delegated merges are completed within the two-week window.
+
+**Rationale.** The merge queue serialises builds against master; delegation lets trusted authors self-serve.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### RVW-004 — What reviewers check {#sec-rvw-004}
+
+**Mathlib** · Level **INFO**
+
+Reviewers evaluate a PR across five areas: style (formatting, naming, title/description), documentation (docstrings, cross-references, warnings), location (correct file, no duplication, import hygiene), improvements (refactoring, tactic/proof structure), and library integration (API design, generality, design alignment). For example, universe-polymorphic arguments use `Type*`, not `Type _`.
+
+**Acceptance criteria**
+
+- The PR withstands review on style, documentation, location, improvements, and integration.
+- Universe arguments use `Type*` rather than `Type _`.
+
+**Rationale.** Naming the review dimensions helps authors self-review before submitting.
+
+**Source.** <https://leanprover-community.github.io/contribute/pr-review.html>
+
+---
+
+## Community
+
+### COM-001 — Discuss on Zulip before and during contribution {#sec-com-001}
+
+**Mathlib + PhysLean** · Level **SHOULD**
+
+Contributors SHOULD join the project's Zulip, introduce themselves, add their GitHub username to their Zulip profile, and discuss a contribution before and during development. Mathlib uses the `#mathlib4` channel; PhysLean uses the `#physlib` channel.
+
+**Acceptance criteria**
+
+- The contributor has raised the work on the relevant Zulip channel.
+- Their Zulip profile lists their GitHub username.
+
+**Rationale.** Early discussion catches scope, duplication, and design issues before review, and connects the contributor to a reviewer.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+

@@ -1,0 +1,28 @@
+PR2 SRS trace check
+
+requirement   status   file?  artifact
+------------------------------------------------------------------------------
+FR-PR2-001    met      yes    README.md
+FR-PR2-001    met      yes    DESIGN.md
+FR-PR2-001    met      yes    docs/refactor-methodology.qmd
+FR-PR2-001    met      yes    proof/refactor-summary.md
+FR-PR2-002    met      yes    evidence/varro/equivalence-report.json
+FR-PR2-002    met      yes    evidence/logs/pr2-harness-axioms.log
+FR-PR2-003    met      yes    evidence/varro/equivalence-report.json
+FR-PR2-004    met      yes    evidence/varro/equivalence-report.json
+FR-PR2-005    met      yes    evidence/review/claude-review.md
+FR-PR2-006    met      yes    evidence/logs/lake-build-full.log
+FR-PR2-006    met      yes    evidence/logs/pr2-harness.log
+FR-PR2-007    met      yes    evidence/standards-trace.md
+FR-PR2-008    met      yes    PR-BODY.md
+FR-PR2-008    met      yes    PLAN.md
+FR-PR2-008    met      yes    PROJECT-PLAN.md
+FR-PR2-008    met      yes    CODEX-REVIEW.md
+FR-PR2-008    met      yes    docs/physics-brief.qmd
+FR-PR2-009    met      yes    PR-BODY.md
+NFR-PR2-004   met      yes    verify.sh
+
+artifacts present: 19
+missing: 0
+RESULT: PASS
+submission packet artifacts present

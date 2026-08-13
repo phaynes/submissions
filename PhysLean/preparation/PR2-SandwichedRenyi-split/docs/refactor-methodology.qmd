@@ -1,0 +1,72 @@
+---
+title: "Refactor methodology"
+subtitle: "Proof-graph-guided split of `Relative.lean`"
+format: html
+---
+
+## Aim
+
+The aim was to split a large Lean file without changing theorem statements,
+weakening privacy accidentally, or creating an import cycle.
+
+The target was `QuantumInfo/Entropy/Relative.lean`, which had grown to contain
+both the sandwiched Renyi relative entropy family and the Umegaki relative
+entropy API.
+
+## Method
+
+The refactor used a fact-first workflow:
+
+1. Capture a baseline of declarations, public statements, privacy, axiom
+   dependencies, and elaborated kernel signatures.
+2. Use Varro calls backed by a Lean query binary to inspect modules and
+   declarations from Lean itself.
+3. Move concept-owned declarations into the new file.
+4. Rebuild after each structural change.
+5. Compare before/after public surfaces against an explicit whitelist.
+6. Review the proof graph before final equivalence validation.
+7. Run the PR2 harness, including axiom and elaborated-signature checks.
+8. Run full `lake build`.
+
+The key engineering rule is that Lean facts are authoritative. JSON files in the
+packet are evidence and transport artifacts; they are not the source of truth.
+
+## The V2 correction
+
+The first split made `Relative.lean` depend on internal eigen-weight helpers in
+the new sandwiched file. That would have made the following helpers public:
+
+- `eigenWeight`
+- `inner_cfc_eq_sum_eigenWeight`
+- `eigenWeight_nonneg`
+- `eigenWeight_zero_of_eigenvalue_zero`
+
+The proof graph showed that this was the wrong boundary. Those declarations are
+implementation details of the sandwiched spectral proof.
+
+The V2 refactor moved the alpha-equals-one lower-semicontinuity proof into
+`SandwichedRenyi.lean` and exposed the boundary theorem
+`sandwichedRelRentropy_one_lowerSemicontinuous`. The Umegaki theorem
+`qRelativeEnt.lowerSemicontinuous` remains public with the same statement and
+becomes a one-line wrapper.
+
+## Validation strategy
+
+The validation is layered:
+
+| Layer | Check |
+|---|---|
+| Lean build | Affected modules and full `lake build`. |
+| Public surface | Varro module snapshots and explicit expected drift. |
+| Wrapper equivalence | Normalized type hash of `qRelativeEnt.lowerSemicontinuous` unchanged. |
+| Privacy | Eigen-weight helpers resolve as `_private...SandwichedRenyi...` names. |
+| Harness | Declaration inventory, statement hash, privacy, diff-shape, axiom, and kernel signature checks. |
+| Independent review | Claude review before final validation. |
+
+The final validation status is `PASS`.
+
+## Reviewer-relevant conclusion
+
+This is a pure organization refactor with one deliberate public boundary theorem.
+The Umegaki API remains stable; the sandwiched family gets its own file; and the
+spectral/eigen-weight internals stop leaking into the public API.

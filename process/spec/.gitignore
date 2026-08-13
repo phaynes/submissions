@@ -1,0 +1,9 @@
+# Rust build artifacts
+tools/srs-site/target/
+
+# Quarto render output — regenerate with `( cd site && quarto render )`
+site/_site/
+site/.quarto/
+
+# The generated site/*.qmd sources ARE tracked: they are the deliverable
+# ("content for a website"), regenerated deterministically by `srs-site generate`.

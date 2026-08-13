@@ -1,0 +1,7 @@
+== H1/H2/H6 inventory + fidelity + privacy (multiset of name/kind/privacy/stmt-hash) ==
+  [32mPASS[0m no unwhitelisted removals / statement-drift / privacy-drop
+  [32mPASS[0m no unwhitelisted additions
+== H5 diff shape ==
+  [32mPASS[0m only planned files touched
+
+ALL CHECKS PASSED

@@ -1,0 +1,13 @@
++ touch scripts/style-exceptions.txt
++ touch scripts/LinterExemption.txt
++ git ls-files 'Physlib/*.lean' 'QuantumInfo/*.lean'
++ grep -vxF -f scripts/LinterExemption.txt
++ xargs ./scripts/lint-style.py
+++ find . -name '*.lean' -type f '(' -perm -u=x -o -perm -g=x -o -perm -o=x ')'
++ executable_files=
++ [[ -n '' ]]
+++ git ls-files
+++ sort --ignore-case
+++ uniq -D --ignore-case
++ ignore_case_clashes=
++ '[' -n '' ']'

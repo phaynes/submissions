@@ -1,0 +1,78 @@
+== affected module builds ==
+Build completed successfully (8616 jobs).
+Build completed successfully (8617 jobs).
+== PR2 harness ==
+== H1/H2/H6 inventory + fidelity + privacy (multiset of name/kind/privacy/stmt-hash) ==
+  [32mPASS[0m no unwhitelisted removals / statement-drift / privacy-drop
+  [32mPASS[0m no unwhitelisted additions
+== H5 diff shape ==
+  [32mPASS[0m only planned files touched
+
+ALL CHECKS PASSED
+== H1/H2/H6 inventory + fidelity + privacy (multiset of name/kind/privacy/stmt-hash) ==
+  [32mPASS[0m no unwhitelisted removals / statement-drift / privacy-drop
+  [32mPASS[0m no unwhitelisted additions
+== H5 diff shape ==
+  [32mPASS[0m only planned files touched
+== H3 axiom surface (kernel) ==
+  [32mPASS[0m axiom surface identical (excl. whitelisted)
+  [32mPASS[0m whitelisted additions present & sorryAx-free
+== H4 kernel signature fidelity (elaborated types; Codex B4) ==
+  [32mPASS[0m elaborated signatures identical for all surviving public decls
+
+ALL CHECKS PASSED
+== full lake build ==
+⚠ [3654/3871] Replayed Physlib.Electromagnetism.Kinematics.EMPotential
+warning: Physlib/Electromagnetism/Kinematics/EMPotential.lean:284:10: This simp argument is unused:
+  Lorentz.Vector.smul_add
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵L̵o̵r̵e̵n̵t̵z̵.̵V̵e̵c̵t̵o̵r̵.̵s̵m̵u̵l̵_̵a̵d̵d̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Build completed successfully (9116 jobs).
+== style linter ==
++ touch scripts/style-exceptions.txt
++ touch scripts/LinterExemption.txt
++ git ls-files 'Physlib/*.lean' 'QuantumInfo/*.lean'
++ grep -vxF -f scripts/LinterExemption.txt
++ xargs ./scripts/lint-style.py
+++ find . -name '*.lean' -type f '(' -perm -u=x -o -perm -g=x -o -perm -o=x ')'
++ executable_files=
++ [[ -n '' ]]
+++ git ls-files
+++ sort --ignore-case
+++ uniq -D --ignore-case
++ ignore_case_clashes=
++ '[' -n '' ']'
+== lint_all skipped ==
+Set LINT_ALL=1 to run lake exe lint_all.
+== SRS trace ==
+PR2 SRS trace check
+
+requirement   status   file?  artifact
+------------------------------------------------------------------------------
+FR-PR2-001    met      yes    README.md
+FR-PR2-001    met      yes    DESIGN.md
+FR-PR2-001    met      yes    docs/refactor-methodology.qmd
+FR-PR2-001    met      yes    proof/refactor-summary.md
+FR-PR2-002    met      yes    evidence/varro/equivalence-report.json
+FR-PR2-002    met      yes    evidence/logs/pr2-harness-axioms.log
+FR-PR2-003    met      yes    evidence/varro/equivalence-report.json
+FR-PR2-004    met      yes    evidence/varro/equivalence-report.json
+FR-PR2-005    met      yes    evidence/review/claude-review.md
+FR-PR2-006    met      yes    evidence/logs/lake-build-full.log
+FR-PR2-006    met      yes    evidence/logs/pr2-harness.log
+FR-PR2-007    met      yes    evidence/standards-trace.md
+FR-PR2-008    met      yes    PR-BODY.md
+FR-PR2-008    met      yes    PLAN.md
+FR-PR2-008    met      yes    PROJECT-PLAN.md
+FR-PR2-008    met      yes    CODEX-REVIEW.md
+FR-PR2-008    met      yes    docs/physics-brief.qmd
+FR-PR2-009    met      yes    PR-BODY.md
+NFR-PR2-004   met      yes    verify.sh
+
+artifacts present: 19
+missing: 0
+RESULT: PASS
+ALL PR2 SUBMISSION CHECKS PASSED

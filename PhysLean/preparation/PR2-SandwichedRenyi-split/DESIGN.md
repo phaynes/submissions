@@ -1,144 +1,108 @@
-# Partitioning a large Lean file — a reusable design method
+# Completed Design - PR2 `SandwichedRenyi.lean` Split
 
-**Purpose.** A repeatable, evidence-first method for splitting an over-large Lean file into
-correctly-layered concept files, with `QuantumInfo/Entropy/Relative.lean` (2452 lines, 124
-declarations) as the worked example. The output is a *design reviewed before any code moves*.
+## Purpose
 
-The method is deliberately general: the rest of the codebase (the SQC framework, other
-PhysLean contributions) can be restructured with the same steps. It also produces, as a
-by-product, the artifact needed for **signature-based discovery of related mathematics** — a
-per-declaration dependency graph — so smaller files + this graph compound into a queryable
-corpus rather than a text-grep haystack.
+PR2 is a concept-boundary refactor of the `QuantumInfo` entropy layer. It
+extracts the sandwiched Renyi relative entropy family from
+`QuantumInfo/Entropy/Relative.lean` into a dedicated file while keeping the
+Umegaki relative entropy API stable.
 
----
+The design goal is not simply to reduce line count. The goal is to make the
+mathematical ownership clearer:
 
-## The method (six steps)
+- `D̃_α` and its analytic proof machinery belong to the sandwiched Renyi file.
+- `qRelativeEnt`, notation `𝐃`, and Umegaki-facing theorems belong to
+  `Relative.lean`.
+- Facts at `α = 1` that are naturally about the sandwiched family should be
+  proved once in the sandwiched file and reused by the Umegaki wrapper layer.
 
-### Step 1 — Enumerate declarations mechanically
-Extract every declaration with `name, kind, privacy, line, length`. Do **not** eyeball it; a
-2000-line file has declarations you will miss (this file hid `approxLog`, `ker_kron_*`, and a
-whole second analytic engine from a by-eye read). Tool: `harness/lib.sh` `extract_inventory`.
+## Final Architecture
 
-### Step 2 — Extract the real dependency graph
-For each declaration's *body*, find which other in-file declarations it references
-(word-boundary match against the name set). This yields directed edges
-`consumer → provider`. This is ground truth — it is what the code *does*, not what the names
-*suggest*. (Result here: 156 edges over 124 nodes.)
+| File | Final role |
+|---|---|
+| `QuantumInfo.lean` | Publicly imports `QuantumInfo.Entropy.SandwichedRenyi` before `QuantumInfo.Entropy.Relative`. |
+| `QuantumInfo/Entropy/SandwichedRenyi.lean` | Owns `SandwichedRelRentropy`, notation `D̃_`, sandwiched nonnegativity, additivity, congruence, continuity, alpha-equals-one lower-semicontinuity, and the supporting spectral/eigen-weight proof machinery. |
+| `QuantumInfo/Entropy/Relative.lean` | Owns `qRelativeEnt`, notation `𝐃`, and Umegaki-facing wrappers/properties. |
+| `scripts/LinterExemption.txt` | Adds the new sandwiched file to the same temporary style-lint exemption class as the moved QuantumInfo entropy code. |
 
-### Step 3 — Cluster by cohesion, not by name
-Group declarations so that most edges stay *within* a cluster. Name-based bucketing is a
-first draft only; the edge data corrects it. The objective is high **cohesion** (intra-cluster
-edges) and low **coupling** (inter-cluster edges). Measure both.
+## Key V2 Design Decision
 
-### Step 4 — Build the cluster DAG and PROVE it acyclic
-Collapse the declaration graph to a cluster graph (one node per candidate file). A file
-partition is only *buildable* if this graph is acyclic — Lean forbids cyclic imports. Run a
-topological sort. **If it cycles, the partition is invalid** — you must re-home the offending
-declarations or merge two clusters. This is the step that catches partitions that would not
-compile, before you write a line.
+The initial mechanical split exposed a bad boundary: `Relative.lean` still
+needed internal eigen-weight helpers from the sandwiched analytic engine. Making
+those helpers public would have solved the import problem, but it would have
+made implementation details part of the public API.
 
-### Step 5 — Adjudicate the back-edges (the human-judgment 10%)
-The topological sort surfaces the exact declarations that violate the layering. Each is a
-*design decision*, not a mechanical fix: is this lemma really general, or secretly
-concept-specific? Does the public theorem live with its concept or its machinery? These are
-decided by reading the Lean body, and they are where the design earns its keep. Record each
-decision and its rationale.
+The V2 design fixes the boundary instead:
 
-### Step 6 — Sequence the extraction, gate each step
-Order the file creations bottom-up (foundations first). Each extraction is one commit, gated
-by the harness (inventory / statement-fidelity / kernel-axioms / elaborated-signatures /
-diff-shape / privacy). A red gate ⇒ revert. The endpoint is the full partition; the
-per-step evidence is what you show the reviewer so a single final PR is *trusted*, not
-re-reviewed.
+1. Move the alpha-equals-one lower-semicontinuity proof into
+   `SandwichedRenyi.lean`.
+2. Expose the public boundary theorem
+   `sandwichedRelRentropy_one_lowerSemicontinuous`.
+3. Keep `qRelativeEnt.lowerSemicontinuous` in `Relative.lean` with the same
+   public statement, implemented as:
 
-**Layering rule of thumb** (the invariant behind step 4): a file may only import strictly
-lower-layer files — `general math → matrix primitives → the concept's definition → the
-concept's API → theorems about the concept`. A reference pointing "up" is the signal a
-declaration is mis-placed.
+   ```lean
+   simpa [qRelativeEnt] using sandwichedRelRentropy_one_lowerSemicontinuous (ρ := ρ)
+   ```
 
----
+This keeps the eigen-weight helpers private while preserving the Umegaki theorem
+surface.
 
-## Worked result: `Relative.lean`
+## Proof Graph Method
 
-### The 7-file target (measured, not sketched)
+The refactor was driven by Lean-backed facts rather than source scraping:
 
-| File (concept) | decls | ~lines | Nature |
-|---|---:|---:|---|
-| **A. matrix / Jensen / topology helpers** | 19 | 315 | *general* — Mathlib-upstream candidates (see note) |
-| **H. kernel-of-tensor-product lemmas** | 9 | 304 | *general* — Mathlib-upstream candidates |
-| **B1. derivative-at-one engine** | 33 | 810 | the α→1 analytic core (`eigenWeight`, `B_of`, …) |
-| **BC. approxLog limit + nonnegativity** | 26 | 352 | the α→1 limit argument (merged — see decision 2) |
-| **D. `D̃_α` definition + additivity/congruence API** | 14 | 212 | the sandwiched-Rényi concept proper |
-| **E. `D̃_α` continuity** | 6 | 136 | public continuity of the family |
-| **F. `𝐃` Umegaki relative entropy** | 17 | 291 | **stays in `Relative.lean`** |
+1. Capture a baseline of declarations, public statements, privacy, axiom
+   dependencies, and elaborated kernel signatures.
+2. Query Lean through the Varro-backed Lean query path for declaration
+   placement, dependencies, type hashes, and private-name resolution.
+3. Move the declarations that belong to the `D̃_α` concept into the new file.
+4. Use the proof graph to detect the lower-semicontinuity boundary problem.
+5. Apply the V2 correction above.
+6. Validate the result with module builds, the PR2 harness, Varro equivalence
+   evidence, Claude review, and full `lake build`.
 
-Every file lands in the 130–810 line range (vs. one 2452-line file). Only **B1** (810) is
-still large — itself a candidate for a later sub-split, but a coherent unit for now.
+The JSON files in `evidence/varro/` are evidence snapshots. The authority is the
+reproducible Lean query path used to produce them.
 
-Contrast the naïve options this pass overturned:
-- *2-file split* (the minimum JTS asked): lumps A, H, B1, BC, D, E into one 1491-line
-  "sandwiched-Rényi" file — still two-plus concepts in a bucket.
-- *by-eye 5-file split*: missed the `approxLog` limit engine and the `kron-kernel` cluster
-  entirely, because their names don't announce them.
+## Public Surface Contract
 
-Only the edge-data pass (steps 2–4) revealed the true structure.
+Expected and observed public drift are recorded in
+`evidence/varro/equivalence-report.json`.
 
-### Cohesion / coupling
+The deliberate public change is:
 
-- Intra-cluster edges (cohesion): **100** — the clusters are real.
-- Inter-cluster edges (coupling): **56** — the boundaries to manage.
-- Dominant, correct flow: `A,H → B1 → BC → D → {E, F}` (foundations up to theorems).
+- `sandwichedRelRentropy_one_lowerSemicontinuous` is exposed from
+  `SandwichedRenyi.lean` as the boundary theorem used by the Umegaki wrapper.
 
-### Corrections the pass forced (illustrating step 5)
+The deliberate ownership change is:
 
-1. **Engine-internal continuity ≠ family continuity.** `conj_rpow_continuousAt_zero`,
-   `B_of_continuousAt` read as "continuity" (cluster E) by name, but they prove continuity of
-   *engine internals* and belong in **B1**. Mislabeling them created a false E→B1 back-edge.
-2. **`BC` is not separable into "limit" and "nonneg".** `inner_log_sub_log_nonneg` and
-   `sandwichedRelRentropy_nonneg` are **mutually recursive** — the approxLog limit and the
-   α→1 nonnegativity are one concept and must share a file. A naïve split here would not
-   compile.
+- `inner_log_bounded_near` and `qRelativeEnt_lowerSemicontinuous_2` move from
+  `Relative.lean` to `SandwichedRenyi.lean`.
 
-### OPEN DECISIONS — for review before code (the remaining back-edges)
+The deliberate privacy restoration is:
 
-These two are genuine judgment calls the data isolates but cannot settle; they need a human
-reading of the Lean and, for the "general" question, arguably JTS's view:
+- `eigenWeight`, `inner_cfc_eq_sum_eigenWeight`, `eigenWeight_nonneg`, and
+  `eigenWeight_zero_of_eigenvalue_zero` resolve as private declarations inside
+  `SandwichedRenyi.lean`.
 
-- **D-OPEN-1 — `sandwichedRelRentropy.continuousAt_1`.** Its body uses `limit_at_one` (a B1
-  engine lemma). Does the *public* continuity-at-1 theorem live with its concept (**E**) or
-  with the machinery that assembles it (**B1**)? *Recommendation: E* — public API lives with
-  the concept; B1 stays private-internal. (It creates a legal E→B1 dependency, not a cycle,
-  once the mislabeled internals from correction 1 move to B1.)
-- **D-OPEN-2 — `HermitianMat.inner_log_mono_of_psd_of_le`.** Named as a *general* `HermitianMat`
-  lemma (cluster A / Mathlib-upstream candidate), but its body depends on entropy-specific
-  approxLog lemmas (`inner_log_shift_tendsto`, `posDef_add_eps`). So it is **not** actually
-  general as written. *Options:* (a) it stays in the entropy layer (BC), not A — i.e. it is
-  mis-named, not mis-placed; or (b) its proof is refactored to remove the entropy dependency,
-  making it genuinely general and upstreamable. *Recommendation: (a) for this PR* — do not
-  refactor a proof inside a move PR; note (b) as future work.
+## Standards Position
 
-Resolving these two makes the cluster DAG fully acyclic; the topological order then gives the
-file-creation sequence for step 6.
+The PR is a large move of code that was already in the QuantumInfo style-lint
+migration area. Direct style linting of the new file reports inherited issues
+from the moved block, so the design adds `QuantumInfo/Entropy/SandwichedRenyi.lean`
+to `scripts/LinterExemption.txt` rather than mixing style normalization into the
+refactor. This is recorded in `evidence/standards-trace.md`.
 
-### Note on the "general" clusters A and H (upstreaming)
+## Out of Scope
 
-A (matrix/Jensen/topology) and H (kron-kernel) are **general mathematics, not about entropy**
-— they are candidates for Mathlib. **This PR does not move them out of the entropy directory.**
-Relocating general lemmas (even within PhysLean to `ForMathlib/`) can break downstream
-importers, and that risk is not assessable without visibility into the whole library's usage.
-The disciplined stance: keep A and H in place for this PR, *document* them as upstream
-candidates, and leave the relocate/upstream call to the maintainer as offered future work.
-The two-step convention is: (1) restructure within PhysLean; (2) a separate discrete PR
-upstreams the general lemmas to Mathlib.
+This PR does not:
 
----
+- rename existing declarations;
+- proof-golf or style-normalize the moved block;
+- relocate general `HermitianMat` lemmas to `ForMathlib`;
+- split `SandwichedRenyi.lean` again;
+- change any physics theorem statement.
 
-## Reusable artifacts produced
-
-- `harness/` — the extraction + verification toolkit (already Codex-reviewed, self-validated).
-- Per-declaration classification: `file, name, kind, privacy, line, length, in-degree, deps`
-  (the CSV) — this **is** the graph substrate for signature-based "find related maths" queries.
-- The cluster DAG + topological order (JSON).
-
-The same six steps apply to any large file in the corpus. Run once per file; the graph
-accumulates into a whole-codebase dependency map.
+Those are separate review topics. PR2 is the concept-boundary split plus the V2
+proof-ownership correction needed to make the split sound.

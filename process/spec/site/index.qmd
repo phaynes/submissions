@@ -1,0 +1,100 @@
+---
+title: "Mathlib & PhysLean Contribution SRS"
+---
+
+> Specify the Mathlib and PhysLean contribution guidelines as governed, uniquely-identified requirements that a Rust tool can validate and render to a website
+
+Generated from a Varro requirements specification: every guideline for contributing to [Mathlib](https://github.com/leanprover-community/mathlib4) and [PhysLean / Physlib](https://github.com/leanprover-community/physlib) is a uniquely-identified, typed requirement. **Do not edit these pages by hand** — edit the `varro/*.varro` sources and re-run `srs-site generate`.
+
+**60 requirements** — 54 apply to Mathlib, 22 to PhysLean.
+
+## Obligation levels
+
+| Level | Count |
+|---|---:|
+| SHALL | 30 |
+| SHALL NOT | 1 |
+| SHOULD | 19 |
+| MAY | 3 |
+| INFO | 7 |
+
+## Categories
+
+| Category | Count | |
+|---|---:|---|
+| Scope & Remit | 5 | [browse](categories/scope.qmd) |
+| AI / LLM Policy | 6 | [browse](categories/ai.qmd) |
+| Licensing & Copyright | 3 | [browse](categories/licensing.qmd) |
+| Naming Conventions | 6 | [browse](categories/naming.qmd) |
+| Code Style | 14 | [browse](categories/style.qmd) |
+| Documentation | 7 | [browse](categories/documentation.qmd) |
+| Commit Conventions | 5 | [browse](categories/commit.qmd) |
+| Pull-Request Workflow | 7 | [browse](categories/pull_request.qmd) |
+| Review Process | 5 | [browse](categories/review.qmd) |
+| Community | 2 | [browse](categories/community.qmd) |
+
+## All requirements
+
+| ID | Requirement | Applies to | Level |
+|---|---|---|---|
+| [SCOPE-001](categories/scope.qmd#sec-scope-001) | Mathlib subject-matter remit | Mathlib | SHALL |
+| [SCOPE-002](categories/scope.qmd#sec-scope-002) | Alignment with maintainer interests | Mathlib | SHOULD |
+| [SCOPE-003](categories/scope.qmd#sec-scope-003) | Downstream repository for out-of-remit or fast-moving work | Mathlib | SHOULD |
+| [SCOPE-004](categories/scope.qmd#sec-scope-004) | PhysLean digitalises physics, formal or informal | PhysLean | MAY |
+| [SCOPE-005](categories/scope.qmd#sec-scope-005) | Prefer small, self-contained contributions | Mathlib + PhysLean | SHOULD |
+| [AI-001](categories/ai.qmd#sec-ai-001) | No LLM-written project communication | Mathlib | SHALL NOT |
+| [AI-002](categories/ai.qmd#sec-ai-002) | Disclose AI assistance in the PR | Mathlib + PhysLean | SHALL |
+| [AI-003](categories/ai.qmd#sec-ai-003) | Label substantial AI-generated code | Mathlib | SHALL |
+| [AI-004](categories/ai.qmd#sec-ai-004) | Author understands and can defend all AI output | Mathlib + PhysLean | SHALL |
+| [AI-005](categories/ai.qmd#sec-ai-005) | Low-quality LLM PRs are closed; abuse risks a ban | Mathlib | INFO |
+| [AI-006](categories/ai.qmd#sec-ai-006) | PhyslibAlpha is the lower-bar lane for AI-assisted work | PhysLean | INFO |
+| [LIC-001](categories/licensing.qmd#sec-lic-001) | Apache-2.0 copyright header on every file | Mathlib + PhysLean | SHALL |
+| [LIC-002](categories/licensing.qmd#sec-lic-002) | Authors line format | Mathlib | SHALL |
+| [LIC-003](categories/licensing.qmd#sec-lic-003) | Contributions are Apache-2.0 licensed | Mathlib + PhysLean | SHALL |
+| [NAM-001](categories/naming.qmd#sec-nam-001) | Casing by syntactic category | Mathlib | SHALL |
+| [NAM-002](categories/naming.qmd#sec-nam-002) | American English spelling in names | Mathlib | SHALL |
+| [NAM-003](categories/naming.qmd#sec-nam-003) | Theorem names describe the conclusion | Mathlib | SHOULD |
+| [NAM-004](categories/naming.qmd#sec-nam-004) | Symbol-to-word dictionary | Mathlib | SHALL |
+| [NAM-005](categories/naming.qmd#sec-nam-005) | Structural-lemma naming (ext, injective) | Mathlib | SHOULD |
+| [NAM-006](categories/naming.qmd#sec-nam-006) | PhysLean file names are UpperCamelCase, alphabetic | PhysLean | SHALL |
+| [STY-001](categories/style.qmd#sec-sty-001) | 100-character line limit | Mathlib + PhysLean | SHALL |
+| [STY-002](categories/style.qmd#sec-sty-002) | Declarations flush-left | Mathlib | SHALL |
+| [STY-003](categories/style.qmd#sec-sty-003) | Whitespace around operators and binders | Mathlib | SHALL |
+| [STY-004](categories/style.qmd#sec-sty-004) | Proof and continuation indentation | Mathlib | SHALL |
+| [STY-005](categories/style.qmd#sec-sty-005) | `by` at end of the preceding line | Mathlib | SHALL |
+| [STY-006](categories/style.qmd#sec-sty-006) | Use `fun … ↦ …`; `λ` is disallowed | Mathlib | SHALL |
+| [STY-007](categories/style.qmd#sec-sty-007) | Tactic-block focusing dots and one-tactic-per-line | Mathlib | SHOULD |
+| [STY-008](categories/style.qmd#sec-sty-008) | No empty lines inside declarations | Mathlib | SHALL |
+| [STY-009](categories/style.qmd#sec-sty-009) | Standard variable-letter conventions | Mathlib | SHOULD |
+| [STY-010](categories/style.qmd#sec-sty-010) | Safe Unicode use | Mathlib | SHOULD |
+| [STY-011](categories/style.qmd#sec-sty-011) | Explicit argument and return types | Mathlib | SHALL |
+| [STY-012](categories/style.qmd#sec-sty-012) | Definition transparency defaults | Mathlib | SHOULD |
+| [STY-013](categories/style.qmd#sec-sty-013) | Deprecate rather than delete | Mathlib | SHOULD |
+| [STY-014](categories/style.qmd#sec-sty-014) | Performance awareness and benchmarking | Mathlib | SHOULD |
+| [DOC-001](categories/documentation.qmd#sec-doc-001) | Docstrings on definitions and major theorems | Mathlib + PhysLean | SHALL |
+| [DOC-002](categories/documentation.qmd#sec-doc-002) | Module docstring after imports | Mathlib | SHALL |
+| [DOC-003](categories/documentation.qmd#sec-doc-003) | Docstrings convey mathematical meaning | Mathlib | SHOULD |
+| [DOC-004](categories/documentation.qmd#sec-doc-004) | References via docs/references.bib | Mathlib | SHALL |
+| [DOC-005](categories/documentation.qmd#sec-doc-005) | Markdown and LaTeX conventions in docs | Mathlib | SHOULD |
+| [DOC-006](categories/documentation.qmd#sec-doc-006) | Documentation in English | Mathlib + PhysLean | SHOULD |
+| [DOC-007](categories/documentation.qmd#sec-doc-007) | Tags and dependencies on informal results | PhysLean | SHALL |
+| [CMT-001](categories/commit.qmd#sec-cmt-001) | Conventional commit title format | Mathlib + PhysLean | SHALL |
+| [CMT-002](categories/commit.qmd#sec-cmt-002) | Allowed commit types | Mathlib + PhysLean | SHALL |
+| [CMT-003](categories/commit.qmd#sec-cmt-003) | Subject line style | Mathlib + PhysLean | SHALL |
+| [CMT-004](categories/commit.qmd#sec-cmt-004) | Scope omits the Mathlib prefix | Mathlib | SHOULD |
+| [CMT-005](categories/commit.qmd#sec-cmt-005) | Moves, deletions, and dependencies in the message | Mathlib | SHOULD |
+| [PR-001](categories/pull_request.qmd#sec-pr-001) | Target master with small, self-contained PRs | Mathlib + PhysLean | SHALL |
+| [PR-002](categories/pull_request.qmd#sec-pr-002) | master always compiles | Mathlib | SHALL |
+| [PR-003](categories/pull_request.qmd#sec-pr-003) | Build and cache locally before pushing | Mathlib + PhysLean | SHALL |
+| [PR-004](categories/pull_request.qmd#sec-pr-004) | Run the linters locally | Mathlib + PhysLean | SHALL |
+| [PR-005](categories/pull_request.qmd#sec-pr-005) | "easy" PR criteria | Mathlib | INFO |
+| [PR-006](categories/pull_request.qmd#sec-pr-006) | Fork or branch workflow | Mathlib + PhysLean | MAY |
+| [PR-007](categories/pull_request.qmd#sec-pr-007) | Squash-merge; do not rebase after review starts | Mathlib | SHOULD |
+| [RVW-001](categories/review.qmd#sec-rvw-001) | Label lifecycle and resolving conversations | Mathlib | SHOULD |
+| [RVW-002](categories/review.qmd#sec-rvw-002) | Review is open; merge is maintainer-only | Mathlib | INFO |
+| [RVW-003](categories/review.qmd#sec-rvw-003) | Merge queue and delegation | Mathlib | INFO |
+| [RVW-004](categories/review.qmd#sec-rvw-004) | What reviewers check | Mathlib | INFO |
+| [RVW-005](categories/review.qmd#sec-rvw-005) | PhysLean iterative review | PhysLean | INFO |
+| [COM-001](categories/community.qmd#sec-com-001) | Discuss on Zulip before and during contribution | Mathlib + PhysLean | SHOULD |
+| [COM-002](categories/community.qmd#sec-com-002) | Non-code ways to contribute (PhysLean) | PhysLean | MAY |
+

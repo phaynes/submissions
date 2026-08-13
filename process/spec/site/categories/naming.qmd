@@ -1,0 +1,112 @@
+---
+title: "Naming Conventions"
+---
+
+6 requirement(s) in this category.
+
+### NAM-001 — Casing by syntactic category {#sec-nam-001}
+
+**Mathlib** · Level **SHALL**
+
+Names SHALL be cased by what they name: terms of `Prop`s (proofs, theorems) use `snake_case`; `Prop`s and `Type`s (inductives, structures, classes) use `UpperCamelCase`; other terms of `Type`s use `lowerCamelCase`. An `UpperCamelCase` item referenced inside a `snake_case` name is written in `lowerCamelCase`.
+
+**Acceptance criteria**
+
+- Theorem and proof names are snake_case.
+- Structures, classes, and inductive types are UpperCamelCase.
+- Other definitions (data) are lowerCamelCase.
+
+**Rationale.** Casing encodes the syntactic role of a name, so a reader infers what a name is before reading its type.
+
+**Verify.** The naming linter and reviewer check; see `#lint`.
+
+**Source.** <https://leanprover-community.github.io/contribute/naming.html>
+
+---
+
+### NAM-002 — American English spelling in names {#sec-nam-002}
+
+**Mathlib** · Level **SHALL**
+
+Declaration names SHALL use American English spelling (e.g. `factorization`, not `factorisation`).
+
+**Acceptance criteria**
+
+- Declaration names use American spellings.
+
+**Rationale.** A single spelling convention makes names predictable and searchable.
+
+**Source.** <https://leanprover-community.github.io/contribute/naming.html>
+
+---
+
+### NAM-003 — Theorem names describe the conclusion {#sec-nam-003}
+
+**Mathlib** · Level **SHOULD**
+
+A theorem name SHOULD describe its conclusion, naming the operations/relations involved (e.g. `neg_mul_neg`). Hypotheses that must be named are introduced with `of` and listed in the order they appear in the statement, not in reverse.
+
+**Acceptance criteria**
+
+- The name reflects the conclusion's structure.
+- Hypotheses appear after `of` in statement order.
+- Only a prefix of the description is used when that suffices.
+
+**Rationale.** Descriptive, statement-derived names make lemmas discoverable and let readers guess the exact name.
+
+**Source.** <https://leanprover-community.github.io/contribute/naming.html>
+
+---
+
+### NAM-004 — Symbol-to-word dictionary {#sec-nam-004}
+
+**Mathlib** · Level **SHALL**
+
+Names SHALL use the standard word for each symbol from the naming dictionary — e.g. `add` (+), `mul` (*), `neg`/`sub` (-), `pow` (^), `div` (/), `inv` (⁻¹), `le`/`ge` (≤), `lt`/`gt` (<), `mem` (∈), `union` (∪), `inter` (∩), `sup` (⊔), `inf` (⊓), `dvd` (∣), `sum` (∑), `prod` (∏).
+
+**Acceptance criteria**
+
+- Symbols in a name are spelled using their dictionary words.
+- `ge`/`gt` are used in place of `le`/`lt` per the argument-order rules.
+
+**Rationale.** A fixed vocabulary makes names uniform across the whole library.
+
+**Source.** <https://leanprover-community.github.io/contribute/naming.html>
+
+---
+
+### NAM-005 — Structural-lemma naming (ext, injective) {#sec-nam-005}
+
+**Mathlib** · Level **SHOULD**
+
+Structural lemmas SHOULD follow the standard suffixes: a lemma of the form `(∀ x, f x = g x) → f = g` is named `.ext` with the `@[ext]` attribute, and the iff form `.ext_iff`; injectivity as `f_injective` (`Function.Injective f`) and the unfolded biconditional as `f_inj`. `left`/`right` refer to the argument that changes.
+
+**Acceptance criteria**
+
+- Extensionality lemmas use `.ext` / `.ext_iff` with `@[ext]`.
+- Injectivity lemmas use `_injective` / `_inj`.
+- `left`/`right` name the argument that varies.
+
+**Rationale.** Consistent structural-lemma names let tactics and readers find the standard API for a type.
+
+**Source.** <https://leanprover-community.github.io/contribute/naming.html>
+
+---
+
+### NAM-006 — PhysLean file names are UpperCamelCase, alphabetic {#sec-nam-006}
+
+**PhysLean** · Level **SHALL**
+
+A new PhysLean file SHALL have a descriptive name using only alphabetic characters, with each word starting with a capital letter, e.g. `MyNewFile.lean`.
+
+**Acceptance criteria**
+
+- The file name is UpperCamelCase.
+- The file name contains only alphabetic characters (plus the `.lean` extension).
+
+**Rationale.** A single file-naming form keeps the module hierarchy tidy and importable without surprises.
+
+**Source.** <http://physlib.io/getting-started>
+
+---
+

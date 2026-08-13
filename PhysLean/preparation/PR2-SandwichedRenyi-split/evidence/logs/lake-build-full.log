@@ -1,0 +1,9 @@
+⚠ [3531/3877] Replayed Physlib.Electromagnetism.Kinematics.EMPotential
+warning: Physlib/Electromagnetism/Kinematics/EMPotential.lean:284:10: This simp argument is unused:
+  Lorentz.Vector.smul_add
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵L̵o̵r̵e̵n̵t̵z̵.̵V̵e̵c̵t̵o̵r̵.̵s̵m̵u̵l̵_̵a̵d̵d̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Build completed successfully (9116 jobs).

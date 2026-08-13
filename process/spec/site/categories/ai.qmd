@@ -1,0 +1,108 @@
+---
+title: "AI / LLM Policy"
+---
+
+6 requirement(s) in this category.
+
+### AI-001 — No LLM-written project communication {#sec-ai-001}
+
+**Mathlib** · Level **SHALL NOT**
+
+Contributors SHALL NOT use an LLM to write comments on GitHub or Zulip. Use your own words.
+
+**Acceptance criteria**
+
+- All GitHub and Zulip comments are written by the human contributor in their own words.
+
+**Rationale.** Community discussion depends on genuine human communication; LLM-authored comments erode trust and waste reviewer time.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### AI-002 — Disclose AI assistance in the PR {#sec-ai-002}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+If artificial intelligence was used to help produce a contribution, the author SHALL explain this in the PR description, including which tools were used and the methodology.
+
+**Acceptance criteria**
+
+- The PR description names the AI tools used.
+- The PR description explains the methodology by which AI was used.
+
+**Rationale.** Reviewers must know how the code was produced to calibrate scrutiny; non-disclosure is a policy violation.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### AI-003 — Label substantial AI-generated code {#sec-ai-003}
+
+**Mathlib** · Level **SHALL**
+
+When a PR contains substantial AI-generated code, the author SHALL add the `LLM-generated` label.
+
+**Acceptance criteria**
+
+- The `LLM-generated` label is present on PRs with substantial AI-generated content.
+
+**Rationale.** The label routes the PR to the appropriate review posture and keeps the provenance signal machine-visible.
+
+**Verify.** Comment `LLM-generated` on the PR to add the label.
+
+**Source.** <https://leanprover-community.github.io/contribute/how-to-contribute.html>
+
+---
+
+### AI-004 — Author understands and can defend all AI output {#sec-ai-004}
+
+**Mathlib + PhysLean** · Level **SHALL**
+
+The author SHALL understand all content written by an AI, and SHALL be able to justify every design decision to reviewers without AI assistance. Code written by an AI without the supervision of a Lean subject expert does not meet the contribution bar.
+
+**Acceptance criteria**
+
+- The author can explain every line of the contribution unaided.
+- The author can justify each design decision to a reviewer without AI help.
+- A Lean subject expert supervised the work.
+
+**Rationale.** Accountability for correctness and design rests with the human author; unsupervised AI output falls short by a large margin.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### AI-005 — Low-quality LLM PRs are closed; abuse risks a ban {#sec-ai-005}
+
+**Mathlib** · Level **INFO**
+
+Reviewers MAY summarily close, without comment, any low-quality PR produced using an LLM. Opening multiple low-quality LLM PRs without community engagement risks temporary suspension or a permanent ban.
+
+**Acceptance criteria**
+
+- The contributor engages the community and meets the quality bar before opening AI-assisted PRs.
+
+**Rationale.** Stated consequence, recorded so contributors can calibrate risk before submitting AI-assisted work.
+
+**Source.** <https://leanprover-community.github.io/contribute/index.html>
+
+---
+
+### AI-006 — PhyslibAlpha is the lower-bar lane for AI-assisted work {#sec-ai-006}
+
+**PhysLean** · Level **INFO**
+
+PhyslibAlpha has lower review standards than Physlib and is the appropriate destination for large PRs, AI-generated content, or not-quite-perfect formalisations. PRs to PhyslibAlpha MUST still pass basic linter checks.
+
+**Acceptance criteria**
+
+- Large or AI-generated PhysLean contributions target PhyslibAlpha.
+- The PR passes the basic linters (see BLD/PR requirements).
+
+**Rationale.** Provides a sanctioned path for exploratory or AI-assisted work without lowering the bar on Physlib proper.
+
+**Source.** <http://physlib.io/get-involved>
+
+---
+

@@ -1,0 +1,101 @@
+// Pull-request workflow — targeting, local checks, and merge mechanics.
+
+requirement PR-001 {
+  title "Target master with small, self-contained PRs"
+  project both
+  category pull_request
+  level shall
+  source "https://leanprover-community.github.io/contribute/how-to-contribute.html"
+  statement "A PR SHALL target the `master` branch of the upstream repository and SHALL be kept small and self-contained; the smaller the better."
+  rationale "Small PRs against master are reviewable and keep the mainline releasable."
+  acceptance [
+    "The PR base branch is `master`.",
+    "The PR is one coherent, self-contained change."
+  ]
+}
+
+requirement PR-002 {
+  title "master always compiles"
+  project mathlib
+  category pull_request
+  level shall
+  source "https://leanprover-community.github.io/contribute/how-to-contribute.html"
+  statement "It is essential that everything in `master` compiles without errors; a PR SHALL NOT be merged in a state that breaks the build."
+  rationale "`master` is the production version depended on by the whole ecosystem."
+  acceptance [
+    "CI is green on the PR before merge.",
+    "The change builds locally with `lake build`."
+  ]
+  verify "lake build"
+}
+
+requirement PR-003 {
+  title "Build and cache locally before pushing"
+  project both
+  category pull_request
+  level shall
+  source "https://leanprover-community.github.io/contribute/how-to-contribute.html"
+  statement "Before pushing, the contributor SHALL build locally and use the compilation cache: run `lake exe cache get` to download built dependencies and `lake build` to build; after adding new files run `lake exe mk_all`. PhysLean setup uses `lake update; lake exe cache get; lake build`."
+  rationale "Local builds catch errors before they reach CI and reviewers."
+  acceptance [
+    "`lake exe cache get` and `lake build` were run locally and pass.",
+    "New files were registered with `lake exe mk_all`."
+  ]
+  verify "lake exe cache get && lake build"
+}
+
+requirement PR-004 {
+  title "Run the linters locally"
+  project both
+  category pull_request
+  level shall
+  source "http://physlib.io/getting-started"
+  statement "Before submitting, the contributor SHALL run the project's linters locally and fix all reported issues. Mathlib: the style linter and `shake`; PhysLean: `lake exe lint_all` and `./scripts/lint-style.sh`. CI runs the linters on every PR."
+  rationale "Linters enforce the style and structural rules automatically; running them locally avoids review round-trips."
+  acceptance [
+    "The style linter passes locally.",
+    "PhysLean: `lake exe lint_all` and `./scripts/lint-style.sh` pass."
+  ]
+  verify "lake exe lint_all && ./scripts/lint-style.sh"
+}
+
+requirement PR-005 {
+  title "\"easy\" PR criteria"
+  project mathlib
+  category pull_request
+  level info
+  source "https://leanprover-community.github.io/contribute/how-to-contribute.html"
+  statement "A PR MAY be labelled `easy` when it adds a single lemma or fixes typos, with a diff generally under 25 lines, changing no existing definitions or theorem statements and adding no new definitions, files, `simp` lemmas, or instances."
+  rationale "The `easy` label routes trivial PRs to a fast lane and sets reviewer expectations."
+  acceptance [
+    "The diff is small (~25 lines) and adds no new defs/files/simp/instances.",
+    "No existing statement is changed."
+  ]
+}
+
+requirement PR-006 {
+  title "Fork or branch workflow"
+  project both
+  category pull_request
+  level may
+  source "http://physlib.io/getting-started"
+  statement "A contributor MAY contribute either by (a) forking the repository, pushing to the fork, and opening a PR upstream, or (b) requesting collaborator access and pushing a feature branch (e.g. `feat(your-name): updating spacetime`) on the main repository, then opening a PR."
+  rationale "Both routes are supported; collaborator access streamlines repeat contributors."
+  acceptance [
+    "Changes arrive as a PR from either a fork or an upstream feature branch."
+  ]
+}
+
+requirement PR-007 {
+  title "Squash-merge; do not rebase after review starts"
+  project mathlib
+  category pull_request
+  level should
+  source "https://leanprover-community.github.io/contribute/how-to-contribute.html"
+  statement "Mathlib PRs are squashed on merge, so intermediate commit history is not retained. Once a PR has seen review activity, the author SHOULD NOT rebase or squash, as that obfuscates the review history."
+  rationale "Preserving the post-review commit graph keeps the review auditable."
+  acceptance [
+    "No rebase/squash is performed after review begins.",
+    "The author relies on squash-on-merge for a clean final history."
+  ]
+}

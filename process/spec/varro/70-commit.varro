@@ -1,0 +1,69 @@
+// Commit / PR-title conventions.
+
+requirement CMT-001 {
+  title "Conventional commit title format"
+  project both
+  category commit
+  level shall
+  source "https://leanprover-community.github.io/contribute/commit.html"
+  statement "A commit (and the PR title) SHALL follow the form `<type>(<optional-scope>): <subject>`."
+  rationale "A structured title drives changelog tooling and lets reviewers scan intent at a glance."
+  acceptance [
+    "The title matches `<type>(<scope>): <subject>`.",
+    "The type is drawn from the allowed set (see CMT-002)."
+  ]
+}
+
+requirement CMT-002 {
+  title "Allowed commit types"
+  project both
+  category commit
+  level shall
+  source "https://leanprover-community.github.io/contribute/commit.html"
+  statement "The commit `<type>` SHALL be one of: `feat` (feature), `fix` (bug fix), `doc` (documentation), `style` (formatting), `refactor`, `test` (adding missing tests), `chore` (maintenance), `perf` (performance), `ci` (automation/workflows)."
+  rationale "A closed type vocabulary keeps history categorisable."
+  acceptance [
+    "The type is one of feat, fix, doc, style, refactor, test, chore, perf, ci."
+  ]
+}
+
+requirement CMT-003 {
+  title "Subject line style"
+  project both
+  category commit
+  level shall
+  source "https://leanprover-community.github.io/contribute/commit.html"
+  statement "The subject SHALL use the imperative present tense ('change', not 'changed' or 'changes'), SHALL NOT capitalize the first letter, and SHALL NOT end with a period. The body, if present, uses imperative present tense and gives motivation and contrast with previous behaviour."
+  rationale "A consistent grammatical form makes histories uniform and greppable."
+  acceptance [
+    "Subject is imperative present tense.",
+    "First letter is lower-case; there is no trailing period."
+  ]
+}
+
+requirement CMT-004 {
+  title "Scope omits the Mathlib prefix"
+  project mathlib
+  category commit
+  level should
+  source "https://leanprover-community.github.io/contribute/commit.html"
+  statement "The optional `<scope>` SHOULD name the affected module or directory with the leading `Mathlib` prefix omitted (e.g. `Data/Nat/Basic`)."
+  rationale "The prefix is redundant inside Mathlib and only lengthens the title."
+  acceptance [
+    "Scopes are written without the `Mathlib` prefix."
+  ]
+}
+
+requirement CMT-005 {
+  title "Moves, deletions, and dependencies in the message"
+  project mathlib
+  category commit
+  level should
+  source "https://leanprover-community.github.io/contribute/how-to-contribute.html"
+  statement "A PR that moves or deletes declarations SHOULD list them in `Moves:` / `Deletions:` sections in the commit message before the `---` separator; PRs that depend on others SHOULD list them in checkbox form, e.g. `- [ ] depends on: #1234`."
+  rationale "Structured move/deletion/dependency metadata lets automation track API changes and merge order."
+  acceptance [
+    "Moves and deletions are listed before `---`.",
+    "Dependencies are listed as `- [ ] depends on: #XXXX`."
+  ]
+}
